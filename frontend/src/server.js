@@ -3,6 +3,7 @@ import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 import express from 'express';
 import { renderToString } from 'react-dom/server';
+import { getMarkupFromTree } from 'react-apollo-hooks';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
@@ -10,13 +11,16 @@ const server = express();
 server
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
-  .get('/*', (req, res) => {
+  .get('/*', async (req, res) => {
     const context = {};
-    const markup = renderToString(
-      <StaticRouter context={context} location={req.url}>
-        <App />
-      </StaticRouter>
-    );
+    const markup = await getMarkupFromTree({
+      renderFunction: renderToString,
+      tree: (
+        <StaticRouter context={context} location={req.url}>
+          <App />
+        </StaticRouter>
+      )
+    })
 
     if (context.url) {
       res.redirect(context.url);
