@@ -1,11 +1,12 @@
 import React from 'react'
-import logo from './react.svg'
 import './Home.css'
+import logo from './react.svg'
 import { useQuery } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
+import { getMovies } from './__generated__/getMovies'
 
 const MOVIES = gql`
-  {
+  query getMovies {
     movies(week: 2) {
       id
       title
@@ -14,9 +15,7 @@ const MOVIES = gql`
 `
 
 const Home = () => {
-  const {
-    data: { movies },
-  } = useQuery(MOVIES)
+  const { data } = useQuery<getMovies>(MOVIES)
 
   return (
     <div className="Home">
@@ -39,7 +38,9 @@ const Home = () => {
           <a href="https://palmer.chat">Community Slack</a>
         </li>
       </ul>
-      <ul>{movies && movies.map(movie => <li key={movie.id}>{movie.title}</li>)}</ul>
+      <ul>
+        {data && data.movies && data.movies.map(movie => <li key={movie.id}>{movie.title}</li>)}
+      </ul>
     </div>
   )
 }
