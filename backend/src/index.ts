@@ -4,10 +4,11 @@ import { Container } from 'typedi'
 import * as TypeORM from 'typeorm'
 import { ApolloServer } from 'apollo-server'
 import * as TypeGraphQL from 'type-graphql'
+import { Logs } from './middlewares/logs'
 
 const PORT = process.env.PORT || 4000
 
-TypeGraphQL.useContainer(Container);
+TypeGraphQL.useContainer(Container)
 TypeORM.useContainer(Container)
 
 async function start() {
@@ -16,6 +17,7 @@ async function start() {
   const schema = await TypeGraphQL.buildSchema({
     resolvers: [__dirname + '/**/*.resolver.ts'],
     emitSchemaFile: resolve(__dirname, '..', 'schema.gql'),
+    globalMiddlewares: [Logs],
   })
 
   const server = new ApolloServer({
