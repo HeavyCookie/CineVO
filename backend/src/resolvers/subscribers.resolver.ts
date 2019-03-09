@@ -29,9 +29,9 @@ export class SubscriberResolver {
   }
 
   @Mutation(() => Boolean)
-  public async unsubscribe(@Arg('email', () => String) email: string) {
+  public async unsubscribe(@Arg('id', () => ID) id: string) {
     try {
-      await this.subscriberRepository.delete({ email })
+      await this.subscriberRepository.delete({ id })
       return true
     } catch {
       return false

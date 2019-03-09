@@ -1,10 +1,18 @@
-import { Entity, PrimaryColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import {
+  Entity,
+  CreateDateColumn,
+  PrimaryGeneratedColumn,
+  Column,
+} from 'typeorm'
 
 @Entity()
 export class Subscriber {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
+  public id: string
+
+  @Column({ unique: true })
   public email: string
 
-  @CreateDateColumn({type: 'timestamptz'})
+  @CreateDateColumn({ type: 'timestamptz' })
   public createdAt: Date
 }
