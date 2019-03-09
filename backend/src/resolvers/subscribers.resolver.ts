@@ -1,7 +1,15 @@
-import { Resolver, Mutation, Arg } from 'type-graphql'
+import { Resolver, Mutation, Arg, InputType, Field, ID } from 'type-graphql'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 import { Repository } from 'typeorm'
+import { IsEmail } from 'class-validator'
 import { Subscriber } from '../entity/Subscriber'
+
+@InputType()
+class SubscriberInput {
+  @IsEmail()
+  @Field()
+  public email: string
+}
 
 @Resolver()
 export class SubscriberResolver {
@@ -11,9 +19,9 @@ export class SubscriberResolver {
   ) {}
 
   @Mutation(() => Boolean)
-  public async subscribe(@Arg('email', () => String) email: string) {
+  public async subscribe(@Arg('subscriber') input: SubscriberInput) {
     try {
-      await this.subscriberRepository.insert({ email })
+      await this.subscriberRepository.insert({ email: input.email })
       return true
     } catch {
       return false
