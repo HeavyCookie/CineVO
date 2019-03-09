@@ -32,6 +32,7 @@
   },
   "scripts": {
     "start": "ts-node src/index.ts",
-    "dev": "tsnd --ignore-watch node_modules --ignore-watch dist --inspect=0.0.0.0:5858 src/index.ts"
+    "dev": "tsnd --ignore-watch node_modules --ignore-watch dist --inspect=0.0.0.0:5858 src/index.ts",
+    "typeorm": "ts-node ./node_modules/.bin/typeorm"
   }
 }
