@@ -934,6 +934,20 @@
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.1.tgz#e93c13942592cf5ef01aa8297444dc192beee52f"
   integrity sha512-Qv4LTqO11jepd5Qmlp3M1YEjBumoTHcHFdgPTQ+sFlIL5myi/7xu/POwP7IRu6odBdmLXdtIs1D6TuW6kbwbbg==
 
+"@emotion/native@^10.0.10":
+  version "10.0.10"
+  resolved "https://registry.yarnpkg.com/@emotion/native/-/native-10.0.10.tgz#61a30968a8221788233626149195f96b09e097d3"
+  integrity sha512-mzrU6GNn9WB00ce/ExYdqldAtylPFG5pdhnSgpAmH57xU04BYKPLhlLpC5ATwR4pfQYn4kv+RwBTA/zoqWSbHA==
+  dependencies:
+    "@emotion/primitives-core" "10.0.1"
+
+"@emotion/primitives-core@10.0.1":
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/@emotion/primitives-core/-/primitives-core-10.0.1.tgz#56bf12d4b5db56b0c8f83a9ea163a33b0191e3d9"
+  integrity sha512-q1499Ng3zSsGBoiyrmBo4BvcmXxJEVfdMpVoFPnDitzkmAl59XrNL8z2t5pfkjV5Usdb+akJR5YrEA0IgUJeCA==
+  dependencies:
+    css-to-react-native "^2.2.1"
+
 "@emotion/serialize@^0.11.6":
   version "0.11.6"
   resolved "https://registry.yarnpkg.com/@emotion/serialize/-/serialize-0.11.6.tgz#78be8b9ee9ff49e0196233ba6ec1c1768ba1e1fc"
@@ -2573,6 +2587,11 @@ camelcase@^5.0.0, camelcase@^5.2.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.2.0.tgz#e7522abda5ed94cc0489e1b8466610e88404cf45"
   integrity sha512-IXFsBS2pC+X0j0N/GE7Dm7j3bsEBp+oTpb7F50dwEVX7rf3IgwO9XatnegTsDtniKCUtEJH4fSU6Asw7uoVLfQ==
 
+camelize@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/camelize/-/camelize-1.0.0.tgz#164a5483e630fa4321e5af07020e531831b2609b"
+  integrity sha1-FkpUg+Yw+kMh5a8HAg5TGDGyYJs=
+
 caniuse-lite@^1.0.30000929, caniuse-lite@^1.0.30000947, caniuse-lite@^1.0.30000955:
   version "1.0.30000955"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000955.tgz#360fdb9a1e41d6dd996130411334e44a39e4446d"
@@ -3055,6 +3074,11 @@ crypto-browserify@^3.11.0:
     randombytes "^2.0.0"
     randomfill "^1.0.3"
 
+css-color-keywords@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/css-color-keywords/-/css-color-keywords-1.0.0.tgz#fea2616dc676b2962686b3af8dbdbe180b244e05"
+  integrity sha1-/qJhbcZ2spYmhrOvjb2+GAskTgU=
+
 css-in-js-utils@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/css-in-js-utils/-/css-in-js-utils-2.0.1.tgz#3b472b398787291b47cfe3e44fecfdd9e914ba99"
@@ -3104,6 +3128,15 @@ css-select@^2.0.0:
     css-what "^2.1.2"
     domutils "^1.7.0"
     nth-check "^1.0.2"
+
+css-to-react-native@^2.2.1:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/css-to-react-native/-/css-to-react-native-2.3.0.tgz#bf80d24ec4a08e430306ef429c0586e6ed5485f7"
+  integrity sha512-IhR7bNIrCFwbJbKZOAjNDZdwpsbjTN6f1agXeELHDqg1wHPA8c2QLruttKOW7hgMGetkfraRJCIEMrptifBfVw==
+  dependencies:
+    camelize "^1.0.0"
+    css-color-keywords "^1.0.0"
+    postcss-value-parser "^3.3.0"
 
 css-tree@1.0.0-alpha.28:
   version "1.0.0-alpha.28"
