@@ -1,4 +1,4 @@
-import { Entity, Column, OneToMany, PrimaryColumn } from 'typeorm'
+import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { ObjectType, Field, ID, Int } from 'type-graphql'
 import { Screening } from './Screening'
 
@@ -6,8 +6,12 @@ import { Screening } from './Screening'
 @Entity()
 export class Movie {
   @Field(() => ID)
-  @PrimaryColumn()
-  public id: number
+  @PrimaryGeneratedColumn('uuid')
+  public id: string
+
+  @Field(() => ID)
+  @Column({ unique: true })
+  public allocineId: number
 
   @Field()
   @Column()
@@ -28,6 +32,10 @@ export class Movie {
   @Field(() => [String])
   @Column({ type: 'varchar', array: true, default: () => "'{}'" })
   public directors: string[]
+
+  @Field()
+  @Column()
+  public poster: string
 
   @Field()
   @Column({ type: 'float', nullable: true })

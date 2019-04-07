@@ -23,6 +23,7 @@ async function start() {
   const server = new ApolloServer({
     schema,
     playground: true,
+    tracing: true,
   })
 
   // Start the server

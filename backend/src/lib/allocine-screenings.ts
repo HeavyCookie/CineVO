@@ -54,7 +54,7 @@ const allocineToMovie = (amovie: AMovie): Movie => {
   const { actors, directors } = amovie.castingShort
 
   return Object.assign(new Movie(), {
-    id: amovie.code,
+    allocineId: amovie.code,
     actors: actors ? actors.split(',') : [],
     directors: directors ? directors.split(',') : [],
     plot: '',
@@ -62,11 +62,12 @@ const allocineToMovie = (amovie: AMovie): Movie => {
     pressRatings: amovie.statistics.pressRating,
     userRatings: amovie.statistics.userRating,
     title: amovie.title,
+    poster: amovie.poster.href,
   })
 }
 
 const findOrCreateMovie = async (amovie): Promise<Movie> => {
-  const dbMovie = await getManager().findOne(Movie, amovie.code)
+  const dbMovie = await getManager().findOne(Movie, { allocineId: amovie.code })
   if (dbMovie) return dbMovie
 
   const newMovie = allocineToMovie(amovie)
