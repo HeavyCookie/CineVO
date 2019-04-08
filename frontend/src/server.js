@@ -6,7 +6,7 @@ import { renderToString } from 'react-dom/server'
 import { getMarkupFromTree } from 'react-apollo-hooks'
 import { ServerStyleSheet } from 'styled-components'
 
-const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
+const assets = require(process.env.RAZZLE_ASSETS_MANIFEST) // eslint-disable-line @typescript-eslint/no-var-requires
 
 const server = express()
 server
