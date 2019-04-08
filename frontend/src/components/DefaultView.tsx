@@ -21,7 +21,7 @@ const Subtitle = styled.h2`
   font-size: 1em;
 `
 
-export const Home = (props: { children: React.ReactNode }) => {
+export const DefaultView = (props: { children: React.ReactNode }) => {
   return (
     <Container>
       <Title>CineVO</Title>

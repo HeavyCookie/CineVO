@@ -9,7 +9,7 @@ import { GlobalStyle } from '../src/components/GlobalStyle'
 
 import { Poster } from '../src/components/movie/Poster'
 import { Full } from '../src/components/movie/Full'
-import { Home } from '../src/components/Home'
+import { DefaultView } from '../src/components/DefaultView'
 
 addDecorator(story => (
   <IntlProvider locale="fr">
@@ -45,4 +45,4 @@ storiesOf('Movie/Full', module).add('default', () => (
   />
 ))
 
-storiesOf('Home', module).add('default', () => <Home />)
+storiesOf('Home', module).add('default', () => <DefaultView />)
