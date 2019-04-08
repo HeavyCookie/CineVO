@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg, Int } from 'type-graphql'
+import { Resolver, Query, Arg, Int, ID } from 'type-graphql'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 import { Repository } from 'typeorm'
 import { Movie } from '../entity/Movie'
@@ -21,6 +21,11 @@ export class MovieResolver {
       .leftJoinAndSelect('movie.screenings', 'screening')
       .where('screening.date BETWEEN :start AND :end', { start, end })
       .getMany()
+  }
+
+  @Query(() => Movie, { nullable: true })
+  public movie(@Arg('id', () => ID) id: string): Promise<Movie> {
+    return this.movieRepository.findOne(id)
   }
 
   @Query(() => [Movie])
