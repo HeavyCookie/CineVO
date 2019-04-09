@@ -2,8 +2,9 @@ import * as React from 'react'
 import styled from 'styled-components'
 import useClickAway from 'react-use/lib/useClickAway'
 import { Poster } from './Poster'
+import { animated, useSpring } from 'react-spring'
 
-const Container = styled.div`
+const Container = styled(animated.div)`
   position: absolute;
   top: 0;
   right: 0;
@@ -60,10 +61,19 @@ export const Full = ({
 }: Props) => {
   const ref = React.useRef(null)
 
-  if (close) useClickAway(ref, close)
+  const [effect, setEffect] = useSpring(() => ({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+  }))
+
+  if (close)
+    useClickAway(ref, () => {
+      setEffect({ to: { opacity: 0 } })
+      setTimeout(close, 200)
+    })
 
   return (
-    <Container>
+    <Container style={effect}>
       <Content ref={ref}>
         <Poster name={name} url={poster} />
         <Informations>
