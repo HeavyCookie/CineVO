@@ -3,6 +3,7 @@ import { getManager, MoreThan } from 'typeorm'
 import { parse } from 'date-fns'
 import { Movie } from '../entity/Movie'
 import { Screening } from '../entity/Screening'
+import { searchMovie } from './tmdb'
 
 interface AMovie {
   code: number
@@ -50,8 +51,12 @@ export const getScreeningsForTheater = async (
     })
   })
 
-const allocineToMovie = (amovie: AMovie): Movie => {
+const allocineToMovie = async (amovie: AMovie): Promise<Movie> => {
   const { actors, directors } = amovie.castingShort
+  const release = new Date(amovie.release.releaseDate)
+
+  const tmdb = await searchMovie(amovie.title, release)
+  const tmdbMovie = tmdb.results[0]
 
   return Object.assign(new Movie(), {
     allocineId: amovie.code,
@@ -63,6 +68,10 @@ const allocineToMovie = (amovie: AMovie): Movie => {
     userRatings: amovie.statistics.userRating,
     title: amovie.title,
     poster: amovie.poster.href,
+    release: release,
+    backdrop:
+      tmdbMovie &&
+      'http://image.tmdb.org/t/p/original' + tmdbMovie.backdrop_path,
   })
 }
 
@@ -70,7 +79,7 @@ const findOrCreateMovie = async (amovie): Promise<Movie> => {
   const dbMovie = await getManager().findOne(Movie, { allocineId: amovie.code })
   if (dbMovie) return dbMovie
 
-  const newMovie = allocineToMovie(amovie)
+  const newMovie = await allocineToMovie(amovie)
   await getManager().insert(Movie, newMovie)
   return newMovie
 }

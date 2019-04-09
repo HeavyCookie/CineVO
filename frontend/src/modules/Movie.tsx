@@ -25,7 +25,6 @@ const GET_MOVIE_DETAILS = gql`
 `
 
 export const Movie = (props: Props) => {
-  console.log(props)
   const { data } = useQuery<getMovieDetails>(GET_MOVIE_DETAILS, {
     variables: { id: props.match.params.movieId },
   })

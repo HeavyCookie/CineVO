@@ -9,9 +9,11 @@ export class Movie {
   @PrimaryGeneratedColumn('uuid')
   public id: string
 
-  @Field(() => ID)
   @Column({ unique: true })
   public allocineId: number
+
+  @Column({ unique: true, nullable: true })
+  public tmdbId?: number
 
   @Field()
   @Column()
@@ -21,9 +23,13 @@ export class Movie {
   @Column()
   public runtime: number
 
-  @Field()
+  @Field(() => Date)
   @Column()
-  public plot: string
+  public release: Date
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  public plot?: string
 
   @Field(() => [String])
   @Column({ type: 'varchar', array: true, default: () => "'{}'" })
@@ -33,15 +39,19 @@ export class Movie {
   @Column({ type: 'varchar', array: true, default: () => "'{}'" })
   public directors: string[]
 
-  @Field()
-  @Column()
-  public poster: string
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  public poster?: string
 
-  @Field()
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  public backdrop?: string
+
+  @Field({ nullable: true })
   @Column({ type: 'float', nullable: true })
   public pressRatings?: number
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ type: 'float', nullable: true })
   public userRatings?: number
 
