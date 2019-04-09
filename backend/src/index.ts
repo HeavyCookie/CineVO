@@ -1,3 +1,5 @@
+require('dotenv').config({ path: '../.env' })
+
 import 'reflect-metadata'
 import { resolve } from 'path'
 import { Container } from 'typedi'
@@ -8,7 +10,6 @@ import { Logs } from './middlewares/logs'
 
 const PORT = process.env.PORT || 4000
 
-TypeGraphQL.useContainer(Container)
 TypeORM.useContainer(Container)
 
 async function start() {
@@ -18,6 +19,7 @@ async function start() {
     resolvers: [__dirname + '/**/*.resolver.ts'],
     emitSchemaFile: resolve(__dirname, '..', 'schema.gql'),
     globalMiddlewares: [Logs],
+    container: Container,
   })
 
   const server = new ApolloServer({
