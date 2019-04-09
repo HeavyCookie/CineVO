@@ -44,11 +44,11 @@ const Synopsis = styled.p`
 
 type Props = {
   movie: {
-    poster: string
+    poster: string | null
     name: string
     actors: string[]
     directors: string[]
-    synopsis: string
+    synopsis: string | null
     runtime: number
   }
   close?: (event: KeyboardEvent) => void
@@ -71,8 +71,12 @@ export const Full = ({
           <Info>Avec {actors.join(', ')}</Info>
           <Info>De {directors.join(', ')}</Info>
           <Info>Durée : {runtime} minutes</Info>
-          <Title as="h2">Synopsis</Title>
-          <Synopsis>{synopsis}</Synopsis>
+          {!!synopsis && (
+            <>
+              <Title as="h2">Synopsis</Title>
+              <Synopsis>{synopsis}</Synopsis>
+            </>
+          )}
         </Informations>
       </Content>
     </Container>

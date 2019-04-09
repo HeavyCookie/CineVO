@@ -13,7 +13,7 @@ const Image = styled.img`
 
 export type Props = {
   /** URL of the poster */
-  url: string
+  url: string | null
   /** Name of the movie */
   name: string
 
@@ -24,7 +24,7 @@ export type Props = {
 export const Poster = ({ url, name, maxWidth = 200, maxHeight }: Props) => (
   <Container>
     <Image
-      src={url}
+      src={url || undefined}
       alt={`Poster du film ${name}`}
       style={{ maxWidth, maxHeight }}
     />
