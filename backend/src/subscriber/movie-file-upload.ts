@@ -7,7 +7,7 @@ import {
   RemoveEvent,
 } from 'typeorm'
 import { Movie } from '../entity/Movie'
-import { uploadFileFromUrl, removeFile, listFiles } from '../file-storage'
+import { uploadFileFromUrl } from '../file-storage'
 
 type StringProps<T> = ({
   [P in keyof T]: T[P] extends string ? P : never
@@ -26,6 +26,8 @@ export class MovieFileUpload implements EntitySubscriberInterface {
     ['movies', id, field].join('/')
 
   public gatherPotentialFileFields = (entity: Movie) => {
+    if (!entity) return
+
     MovieFileUpload.fileFields.forEach(field => {
       if (!entity[field] || !entity[field].match(/^https?:\/\//)) return
 
@@ -34,9 +36,12 @@ export class MovieFileUpload implements EntitySubscriberInterface {
     })
   }
 
-  public uploadFilesAndUpdateEntity = async ({ id }: Movie) => {
+  public uploadFilesAndUpdateEntity = async (entity: Movie) => {
+    if (!entity) return
+
+    const { id } = entity
     const toUpdate = Object.entries(this.filesToUpload).reduce(
-      async (acc, [field, value]) => {
+      (acc, [field, value]) => {
         const filepath = MovieFileUpload.filePath(id, field)
         uploadFileFromUrl(value, filepath)
         acc[field] = filepath
