@@ -1,5 +1,6 @@
 import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { ObjectType, Field, ID, Int } from 'type-graphql'
+import { getFileURL } from '../file-storage'
 import { Screening } from './Screening'
 
 @ObjectType()
@@ -39,13 +40,21 @@ export class Movie {
   @Column({ type: 'varchar', array: true, default: () => "'{}'" })
   public directors: string[]
 
-  @Field({ nullable: true })
   @Column({ nullable: true })
   public poster?: string
 
-  @Field({ nullable: true })
+  @Field({ name: 'poster', nullable: true })
+  public posterUrl(): string | null {
+    return this.poster ? getFileURL(this.poster) : null
+  }
+
   @Column({ nullable: true })
   public backdrop?: string
+
+  @Field({ name: 'backdrop', nullable: true })
+  public backdropUrl(): string | null {
+    return this.poster ? getFileURL(this.backdrop) : null
+  }
 
   @Field({ nullable: true })
   @Column({ type: 'float', nullable: true })

@@ -10,7 +10,28 @@ const {
   MINIO_ACCESS_KEY,
   MINIO_SECRET_KEY,
   MINIO_BUCKET_NAME = 'default',
+  MINIO_PUBLIC_URL = (() => {
+    const url: string[] = []
+    url.push(MINIO_SSL == 'true' ? 'https' : 'http')
+    url.push('://')
+    url.push(MINIO_ENDPOINT)
+    if (MINIO_PORT) url.push(`:${MINIO_PORT}`)
+    url.push('/')
+    url.push(MINIO_BUCKET_NAME)
+    return url.join('')
+  })(),
 } = process.env
+
+export const config = {
+  MINIO_ENDPOINT,
+  MINIO_PORT,
+  MINIO_REGION,
+  MINIO_SSL,
+  MINIO_ACCESS_KEY,
+  MINIO_SECRET_KEY,
+  MINIO_BUCKET_NAME,
+  MINIO_PUBLIC_URL,
+}
 
 const client = new Minio.Client({
   endPoint: MINIO_ENDPOINT,
@@ -67,5 +88,8 @@ export const removeFile = async (filepath: string) =>
 
 export const listFiles = (path: string, recursive: boolean = true) =>
   client.listObjects(MINIO_BUCKET_NAME, path, recursive)
+
+export const getFileURL = (filepath: string) =>
+  [MINIO_PUBLIC_URL, filepath].join('/')
 
 export default client
