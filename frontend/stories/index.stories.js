@@ -7,7 +7,7 @@ import { action } from '@storybook/addon-actions'
 import { IntlProvider } from 'react-intl'
 import { GlobalStyle } from '../src/components/GlobalStyle'
 
-import { Poster } from '../src/components/movie/Poster'
+import { Poster, AnimatedPoster } from '../src/components/movie/Poster'
 import { Full } from '../src/components/movie/Full'
 import { DefaultView } from '../src/components/DefaultView'
 
@@ -15,7 +15,7 @@ addDecorator(story => (
   <IntlProvider locale="fr">
     <>
       <GlobalStyle />
-      {story()}
+      <div style={{ display: 'flex', justifyContent: 'center' }}>{story()}</div>
     </>
   </IntlProvider>
 ))
@@ -24,6 +24,12 @@ storiesOf('Movie/Poster', module)
   .addDecorator(Knob.withKnobs)
   .add('default', () => (
     <Poster
+      url="https://image.tmdb.org/t/p/w1280/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg"
+      name="Captain Marvel"
+    />
+  ))
+  .add('animated', () => (
+    <AnimatedPoster
       url="https://image.tmdb.org/t/p/w1280/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg"
       name="Captain Marvel"
     />
