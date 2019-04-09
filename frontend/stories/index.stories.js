@@ -45,4 +45,6 @@ storiesOf('Movie/Full', module).add('default', () => (
   />
 ))
 
-storiesOf('Home', module).add('default', () => <DefaultView />)
+storiesOf('DefaultView', module).add('default', () => (
+  <DefaultView>Content</DefaultView>
+))
