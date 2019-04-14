@@ -52,7 +52,7 @@ type Props = {
     synopsis: string | null
     runtime: number
   }
-  close?: (event: KeyboardEvent) => void
+  close?: (event?: KeyboardEvent) => void
 }
 
 export const Full = ({
@@ -63,13 +63,19 @@ export const Full = ({
 
   const [effect, setEffect] = useSpring(() => ({
     from: { opacity: 0 },
-    to: { opacity: 1 },
+    to: async (next: Function) => {
+      await next({ opacity: 1 })
+    },
   }))
 
   if (close)
     useClickAway(ref, () => {
-      setEffect({ to: { opacity: 0 } })
-      setTimeout(close, 200)
+      setEffect({
+        to: async next => {
+          await next({ opacity: 0 })
+          close()
+        },
+      })
     })
 
   return (
