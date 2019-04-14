@@ -20,6 +20,7 @@ const GET_MOVIE_DETAILS = gql`
       poster
       plot
       title
+      backdrop
     }
   }
 `
@@ -39,6 +40,7 @@ export const Movie = (props: Props) => {
         poster: data.movie.poster,
         runtime: data.movie.runtime,
         synopsis: data.movie.plot,
+        backdrop: data.movie.backdrop,
       }}
       close={() => props.history.push('/')}
     />

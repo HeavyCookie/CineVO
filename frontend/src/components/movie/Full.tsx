@@ -14,9 +14,10 @@ const Container = styled(animated.div)`
   background-color: rgba(0, 0, 0, 0.2);
 `
 
-const Content = styled.div`
-  display: flex;
-  margin: 10px 20%;
+const Popin = styled.div`
+  width: 80%;
+  margin: auto;
+  overflow: scroll;
 
   background-color: white;
   border: 10px;
@@ -24,8 +25,23 @@ const Content = styled.div`
   box-shadow: 0 0 10px 2px;
 `
 
+const Backdrop = styled.img`
+  display: block;
+  width: 100%;
+  height: 10em;
+  object-fit: cover;
+`
+
 const Informations = styled.div`
-  padding: 0 0.5em;
+  display: grid;
+  grid-gap: 0.5em;
+  grid-template-columns: auto 1fr;
+  margin: 0.5em;
+`
+
+const PosterContainer = styled.div`
+  margin-top: -5em;
+  border: 3px solid white;
 `
 
 const Title = styled.h1`
@@ -50,13 +66,15 @@ type Props = {
     actors: string[]
     directors: string[]
     synopsis: string | null
+    /* Movie length in seconds */
     runtime: number
+    backdrop: string | null
   }
   close?: (event?: KeyboardEvent) => void
 }
 
 export const Full = ({
-  movie: { name, poster, actors, directors, synopsis, runtime },
+  movie: { name, poster, actors, directors, synopsis, runtime, backdrop },
   close,
 }: Props) => {
   const ref = React.useRef(null)
@@ -80,21 +98,26 @@ export const Full = ({
 
   return (
     <Container style={effect}>
-      <Content ref={ref}>
-        <Poster name={name} url={poster} />
+      <Popin ref={ref}>
+        <Backdrop src={backdrop || undefined} />
         <Informations>
-          <Title>{name}</Title>
-          <Info>Avec {actors.join(', ')}</Info>
-          <Info>De {directors.join(', ')}</Info>
-          <Info>Durée : {runtime} minutes</Info>
-          {!!synopsis && (
-            <>
-              <Title as="h2">Synopsis</Title>
-              <Synopsis>{synopsis}</Synopsis>
-            </>
-          )}
+          <PosterContainer>
+            <Poster name={name} url={poster} />
+          </PosterContainer>
+          <div>
+            <Title>{name}</Title>
+            <Info>Avec {actors.join(', ')}</Info>
+            <Info>De {directors.join(', ')}</Info>
+            <Info>Durée : {runtime / 60} minutes</Info>
+            {!!synopsis && (
+              <>
+                <Title as="h2">Synopsis</Title>
+                <Synopsis>{synopsis}</Synopsis>
+              </>
+            )}
+          </div>
         </Informations>
-      </Content>
+      </Popin>
     </Container>
   )
 }
