@@ -21,6 +21,9 @@ const GET_MOVIE_DETAILS = gql`
       plot
       title
       backdrop
+      screenings {
+        date
+      }
     }
   }
 `
@@ -31,6 +34,9 @@ export const Movie = (props: Props) => {
   })
 
   if (!data || !data.movie) return null
+
+  const screenings = data.movie.screenings.map(screening => screening.date)
+
   return (
     <Full
       movie={{
@@ -41,6 +47,7 @@ export const Movie = (props: Props) => {
         runtime: data.movie.runtime,
         synopsis: data.movie.plot,
         backdrop: data.movie.backdrop,
+        screenings,
       }}
       close={() => props.history.push('/')}
     />

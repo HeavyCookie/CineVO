@@ -5,9 +5,13 @@ import { Movie } from './Movie'
 @ObjectType()
 @Entity()
 export class Screening {
-  @Field()
   @PrimaryColumn({ type: 'timestamptz' })
   public date: Date
+
+  @Field(() => String, { name: 'date' })
+  public get dateToString() {
+    return this.date.toISOString()
+  }
 
   @PrimaryColumn()
   public movieId: number

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import useClickAway from 'react-use/lib/useClickAway'
 import { Poster } from './Poster'
 import { animated, useSpring } from 'react-spring'
+import { Screenings } from './Screenings'
 
 const Container = styled(animated.div)`
   position: absolute;
@@ -42,6 +43,9 @@ const Informations = styled.div`
 const PosterContainer = styled.div`
   margin-top: -5em;
   border: 3px solid white;
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
 `
 
 const Title = styled.h1`
@@ -69,12 +73,22 @@ type Props = {
     /* Movie length in seconds */
     runtime: number
     backdrop: string | null
+    screenings?: (string | Date | number)[]
   }
   close?: (event?: KeyboardEvent) => void
 }
 
 export const Full = ({
-  movie: { name, poster, actors, directors, synopsis, runtime, backdrop },
+  movie: {
+    name,
+    poster,
+    actors,
+    directors,
+    synopsis,
+    runtime,
+    backdrop,
+    screenings,
+  },
   close,
 }: Props) => {
   const ref = React.useRef(null)
@@ -114,6 +128,11 @@ export const Full = ({
                 <Title as="h2">Synopsis</Title>
                 <Synopsis>{synopsis}</Synopsis>
               </>
+            )}
+            {screenings && (
+              <Info>
+                <Screenings data={screenings} />
+              </Info>
             )}
           </div>
         </Informations>

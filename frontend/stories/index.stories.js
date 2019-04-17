@@ -4,12 +4,17 @@ import { storiesOf, addDecorator } from '@storybook/react'
 import * as Knob from '@storybook/addon-knobs'
 import { action } from '@storybook/addon-actions'
 
-import { IntlProvider } from 'react-intl'
+import { IntlProvider, addLocaleData } from 'react-intl'
 import { GlobalStyle } from '../src/components/GlobalStyle'
 
 import { Poster, AnimatedPoster } from '../src/components/movie/Poster'
 import { Full } from '../src/components/movie/Full'
 import { DefaultView } from '../src/components/DefaultView'
+import { Screenings } from '../src/components/movie/Screenings'
+
+import frLocale from 'react-intl/locale-data/fr'
+
+addLocaleData(frLocale)
 
 addDecorator(story => (
   <IntlProvider locale="fr">
@@ -55,4 +60,10 @@ storiesOf('Movie/Full', module).add('default', () => (
 
 storiesOf('DefaultView', module).add('default', () => (
   <DefaultView>Content</DefaultView>
+))
+
+storiesOf('Movie/Screenings', module).add('default', () => (
+  <Screenings
+    data={['2019-03-10 05:30:34', '2019-03-10 20:30:45', '2019-03-30 18:00:10']}
+  />
 ))
