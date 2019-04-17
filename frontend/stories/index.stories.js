@@ -5,14 +5,15 @@ import * as Knob from '@storybook/addon-knobs'
 import { action } from '@storybook/addon-actions'
 
 import { IntlProvider, addLocaleData } from 'react-intl'
+import frLocale from 'react-intl/locale-data/fr'
+
 import { GlobalStyle } from '../src/components/GlobalStyle'
 
 import { Poster, AnimatedPoster } from '../src/components/movie/Poster'
 import { Full } from '../src/components/movie/Full'
 import { DefaultView } from '../src/components/DefaultView'
 import { Screenings } from '../src/components/movie/Screenings'
-
-import frLocale from 'react-intl/locale-data/fr'
+import { Subscribe } from '../src/components/Subscribe'
 
 addLocaleData(frLocale)
 
@@ -67,3 +68,10 @@ storiesOf('Movie/Screenings', module).add('default', () => (
     data={['2019-03-10 05:30:34', '2019-03-10 20:30:45', '2019-03-30 18:00:10']}
   />
 ))
+
+storiesOf('Subscribe', module)
+  .add('default', () => <Subscribe onSubmit={action('submitted')} />)
+  .add('sending', () => <Subscribe onSubmit={action('submitted')} loading />)
+  .add('subscribed', () => (
+    <Subscribe onSubmit={action('submitted')} subscribed />
+  ))
