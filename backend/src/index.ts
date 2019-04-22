@@ -1,29 +1,17 @@
 require('dotenv').config({ path: '../.env' })
 
 import 'reflect-metadata'
-import { resolve } from 'path'
-import { Container } from 'typedi'
 import * as TypeORM from 'typeorm'
 import { ApolloServer } from 'apollo-server'
-import * as TypeGraphQL from 'type-graphql'
-import { Logs } from './middlewares/logs'
+import { generateSchema } from './config/graphql-schema'
 
 const PORT = process.env.PORT || 4000
-
-TypeORM.useContainer(Container)
 
 async function start() {
   await TypeORM.createConnection()
 
-  const schema = await TypeGraphQL.buildSchema({
-    resolvers: [__dirname + '/**/*.resolver.ts'],
-    emitSchemaFile: resolve(__dirname, '..', 'schema.gql'),
-    globalMiddlewares: [Logs],
-    container: Container,
-  })
-
   const server = new ApolloServer({
-    schema,
+    schema: await generateSchema(),
     playground: true,
     tracing: true,
   })

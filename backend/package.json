@@ -6,6 +6,8 @@
     "@types/axios": "^0.14.0",
     "@types/date-fns": "^2.6.0",
     "@types/dotenv": "^6.1.1",
+    "@types/graphql": "^14.2.0",
+    "@types/jest": "^24.0.11",
     "@types/koa": "^2.0.48",
     "@types/node": "^11.13.2",
     "@types/nodemailer": "^4.6.7",
@@ -17,7 +19,9 @@
     "eslint-import-resolver-typescript": "^1.1.1",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-prettier": "^3.0.1",
-    "koa": "^2.7.0"
+    "jest": "^24.7.1",
+    "koa": "^2.7.0",
+    "ts-jest": "^24.0.2"
   },
   "dependencies": {
     "@types/minio": "^7.0.1",
@@ -48,7 +52,7 @@
     "typedi": "^0.8.0",
     "typeorm": "0.2.16",
     "typeorm-typedi-extensions": "^0.2.3",
-    "typescript": "3.4.2",
+    "typescript": "^3.4.4",
     "typescript-eslint-parser": "^22.0.0"
   },
   "scripts": {

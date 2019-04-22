@@ -1,5 +1,7 @@
 require('dotenv').config({ path: '../.env' })
 
+const { resolve } = require('path') // eslint-disable-line @typescript-eslint/no-var-requires
+
 const {
   POSTGRES_HOST = 'localhost',
   POSTGRES_PORT = '5432',
@@ -16,12 +18,12 @@ module.exports = {
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
   logging: true,
-  entities: ['src/entity/**/*.ts'],
-  migrations: ['src/migration/**/*.ts'],
-  subscribers: ['src/subscriber/**/*.ts'],
+  entities: [resolve(__dirname, 'src/entity/**/*.ts')],
+  migrations: [resolve(__dirname, 'src/migration/**/*.ts')],
+  subscribers: [resolve(__dirname, 'src/subscriber/**/*.ts')],
   cli: {
-    entitiesDir: 'src/entity',
-    migrationsDir: 'src/migration',
-    subscribersDir: 'src/subscriber',
+    entitiesDir: resolve(__dirname, 'src/entity'),
+    migrationsDir: resolve(__dirname, 'src/migration'),
+    subscribersDir: resolve(__dirname, 'src/subscriber'),
   },
 }
