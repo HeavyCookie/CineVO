@@ -4,10 +4,9 @@ import {
   InsertEvent,
   getManager,
   UpdateEvent,
-  RemoveEvent,
 } from 'typeorm'
 import { Movie } from '../entity/Movie'
-import { uploadFileFromUrl } from '../file-storage'
+import { uploadFileFromUrl } from '../config/file-storage'
 
 type StringProps<T> = ({
   [P in keyof T]: T[P] extends string ? P : never

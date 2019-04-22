@@ -1,0 +1,73 @@
+<mjml>
+  <mj-body>
+    <mj-hero>
+      <mj-text font-size="20px" align="center">CineVO</mj-text>
+    </mj-hero>
+    <mj-hero background-color="#db2828">
+      <mj-text align="center" color="#fff">Semaine du 10 au 15 avril</mj-text>
+    </mj-hero>
+    <mj-section background-color="#fff">
+      <mj-column width="33%">
+        <mj-image src="https://image.tmdb.org/t/p/w1280/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg" />
+        <mj-text align="center" font-weight="bold">Captain Marvel</mj-text>
+        <mj-table font-size="11px">
+          <tr>
+            <td>Mer.</td>
+            <td>20h30, 22h, 23h30</td>
+          </tr>
+        </mj-table>
+      </mj-column>
+      <mj-column width="33%">
+        <mj-image src="https://image.tmdb.org/t/p/w1280/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg" />
+        <mj-text align="center" font-weight="bold">Captain Marvel</mj-text>
+        <mj-text>Claire Danes est une badasse qui va te jeter</mj-text>
+        <mj-table font-size="11px">
+          <tr>
+            <td>Mer.</td>
+            <td>20h30, 22h, 23h30</td>
+          </tr>
+        </mj-table>
+      </mj-column>
+      <mj-column width="33%">
+        <mj-image src="https://image.tmdb.org/t/p/w1280/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg" />
+        <mj-text align="center" font-weight="bold">Captain Marvel</mj-text>
+        <mj-table font-size="11px">
+          <tr>
+            <td>Mer.</td>
+            <td>20h30, 22h, 23h30</td>
+          </tr>
+        </mj-table>
+      </mj-column>
+      <mj-column width="33%">
+        <mj-image src="https://image.tmdb.org/t/p/w1280/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg" />
+        <mj-text align="center" font-weight="bold">Captain Marvel</mj-text>
+        <mj-table font-size="11px">
+          <tr>
+            <td>Mer.</td>
+            <td>20h30, 22h, 23h30</td>
+          </tr>
+        </mj-table>
+      </mj-column>
+      <mj-column width="33%">
+        <mj-image src="https://image.tmdb.org/t/p/w1280/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg" />
+        <mj-text align="center" font-weight="bold">Captain Marvel</mj-text>
+        <mj-table font-size="11px">
+          <tr>
+            <td>Mer.</td>
+            <td>20h30, 22h, 23h30</td>
+          </tr>
+        </mj-table>
+      </mj-column>
+      <mj-column width="33%">
+        <mj-image src="https://image.tmdb.org/t/p/w1280/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg" />
+        <mj-text align="center" font-weight="bold">Captain Marvel</mj-text>
+        <mj-table font-size="11px">
+          <tr>
+            <td>Mer.</td>
+            <td>20h30, 22h, 23h30</td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

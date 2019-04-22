@@ -1,6 +1,6 @@
 import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { ObjectType, Field, ID, Int } from 'type-graphql'
-import { getFileURL } from '../file-storage'
+import { getFileURL } from '../config/file-storage'
 import { Screening } from './Screening'
 
 @ObjectType()
