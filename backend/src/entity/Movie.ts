@@ -65,6 +65,6 @@ export class Movie {
   public userRatings?: number
 
   @Field(() => [Screening])
-  @OneToMany(() => Screening, screening => screening.movie)
+  @OneToMany(() => Screening, screening => screening.movie, { cascade: true })
   public screenings: Promise<Screening[]>
 }

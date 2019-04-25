@@ -49,7 +49,8 @@ export class MovieFileUpload implements EntitySubscriberInterface {
       {}
     )
 
-    await getManager().update(this.listenTo(), { id }, toUpdate)
+    if (Object.keys(toUpdate).length > 0)
+      await getManager().update(this.listenTo(), { id }, toUpdate)
   }
 
   public beforeInsert = ({ entity }: InsertEvent<Movie>) =>

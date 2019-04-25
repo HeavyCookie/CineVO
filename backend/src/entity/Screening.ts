@@ -13,8 +13,8 @@ export class Screening {
     return this.date.toISOString()
   }
 
-  @PrimaryColumn()
-  public movieId: number
+  @PrimaryColumn({ type: 'uuid' })
+  public movieId: string
 
   @Field(() => Movie)
   @ManyToOne(() => Movie, { nullable: false })
