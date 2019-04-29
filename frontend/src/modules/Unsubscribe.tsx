@@ -35,7 +35,9 @@ export const Unsubscribe = (props: Props) => {
   const [unsubscribed, setUnsubscribed] = useState(false)
   const [resubscribed, setResubscribed] = useState(false)
   const [notfound, setNotfound] = useState(false)
-  const [unsubTimeout, setUnsubTimeout] = useState<undefined | NodeJS.Timeout>()
+  const [unsubTimeout, setUnsubTimeout] = useState<
+    undefined | NodeJS.Timeout | number
+  >()
   const [oldSubscriber, setOldSubscriber] = useState<
     undefined | unsubscribe_unsubscribe // eslint-disable-line @typescript-eslint/camelcase
   >()
@@ -70,7 +72,8 @@ export const Unsubscribe = (props: Props) => {
       unsubscribed={unsubscribed}
       resubscribed={resubscribed}
       cancelUnsubscription={() => (
-        unsubTimeout && clearTimeout(unsubTimeout), setResubscribed(true)
+        unsubTimeout && clearTimeout(unsubTimeout as NodeJS.Timeout),
+        setResubscribed(true)
       )}
       resubscribe={async () => {
         resubscribe({ variables: oldSubscriber })

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import { FormattedMessage } from 'react-intl'
 
 const Container = styled.div`
   display: flex;
@@ -40,7 +41,7 @@ export const DefaultView = (props: { children: React.ReactNode }) => {
       <Header>
         <Title>CineVO</Title>
         <Subtitle>
-          Vos prochaines séances de cinéma en version originale
+          <FormattedMessage id="components.layout.subtitle" />
         </Subtitle>
       </Header>
       <Content>{props.children}</Content>

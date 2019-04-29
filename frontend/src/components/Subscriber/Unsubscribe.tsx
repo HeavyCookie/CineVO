@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { FormattedMessage } from 'react-intl'
 
 const Container = styled.div`
   text-align: center;
@@ -22,37 +23,44 @@ type Props = {
 
 const Unsubscription = (props: Pick<Props, 'cancelUnsubscription'>) => (
   <>
-    <p>Désinscription en cours...</p>
-    <button onClick={props.cancelUnsubscription}>Annuler</button>
+    <p>
+      <FormattedMessage id="components.subscriber.unsubscribe.unsubscription.message" />
+    </p>
+    <button onClick={props.cancelUnsubscription}>
+      <FormattedMessage id="components.subscriber.unsubscribe.unsubscription.cancel" />
+    </button>
   </>
 )
 
 const Unsubscribed = (props: Pick<Props, 'resubscribe'>) => (
   <>
     <p>
-      Vous ne voulez plus être inscrit à nos newsletter ? On est un peu triste,
-      mais on comprend !
+      <FormattedMessage id="components.subscriber.unsubscribe.unsubscribed.message" />
     </p>
     <p>
-      Si c&apos;est une erreur, vous pouvez toujours{' '}
-      <ResubscribeButton onClick={props.resubscribe}>
-        cliquer ici
-      </ResubscribeButton>{' '}
-      pour être réinscrit !
+      <FormattedMessage
+        id="components.subscriber.unsubscribe.unsubscribed.cancel"
+        values={{
+          link: (
+            <ResubscribeButton onClick={props.resubscribe}>
+              <FormattedMessage id="components.subscriber.unsubscribe.unsubscribed.cancelLink" />
+            </ResubscribeButton>
+          ),
+        }}
+      />
     </p>
   </>
 )
 
 const Resubscribed = () => (
   <p>
-    Aahhhh, on savait qu&apos;on allait vous manquer ! Re-bienvenue à bord !
+    <FormattedMessage id="components.subscriber.unsubscribe.resubscribed" />
   </p>
 )
 
 const NotFound = () => (
   <p>
-    Vous ne semblez pas être présent dans notre base de donnée, ne vous seriez
-    vous pas déjà désinscrit ?
+    <FormattedMessage id="components.subscriber.unsubscribe.notfound" />
   </p>
 )
 

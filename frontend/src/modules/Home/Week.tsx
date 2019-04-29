@@ -4,6 +4,7 @@ import { getMovies, getMoviesVariables } from './__generated__/getMovies'
 import gql from 'graphql-tag'
 import { Link } from 'react-router-dom'
 import { AnimatedPoster } from '../../components/movie/Poster'
+import { FormattedMessage } from 'react-intl'
 
 const MOVIES = gql`
   query getMovies($week: Int) {
@@ -23,8 +24,18 @@ export const Week = ({ week }: Props) => {
   const { data } = useQuery<getMovies, getMoviesVariables>(MOVIES, {
     variables: { week },
   })
-  if (!data || !data.movies) return <div>Chargement</div>
-  if (data.movies.length == 0) return <div>Pas de film cette semaine !</div>
+  if (!data || !data.movies)
+    return (
+      <div>
+        <FormattedMessage id="loading" />
+      </div>
+    )
+  if (data.movies.length == 0)
+    return (
+      <div>
+        <FormattedMessage id="modules.home.nomovies" />
+      </div>
+    )
 
   return (
     <>

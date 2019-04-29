@@ -6,6 +6,8 @@ import { action } from '@storybook/addon-actions'
 
 import { IntlProvider, addLocaleData } from 'react-intl'
 import frLocale from 'react-intl/locale-data/fr'
+import i18nfr from '../src/i18n/fr'
+import { InjectIntlContext } from '@comparaonline/react-intl-hooks'
 
 import { GlobalStyle } from '../src/components/GlobalStyle'
 
@@ -19,11 +21,11 @@ import { Unsubscribe } from '../src/components/Subscriber/Unsubscribe'
 addLocaleData(frLocale)
 
 addDecorator(story => (
-  <IntlProvider locale="fr">
-    <>
+  <IntlProvider locale="fr" messages={i18nfr}>
+    <InjectIntlContext>
       <GlobalStyle />
       <div style={{ display: 'flex', justifyContent: 'center' }}>{story()}</div>
-    </>
+    </InjectIntlContext>
   </IntlProvider>
 ))
 

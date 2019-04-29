@@ -2,6 +2,8 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { StandardLonghandProperties } from 'csstype'
 import { animated, useSpring, config } from 'react-spring'
+import { FormattedMessage } from 'react-intl'
+import { useFormatMessage } from '@comparaonline/react-intl-hooks'
 
 const Container = styled.div`
   display: inline-block;
@@ -22,15 +24,18 @@ export type Props = {
   maxHeight?: StandardLonghandProperties<React.Key>['maxHeight']
 }
 
-export const Poster = ({ url, name, maxWidth = 200, maxHeight }: Props) => (
-  <Container>
-    <Image
-      src={url || undefined}
-      alt={`Poster du film ${name}`}
-      style={{ maxWidth, maxHeight }}
-    />
-  </Container>
-)
+export const Poster = ({ url, name, maxWidth = 200, maxHeight }: Props) => {
+  const t = useFormatMessage()
+  return (
+    <Container>
+      <Image
+        src={url || undefined}
+        alt={t('components.movie.poster.title', { movieName: name })}
+        style={{ maxWidth, maxHeight }}
+      />
+    </Container>
+  )
+}
 
 export const AnimatedPoster = (props: Props) => {
   const [hover, setHover] = React.useState(false)

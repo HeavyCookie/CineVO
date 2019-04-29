@@ -1063,6 +1063,16 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@comparaonline/react-intl-hooks@^0.0.1-alpha.6":
+  version "0.0.1-alpha.6"
+  resolved "https://registry.yarnpkg.com/@comparaonline/react-intl-hooks/-/react-intl-hooks-0.0.1-alpha.6.tgz#489ee8c60683f4ab3ccbbdd2ab82a24e1c60dbba"
+  integrity sha512-/5qUmN5fG9uIkHQcJl6YfbLIdGHseA0rAcfEnbN5OAU2H78aOs/+hpQQc19CY8aZwthxw87455nGMswrzWnQ3Q==
+  dependencies:
+    "@types/react" "^16.0.0"
+    "@types/react-intl" "^2.3.17"
+    prop-types "^15.7.2"
+    tslib "^1.9.0"
+
 "@emotion/babel-utils@^0.6.4":
   version "0.6.10"
   resolved "https://registry.yarnpkg.com/@emotion/babel-utils/-/babel-utils-0.6.10.tgz#83dbf3dfa933fae9fc566e54fbb45f14674c6ccc"
@@ -1956,7 +1966,7 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.8.13":
+"@types/react@*", "@types/react@^16.0.0", "@types/react@^16.8.13":
   version "16.8.13"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.13.tgz#a82b15aad9ab91c40edca0d6889b7745ae24f053"
   integrity sha512-otJ4ntMuHGrvm67CdDJMAls4WqotmAmW0g3HmWi9LCjSWXrxoXY/nHXrtmMfvPEEmGFNm6NdgMsJmnfH820Qaw==

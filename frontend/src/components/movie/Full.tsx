@@ -4,6 +4,7 @@ import useClickAway from 'react-use/lib/useClickAway'
 import { Poster } from './Poster'
 import { animated, useSpring } from 'react-spring'
 import { Screenings } from './Screenings'
+import { FormattedMessage } from 'react-intl'
 
 const Container = styled(animated.div)`
   position: absolute;
@@ -120,12 +121,29 @@ export const Full = ({
           </PosterContainer>
           <div>
             <Title>{name}</Title>
-            <Info>Avec {actors.join(', ')}</Info>
-            <Info>De {directors.join(', ')}</Info>
-            <Info>Durée : {runtime / 60} minutes</Info>
+            <Info>
+              <FormattedMessage
+                id="components.movie.full.actorList"
+                values={{ actors: actors.join(', ') }}
+              />
+            </Info>
+            <Info>
+              <FormattedMessage
+                id="components.movie.full.directorList"
+                values={{ directors: directors.join(', ') }}
+              />
+            </Info>
+            <Info>
+              <FormattedMessage
+                id="components.movie.full.duration"
+                values={{ minutes: runtime / 60 }}
+              />
+            </Info>
             {!!synopsis && (
               <>
-                <Title as="h2">Synopsis</Title>
+                <Title as="h2">
+                  <FormattedMessage id="components.movie.full.synopsis" />
+                </Title>
                 <Synopsis>{synopsis}</Synopsis>
               </>
             )}

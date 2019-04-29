@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { FormattedMessage } from 'react-intl'
+import { useFormatMessage } from '@comparaonline/react-intl-hooks'
 
 type Props = {
   onSubmit: (email: string) => any
@@ -49,6 +51,7 @@ const Submit = styled.button`
 
 export const Subscribe = (props: Props) => {
   const [email, setEmail] = useState('')
+  const t = useFormatMessage()
 
   useEffect(() => {
     setEmail('')
@@ -67,13 +70,13 @@ export const Subscribe = (props: Props) => {
       >
         <Input
           type="email"
-          placeholder="Votre email"
+          placeholder={t('components.subscriber.subscribe.emailPlaceholder')}
           value={email}
           onChange={e => setEmail(e.target.value)}
           disabled={props.loading}
         />
         <Submit disabled={props.loading}>
-          {props.loading ? '...' : "S'inscrire"}
+          {props.loading ? '...' : t('components.subscriber.subscribe.submit')}
         </Submit>
       </Form>
     </Container>
