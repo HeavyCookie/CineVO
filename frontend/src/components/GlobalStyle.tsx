@@ -1,7 +1,8 @@
 import { createGlobalStyle } from 'styled-components'
-import 'normalize.css'
+import normalize from 'normalize.css'
 
 export const GlobalStyle = createGlobalStyle`
+  ${normalize}
   body {
     font-family: Helvetica, sans-serif;
   }
