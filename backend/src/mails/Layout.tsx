@@ -1,12 +1,22 @@
 import * as React from 'react'
-import { Mjml, MjmlBody, MjmlHero, MjmlText, MjmlSection } from 'mjml-react'
+import {
+  Mjml,
+  MjmlBody,
+  MjmlHero,
+  MjmlText,
+  MjmlSection,
+  MjmlColumn,
+} from 'mjml-react'
 import { format } from 'date-fns'
 import * as locale from 'date-fns/locale/fr'
+import { Subscriber } from '../entity/Subscriber'
 
 export const Layout = ({
   children,
   dates,
+  subscriber,
 }: {
+  subscriber: Subscriber
   dates: [Date, Date]
   children: React.ReactNode
 }) => {
@@ -32,6 +42,20 @@ export const Layout = ({
           </MjmlText>
         </MjmlHero>
         <MjmlSection background-color="#fff">{children}</MjmlSection>
+        <MjmlSection>
+          <MjmlColumn backgroundColor="#db2828">
+            <MjmlText align="center">
+              <a
+                href={`${process.env.BASE_URL || ''}/unsusbscribe/${
+                  subscriber.id
+                }`}
+                style={{ color: '#FFF' }}
+              >
+                Se désinscrire
+              </a>
+            </MjmlText>
+          </MjmlColumn>
+        </MjmlSection>
       </MjmlBody>
     </Mjml>
   )

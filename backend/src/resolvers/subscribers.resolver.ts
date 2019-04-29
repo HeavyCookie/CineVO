@@ -6,9 +6,15 @@ import { Subscriber } from '../entity/Subscriber'
 
 @InputType()
 class SubscriberInput {
+  @Field({ nullable: true })
+  public id: string
+
   @IsEmail()
   @Field()
   public email: string
+
+  @Field({ nullable: true })
+  public createdAt: Date
 }
 
 @Resolver()
@@ -21,20 +27,17 @@ export class SubscriberResolver {
   @Mutation(() => Boolean)
   public async subscribe(@Arg('subscriber') input: SubscriberInput) {
     try {
-      await this.subscriberRepository.insert({ email: input.email })
+      await this.subscriberRepository.insert(input)
       return true
     } catch {
       return false
     }
   }
 
-  @Mutation(() => Boolean)
+  @Mutation(() => Subscriber)
   public async unsubscribe(@Arg('id', () => ID) id: string) {
-    try {
-      await this.subscriberRepository.delete({ id })
-      return true
-    } catch {
-      return false
-    }
+    const subscriber = await this.subscriberRepository.findOneOrFail({ id })
+    await this.subscriberRepository.delete({ id })
+    return subscriber
   }
 }

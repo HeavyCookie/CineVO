@@ -39,7 +39,7 @@ export const sendNewsletter = async () => {
     await sendMail(
       subscriber.email,
       'Séances de la semaine',
-      await htmlNewsletter(dates, movies, screeningsByMovie)
+      await htmlNewsletter(subscriber, dates, movies, screeningsByMovie)
     )
   })
 }

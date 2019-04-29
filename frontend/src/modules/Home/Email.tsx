@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Subscribe } from '../../components/Subscribe'
+import { Subscribe } from '../../components/Subscriber/Subscribe'
 import gql from 'graphql-tag'
 import { useMutation } from 'react-apollo-hooks'
 

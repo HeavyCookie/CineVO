@@ -1,10 +1,16 @@
 require('dotenv').config({ path: '../.env' })
 
 import * as Koa from 'koa'
-import { createConnection, getCustomRepository, getConnection } from 'typeorm'
+import {
+  createConnection,
+  getCustomRepository,
+  getConnection,
+  getRepository,
+} from 'typeorm'
 import { htmlNewsletter } from '../lib/newsletter'
 import { MovieRepository } from '../repositories/MovieRepository'
 import { getWeek } from '../lib/theater-weeks'
+import { Subscriber } from '../entity/Subscriber'
 
 const app = new Koa()
 
@@ -28,7 +34,9 @@ app.use(async ctx => {
 
   const dates = getWeek(1)
 
-  ctx.body = await htmlNewsletter(dates, movies, screeningsByMovies)
+  const subscriber = await getRepository(Subscriber).findOneOrFail()
+
+  ctx.body = await htmlNewsletter(subscriber, dates, movies, screeningsByMovies)
 })
 
 console.log('http://localhost:3333')

@@ -13,7 +13,8 @@ import { Poster, AnimatedPoster } from '../src/components/movie/Poster'
 import { Full } from '../src/components/movie/Full'
 import { DefaultView } from '../src/components/DefaultView'
 import { Screenings } from '../src/components/movie/Screenings'
-import { Subscribe } from '../src/components/Subscribe'
+import { Subscribe } from '../src/components/Subscriber/Subscribe'
+import { Unsubscribe } from '../src/components/Subscriber/Unsubscribe'
 
 addLocaleData(frLocale)
 
@@ -69,9 +70,31 @@ storiesOf('Movie/Screenings', module).add('default', () => (
   />
 ))
 
-storiesOf('Subscribe', module)
+storiesOf('Subscriber/Subscribe', module)
   .add('default', () => <Subscribe onSubmit={action('submitted')} />)
   .add('sending', () => <Subscribe onSubmit={action('submitted')} loading />)
   .add('subscribed', () => (
     <Subscribe onSubmit={action('submitted')} subscribed />
+  ))
+
+storiesOf('Subscriber/Unsubscribe', module)
+  .add('inProgress', () => (
+    <Unsubscribe
+      resubscribe={action('resubscribe')}
+      cancelUnsubscription={action('cancelUnsubscription')}
+    />
+  ))
+  .add('unsubscribed', () => (
+    <Unsubscribe
+      resubscribe={action('resubscribe')}
+      cancelUnsubscription={action('cancelUnsubscription')}
+      unsubscribed
+    />
+  ))
+  .add('resubscribed', () => (
+    <Unsubscribe
+      resubscribe={action('resubscribe')}
+      cancelUnsubscription={action('cancelUnsubscription')}
+      resubscribed
+    />
   ))
