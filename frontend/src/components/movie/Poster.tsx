@@ -2,7 +2,6 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { StandardLonghandProperties } from 'csstype'
 import { animated, useSpring, config } from 'react-spring'
-import { FormattedMessage } from 'react-intl'
 import { useFormatMessage } from '@comparaonline/react-intl-hooks'
 
 const Container = styled.div`
@@ -39,7 +38,7 @@ export const Poster = ({ url, name, maxWidth = 200, maxHeight }: Props) => {
 
 export const AnimatedPoster = (props: Props) => {
   const [hover, setHover] = React.useState(false)
-  const style = useSpring({ scale: hover ? 1.1 : 1, config: config.wobbly })
+  const style = useSpring({ scale: hover ? 1 : 0.9, config: config.wobbly })
   return (
     <animated.div
       style={{
