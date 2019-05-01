@@ -54,3 +54,8 @@ export const AnimatedPoster = (props: Props) => {
     </animated.div>
   )
 }
+
+export const Wall = styled.div`
+  display: flex;
+  justify-content: center;
+`

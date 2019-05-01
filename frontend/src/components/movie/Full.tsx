@@ -1,6 +1,5 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import useClickAway from 'react-use/lib/useClickAway'
 import { Poster } from './Poster'
 import { animated, useSpring } from 'react-spring'
 import { Screenings } from './Screenings'
@@ -64,6 +63,11 @@ const Synopsis = styled.p`
   font-style: italic;
 `
 
+const Navigation = styled.nav`
+  display: flex;
+  justify-content: space-between;
+`
+
 type Props = {
   movie: {
     poster: string | null
@@ -76,7 +80,9 @@ type Props = {
     backdrop: string | null
     screenings?: (string | Date | number)[]
   }
-  close?: (event?: KeyboardEvent) => void
+  next?: React.ReactChild | null
+  previous?: React.ReactChild | null
+  close?: () => void
 }
 
 export const Full = ({
@@ -90,6 +96,8 @@ export const Full = ({
     backdrop,
     screenings,
   },
+  next,
+  previous,
   close,
 }: Props) => {
   const ref = React.useRef(null)
@@ -101,25 +109,29 @@ export const Full = ({
     },
   }))
 
-  if (close)
-    useClickAway(ref, () => {
-      setEffect({
-        to: async next => {
-          await next({ opacity: 0 })
-          close()
-        },
-      })
+  const closeAction = () =>
+    setEffect({
+      to: async next => {
+        await next({ opacity: 0 })
+        if (close) close()
+      },
     })
 
   return (
-    <Container style={effect}>
-      <Popin ref={ref}>
+    <Container style={effect} onClick={closeAction}>
+      <Popin ref={ref} onClick={e => e.stopPropagation()}>
         <Backdrop src={backdrop || undefined} />
         <Informations>
           <PosterContainer>
             <Poster name={name} url={poster} />
           </PosterContainer>
           <div>
+            {(previous || next) && (
+              <Navigation>
+                <div>{previous}</div>
+                <div>{next}</div>
+              </Navigation>
+            )}
             <Title>{name}</Title>
             <Info>
               <FormattedMessage

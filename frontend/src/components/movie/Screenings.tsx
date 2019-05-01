@@ -6,6 +6,7 @@ import styled from 'styled-components'
 const Container = styled.dl`
   display: grid;
   grid-template-columns: auto auto;
+  max-width: 200px;
 `
 
 const ScreeningList = styled.dd`

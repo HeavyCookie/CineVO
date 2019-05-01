@@ -4,6 +4,8 @@ import gql from 'graphql-tag'
 import { useQuery } from 'react-apollo-hooks'
 import { getMovieDetails } from './__generated__/getMovieDetails'
 import { RouteComponentProps } from 'react-router'
+import { Link } from 'react-router-dom'
+import { FormattedMessage } from 'react-intl'
 
 type Props = RouteComponentProps<{
   movieId: string
@@ -23,6 +25,12 @@ const GET_MOVIE_DETAILS = gql`
       backdrop
       screenings {
         date
+      }
+      next {
+        id
+      }
+      previous {
+        id
       }
     }
   }
@@ -49,6 +57,24 @@ export const Movie = (props: Props) => {
         backdrop: data.movie.backdrop,
         screenings,
       }}
+      previous={
+        data.movie.previous && data.movie.previous.id ? (
+          <Link to={`/movies/${data.movie.previous.id}`}>
+            <FormattedMessage id="components.movie.full.previous" />
+          </Link>
+        ) : (
+          undefined
+        )
+      }
+      next={
+        data.movie.next && data.movie.next.id ? (
+          <Link to={`/movies/${data.movie.next.id}`}>
+            <FormattedMessage id="components.movie.full.next" />
+          </Link>
+        ) : (
+          undefined
+        )
+      }
       close={() => props.history.push('/')}
     />
   )

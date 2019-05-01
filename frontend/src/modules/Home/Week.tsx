@@ -3,7 +3,7 @@ import { useQuery } from 'react-apollo-hooks'
 import { getMovies, getMoviesVariables } from './__generated__/getMovies'
 import gql from 'graphql-tag'
 import { Link } from 'react-router-dom'
-import { AnimatedPoster } from '../../components/movie/Poster'
+import { AnimatedPoster, Wall } from '../../components/movie/Poster'
 import { FormattedMessage } from 'react-intl'
 
 const MOVIES = gql`
@@ -38,12 +38,12 @@ export const Week = ({ week }: Props) => {
     )
 
   return (
-    <>
+    <Wall>
       {data.movies.map(movie => (
         <Link key={movie.id} to={`/movies/${movie.id}`}>
           <AnimatedPoster name={movie.title} url={movie.poster} />
         </Link>
       ))}
-    </>
+    </Wall>
   )
 }

@@ -15,6 +15,8 @@ const translations: Translations = {
           other {minutes}
         }`,
         synopsis: 'Synopsis',
+        previous: 'Précédent',
+        next: 'Suivant',
       },
       poster: { title: 'Poster du film {movieName}' },
     },
