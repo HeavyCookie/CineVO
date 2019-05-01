@@ -20,12 +20,6 @@ module.exports = {
         },
       },
     },
+    'eslint',
   ],
-  modify: config => {
-    config.module.rules[0].use[0].options.eslintPath = path.resolve(
-      __dirname,
-      'node_modules/eslint'
-    )
-    return config
-  },
 }
