@@ -71,6 +71,7 @@ const allocineToMovie = async (amovie: AMovie): Promise<Movie> => {
     release: release,
     backdrop:
       tmdbMovie &&
+      tmdbMovie.backdrop_path &&
       'http://image.tmdb.org/t/p/original' + tmdbMovie.backdrop_path,
   })
 }

@@ -18,49 +18,31 @@ type FilesToUpload<T> = Partial<{ [key in StringProps<T>]: string }>
 export class MovieFileUpload implements EntitySubscriberInterface {
   public listenTo = () => Movie
 
-  public filesToUpload: FilesToUpload<Movie> = {}
   public static fileFields: (StringProps<Movie>)[] = ['backdrop', 'poster']
 
   public static filePath = (id: string | number, field?: string) =>
     ['movies', id, field].join('/')
 
-  public gatherPotentialFileFields = (entity: Movie) => {
-    if (!entity) return
-
-    MovieFileUpload.fileFields.forEach(field => {
-      if (!entity[field] || !entity[field].match(/^https?:\/\//)) return
-
-      this.filesToUpload[field] = entity[field]
-      entity[field] = undefined
-    })
-  }
-
   public uploadFilesAndUpdateEntity = async (entity: Movie) => {
     if (!entity) return
 
     const { id } = entity
-    const toUpdate = Object.entries(this.filesToUpload).reduce(
-      (acc, [field, value]) => {
-        const filepath = MovieFileUpload.filePath(id, field)
-        uploadFileFromUrl(value, filepath)
-        acc[field] = filepath
-        return acc
-      },
-      {}
-    )
+    const toUpdate = MovieFileUpload.fileFields.reduce((acc, field) => {
+      if (!entity[field] || !entity[field].match(/^https?:\/\//)) return acc
+
+      const value = entity[field]
+      const filepath = MovieFileUpload.filePath(id, field)
+      uploadFileFromUrl(value, filepath)
+      acc[field] = filepath
+      return acc
+    }, {})
 
     if (Object.keys(toUpdate).length > 0)
       await getManager().update(this.listenTo(), { id }, toUpdate)
   }
 
-  public beforeInsert = ({ entity }: InsertEvent<Movie>) =>
-    this.gatherPotentialFileFields(entity)
-
   public afterInsert = ({ entity }: InsertEvent<Movie>) =>
     this.uploadFilesAndUpdateEntity(entity)
-
-  public beforeUpdate = ({ entity }: UpdateEvent<Movie>) =>
-    this.gatherPotentialFileFields(entity)
 
   public afterUpdate = ({ entity }: UpdateEvent<Movie>) =>
     this.uploadFilesAndUpdateEntity(entity)

@@ -53,7 +53,7 @@ export class Movie {
 
   @Field({ name: 'backdrop', nullable: true })
   public backdropUrl(): string | null {
-    return this.poster ? getFileURL(this.backdrop) : null
+    return this.backdrop ? getFileURL(this.backdrop) : null
   }
 
   @Field({ nullable: true })
