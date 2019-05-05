@@ -3,11 +3,12 @@ import { Full } from '../components/movie/Full'
 import gql from 'graphql-tag'
 import { useQuery } from 'react-apollo-hooks'
 import { getMovieDetails } from './__generated__/getMovieDetails'
-import { RouteComponentProps } from 'react-router'
-import { Link } from 'react-router-dom'
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
 import { FormattedMessage } from 'react-intl'
 
-type Props = RouteComponentProps<{
+type Props = {
+  weekMovieIds: string[]
+} & RouteComponentProps<{
   movieId: string
 }>
 
@@ -26,17 +27,11 @@ const GET_MOVIE_DETAILS = gql`
       screenings {
         date
       }
-      next {
-        id
-      }
-      previous {
-        id
-      }
     }
   }
 `
 
-export const Movie = (props: Props) => {
+export const Movie = withRouter((props: Props) => {
   const { data } = useQuery<getMovieDetails>(GET_MOVIE_DETAILS, {
     variables: { id: props.match.params.movieId },
   })
@@ -44,6 +39,10 @@ export const Movie = (props: Props) => {
   if (!data || !data.movie) return null
 
   const screenings = data.movie.screenings.map(screening => screening.date)
+
+  const currentMoviePos = props.weekMovieIds.indexOf(props.match.params.movieId)
+  const previousMovieId = props.weekMovieIds[currentMoviePos - 1]
+  const nextMovieId = props.weekMovieIds[currentMoviePos + 1]
 
   return (
     <Full
@@ -58,24 +57,20 @@ export const Movie = (props: Props) => {
         screenings,
       }}
       previous={
-        data.movie.previous && data.movie.previous.id ? (
-          <Link to={`/movies/${data.movie.previous.id}`}>
+        previousMovieId && (
+          <Link to={`/movies/${previousMovieId}`}>
             <FormattedMessage id="components.movie.full.previous" />
           </Link>
-        ) : (
-          undefined
         )
       }
       next={
-        data.movie.next && data.movie.next.id ? (
-          <Link to={`/movies/${data.movie.next.id}`}>
+        nextMovieId && (
+          <Link to={`/movies/${nextMovieId}`}>
             <FormattedMessage id="components.movie.full.next" />
           </Link>
-        ) : (
-          undefined
         )
       }
       close={() => props.history.push('/')}
     />
   )
-}
+})

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useFormatMessage } from '@comparaonline/react-intl-hooks'
+import { Input } from 'semantic-ui-react'
 
 type Props = {
   onSubmit: (email: string) => any
@@ -28,26 +29,6 @@ const Form = styled.form`
   box-shadow: 0 0 2px;
 `
 
-const Input = styled.input`
-  margin: 3px;
-  border: none;
-  outline: none;
-`
-
-const Submit = styled.button`
-  margin: 3px;
-  padding: 3px 6px;
-  color: white;
-  background-color: #db2828;
-  border: none;
-  border-radius: 3px;
-  outline: none;
-
-  &:disabled {
-    background-color: #917171;
-  }
-`
-
 export const Subscribe = (props: Props) => {
   const [email, setEmail] = useState('')
   const t = useFormatMessage()
@@ -73,10 +54,12 @@ export const Subscribe = (props: Props) => {
           value={email}
           onChange={e => setEmail(e.target.value)}
           disabled={props.loading}
+          action={{
+            color: 'red',
+            content: t('components.subscriber.subscribe.submit'),
+            loading: props.loading,
+          }}
         />
-        <Submit disabled={props.loading}>
-          {props.loading ? '...' : t('components.subscriber.subscribe.submit')}
-        </Submit>
       </Form>
     </Container>
   )

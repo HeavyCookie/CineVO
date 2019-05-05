@@ -28,8 +28,6 @@ const App = () => (
               <Route path="/unsubscribe/:uuid" component={Unsubscribe} />
               <Route path="/" component={Home} />
             </Switch>
-            {/* Popins */}
-            <Route path="/movies/:movieId" component={Movie} />
           </DefaultView>
         </ApolloHooksProvider>
       </ApolloProvider>

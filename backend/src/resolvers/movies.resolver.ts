@@ -37,20 +37,4 @@ export class MovieResolver {
   }
 
   public surroundingMovies: Movie[] | undefined
-
-  @FieldResolver(() => Movie, { nullable: true })
-  public async next(@Root() movie: Movie): Promise<Movie> {
-    if (!this.surroundingMovies)
-      this.surroundingMovies = await this.movieRepository.getMoviesAndScreeningsForWeek()
-    const currentIndex = this.surroundingMovies.findIndex(m => m.id == movie.id)
-    return this.surroundingMovies[currentIndex + 1]
-  }
-
-  @FieldResolver(() => Movie, { nullable: true })
-  public async previous(@Root() movie: Movie): Promise<Movie> {
-    if (!this.surroundingMovies)
-      this.surroundingMovies = await this.movieRepository.getMoviesAndScreeningsForWeek()
-    const currentIndex = this.surroundingMovies.findIndex(m => m.id == movie.id)
-    return this.surroundingMovies[currentIndex - 1]
-  }
 }
