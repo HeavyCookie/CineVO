@@ -1,8 +1,10 @@
 import { createGlobalStyle } from 'styled-components'
 import normalize from 'normalize.css'
+// @ts-ignore
+import semantic from 'semantic-ui-css/semantic.min.css'
 
 export const GlobalStyle = createGlobalStyle`
-  ${normalize}
+  ${semantic}
   body {
     font-family: Helvetica, sans-serif;
   }

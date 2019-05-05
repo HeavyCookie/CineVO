@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { FormattedMessage } from 'react-intl'
 import { useFormatMessage } from '@comparaonline/react-intl-hooks'
 
 type Props = {
