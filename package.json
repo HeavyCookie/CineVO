@@ -1,11 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "start": "concurrently --handle-input npm:start:*",
-    "start:backend": "cd backend && yarn start",
-    "start:frontend": "cd frontend && yarn start",
-    "start:storybook": "cd frontend && yarn storybook",
-    "start:docker": "docker-compose up"
+    "start": "concurrently --handle-input npm:docker npm:backend npm:frontend",
+    "backend": "cd backend && yarn start",
+    "frontend": "cd frontend && yarn start",
+    "storybook": "cd frontend && yarn storybook",
+    "docker": "docker-compose up"
   },
   "dependencies": {
     "concurrently": "^4.1.0"
