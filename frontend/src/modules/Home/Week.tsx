@@ -18,10 +18,11 @@ const MOVIES = gql`
 `
 
 type Props = {
-  week: number
+  week?: number
 }
 
-export const Week = ({ week }: Props) => {
+export const Week = (props: Props) => {
+  const week = props.week || 0
   const { data } = useQuery<getMovies, getMoviesVariables>(MOVIES, {
     variables: { week },
   })
@@ -39,14 +40,14 @@ export const Week = ({ week }: Props) => {
     <>
       <Wall>
         {data.movies.map(movie => (
-          <Link key={movie.id} to={`/movies/${movie.id}`}>
+          <Link key={movie.id} to={`/week/${week}/movies/${movie.id}`}>
             <AnimatedPoster name={movie.title} url={movie.poster} />
           </Link>
         ))}
       </Wall>
 
       <Route
-        path="/movies/:movieId"
+        path="/week/:week/movies/:movieId"
         render={props => (
           <Movie {...props} weekMovieIds={data.movies.map(m => m.id)} />
         )}

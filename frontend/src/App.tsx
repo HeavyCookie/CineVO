@@ -6,7 +6,6 @@ import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks'
 import { client } from './apollo'
 import { DefaultView } from './components/DefaultView'
 import { GlobalStyle } from './components/GlobalStyle'
-import { Movie } from './modules/Movie'
 import { InjectIntlContext } from '@comparaonline/react-intl-hooks'
 
 import { IntlProvider, addLocaleData } from 'react-intl'
@@ -26,7 +25,7 @@ const App = () => (
           <DefaultView>
             <Switch>
               <Route path="/unsubscribe/:uuid" component={Unsubscribe} />
-              <Route path="/" component={Home} />
+              <Route path={['/week/:week', '/']} component={Home} />
             </Switch>
           </DefaultView>
         </ApolloHooksProvider>

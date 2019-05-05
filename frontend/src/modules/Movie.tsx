@@ -10,6 +10,7 @@ type Props = {
   weekMovieIds: string[]
 } & RouteComponentProps<{
   movieId: string
+  week: string
 }>
 
 const GET_MOVIE_DETAILS = gql`
@@ -32,6 +33,7 @@ const GET_MOVIE_DETAILS = gql`
 `
 
 export const Movie = withRouter((props: Props) => {
+  const { movieId, week } = props.match.params
   const { data } = useQuery<getMovieDetails>(GET_MOVIE_DETAILS, {
     variables: { id: props.match.params.movieId },
   })
@@ -58,14 +60,14 @@ export const Movie = withRouter((props: Props) => {
       }}
       previous={
         previousMovieId && (
-          <Link to={`/movies/${previousMovieId}`}>
+          <Link to={`/week/${week}/movies/${previousMovieId}`}>
             <FormattedMessage id="components.movie.full.previous" />
           </Link>
         )
       }
       next={
         nextMovieId && (
-          <Link to={`/movies/${nextMovieId}`}>
+          <Link to={`/week/${week}/movies/${nextMovieId}`}>
             <FormattedMessage id="components.movie.full.next" />
           </Link>
         )

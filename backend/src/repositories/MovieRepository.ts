@@ -11,4 +11,12 @@ export class MovieRepository extends Repository<Movie> {
       .where('screening.date BETWEEN :start AND :end', { start, end })
       .getMany()
   }
+
+  public countMoviesForWeek(week: number = 0) {
+    const [start, end] = getWeek(week)
+    return this.createQueryBuilder('movie')
+      .leftJoinAndSelect('movie.screenings', 'screening')
+      .where('screening.date BETWEEN :start AND :end', { start, end })
+      .getCount()
+  }
 }

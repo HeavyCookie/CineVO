@@ -1,12 +1,4 @@
-import {
-  Resolver,
-  Query,
-  Arg,
-  Int,
-  ID,
-  FieldResolver,
-  Root,
-} from 'type-graphql'
+import { Resolver, Query, Arg, Int, ID } from 'type-graphql'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 import { Movie } from '../entity/Movie'
 import { refreshMoviesFromAllocine } from '../lib/allocine-screenings'
@@ -24,6 +16,13 @@ export class MovieResolver {
     @Arg('week', () => Int, { defaultValue: 0 }) week: number
   ): Promise<Movie[]> {
     return this.movieRepository.getMoviesAndScreeningsForWeek(week)
+  }
+
+  @Query(() => Number)
+  public async countMoviesForWeek(
+    @Arg('week', () => Int, { defaultValue: 0 }) week: number
+  ) {
+    return await this.movieRepository.countMoviesForWeek(week)
   }
 
   @Query(() => Movie, { nullable: true })
