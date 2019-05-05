@@ -11,7 +11,11 @@ import { InjectIntlContext } from '@comparaonline/react-intl-hooks'
 
 import { GlobalStyle } from '../src/components/GlobalStyle'
 
-import { Poster, AnimatedPoster } from '../src/components/movie/Poster'
+import {
+  Poster,
+  AnimatedPoster,
+  WallLoader,
+} from '../src/components/movie/Poster'
 import { Full } from '../src/components/movie/Full'
 import { DefaultView } from '../src/components/DefaultView'
 import { Screenings } from '../src/components/movie/Screenings'
@@ -43,6 +47,7 @@ storiesOf('Movie/Poster', module)
       name="Captain Marvel"
     />
   ))
+  .add('WallLoader', () => <WallLoader />)
 
 storiesOf('Movie/Full', module).add('default', () => (
   <Full

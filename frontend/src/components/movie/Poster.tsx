@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { StandardLonghandProperties } from 'csstype'
 import { animated, useSpring, config } from 'react-spring'
 import { useFormatMessage } from '@comparaonline/react-intl-hooks'
+import { Loader } from 'semantic-ui-react'
 
 const Container = styled.div`
   display: inline-block;
@@ -59,3 +60,18 @@ export const Wall = styled.div`
   display: flex;
   justify-content: center;
 `
+
+export const WallLoaderContainer = styled.div`
+  display: flex;
+  margin: 4em;
+`
+
+export const WallLoader = () => {
+  const t = useFormatMessage()
+
+  return (
+    <WallLoaderContainer>
+      <Loader inline active content={t('loading')} />
+    </WallLoaderContainer>
+  )
+}
