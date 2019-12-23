@@ -1,5 +1,6 @@
 import { schedule } from 'node-cron'
 import { getRepository, getCustomRepository } from 'typeorm'
+
 import { Subscriber } from '../entity/Subscriber'
 import { MovieRepository } from '../repositories/MovieRepository'
 import { htmlNewsletter } from '../lib/newsletter'

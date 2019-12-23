@@ -1,8 +1,10 @@
 import * as React from 'react'
 import { MjmlColumn, MjmlImage, MjmlText } from 'mjml-react'
-import { Screenings } from './screenings'
+
 import { Movie as MovieEntity } from '../entity/Movie'
 import { Screening as ScreeningEntity } from '../entity/Screening'
+
+import { Screenings } from './Screenings'
 
 type Props = {
   movie: MovieEntity

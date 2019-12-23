@@ -1,4 +1,5 @@
 import * as Faker from 'faker'
+
 import { Subscriber } from '../entity/Subscriber'
 import { Movie } from '../entity/Movie'
 

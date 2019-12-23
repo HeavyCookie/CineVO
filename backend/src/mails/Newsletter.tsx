@@ -1,9 +1,11 @@
 import * as React from 'react'
-import { Layout } from './layout'
-import { Movie } from './movie'
+
 import { Movie as MovieEntity } from '../entity/Movie'
 import { Screening } from '../entity/Screening'
 import { Subscriber } from '../entity/Subscriber'
+
+import { Layout } from './Layout'
+import { Movie } from './Movie'
 
 export type Props = {
   subscriber: Subscriber
@@ -15,7 +17,7 @@ export type Props = {
 export const Newsletter = (props: Props) => (
   <Layout dates={props.dates} subscriber={props.subscriber}>
     {props.movies.map(movie => (
-      <Movie movie={movie} screenings={props.screenings} />
+      <Movie key={movie.id} movie={movie} screenings={props.screenings} />
     ))}
   </Layout>
 )

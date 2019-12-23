@@ -1,5 +1,6 @@
 import { ObjectType, Field } from 'type-graphql'
 import { Entity, ManyToOne, PrimaryColumn } from 'typeorm'
+
 import { Movie } from './Movie'
 
 @ObjectType()

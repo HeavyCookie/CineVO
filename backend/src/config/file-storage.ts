@@ -86,7 +86,7 @@ export const uploadFileFromUrl = async (
 export const removeFile = async (filepath: string) =>
   await client.removeObject(MINIO_BUCKET_NAME, filepath)
 
-export const listFiles = (path: string, recursive: boolean = true) =>
+export const listFiles = (path: string, recursive = true) =>
   client.listObjects(MINIO_BUCKET_NAME, path, recursive)
 
 export const getFileURL = (filepath: string) =>

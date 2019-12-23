@@ -3,6 +3,7 @@ require('dotenv').config({ path: '../.env' })
 import 'reflect-metadata'
 import * as TypeORM from 'typeorm'
 import { ApolloServer } from 'apollo-server'
+
 import { generateSchema } from './config/graphql-schema'
 
 const PORT = process.env.PORT || 4000

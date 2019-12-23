@@ -1,4 +1,5 @@
 import { render } from 'mjml-react'
+
 import { Newsletter } from '../mails/Newsletter'
 import { Movie } from '../entity/Movie'
 import { Screening } from '../entity/Screening'

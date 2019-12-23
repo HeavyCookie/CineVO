@@ -1,7 +1,9 @@
 import { getManager, MoreThan } from 'typeorm'
-import { parse, parseISO } from 'date-fns'
+import { parseISO } from 'date-fns'
+
 import { Movie } from '../entity/Movie'
 import { Screening } from '../entity/Screening'
+
 import { searchMovie } from './tmdb'
 import { getTheaterShowtimes } from './allocine/api'
 import { Showtime } from './allocine/showtimes'

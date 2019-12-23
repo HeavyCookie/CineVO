@@ -23,7 +23,7 @@ export const sendMail = (
   to: string | string[],
   subject: string,
   content: string,
-  from: string = '"CineVO 🍿" <contact@heavycookie.co>'
+  from = '"CineVO 🍿" <contact@heavycookie.co>'
 ) =>
   transport.sendMail({
     from,

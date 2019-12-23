@@ -2,6 +2,7 @@ import { gql } from 'apollo-server'
 import { getManager } from 'typeorm'
 import * as uuid from 'uuid'
 import { addWeeks } from 'date-fns'
+
 import { connect, disconnect, query } from '../tests/utils'
 import { Movie } from '../entity/Movie'
 import Factories from '../tests/factories'

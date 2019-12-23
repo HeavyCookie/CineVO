@@ -9,6 +9,7 @@ import {
 } from 'mjml-react'
 import { format } from 'date-fns'
 import locale from 'date-fns/locale/fr'
+
 import { Subscriber } from '../entity/Subscriber'
 
 export const Layout = ({

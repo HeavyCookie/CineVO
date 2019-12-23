@@ -1,6 +1,8 @@
 import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { ObjectType, Field, ID, Int } from 'type-graphql'
+
 import { getFileURL } from '../config/file-storage'
+
 import { Screening } from './Screening'
 
 @ObjectType()
@@ -65,6 +67,10 @@ export class Movie {
   public userRatings?: number
 
   @Field(() => [Screening])
-  @OneToMany(() => Screening, screening => screening.movie, { cascade: true })
+  @OneToMany(
+    () => Screening,
+    screening => screening.movie,
+    { cascade: true }
+  )
   public screenings: Promise<Screening[]>
 }

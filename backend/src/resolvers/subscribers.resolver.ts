@@ -2,6 +2,7 @@ import { Resolver, Mutation, Arg, InputType, Field, ID } from 'type-graphql'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 import { Repository } from 'typeorm'
 import { IsEmail } from 'class-validator'
+
 import { Subscriber } from '../entity/Subscriber'
 
 @InputType()

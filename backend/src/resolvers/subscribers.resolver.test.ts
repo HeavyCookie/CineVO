@@ -1,5 +1,6 @@
 import { gql } from 'apollo-server'
 import { getManager } from 'typeorm'
+
 import { connect, query, disconnect } from '../tests/utils'
 import { Subscriber } from '../entity/Subscriber'
 

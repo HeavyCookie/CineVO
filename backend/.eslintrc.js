@@ -1,15 +1,23 @@
 module.exports = {
   root: true,
-  parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  parser: '@typescript-eslint/parser', // Specifies the ESLint parser
   extends: [
-    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended', // Uses the recommended rules from @eslint-plugin-react
+    'plugin:@typescript-eslint/recommended', // Uses the recommended rules from @typescript-eslint/eslint-plugin
     'plugin:import/errors',
     'plugin:import/warnings',
+    'plugin:import/typescript',
     'prettier',
     'prettier/@typescript-eslint',
-    'prettier/react',
   ],
+  plugins: ['@typescript-eslint', 'prettier', 'react'],
+  parserOptions: {
+    ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
+    sourceType: 'module', // Allows for the use of imports
+    ecmaFeatures: {
+      jsx: true, // Allows for the parsing of JSX
+    },
+  },
   rules: {
     'no-console': 1,
     'import/named': 0,
@@ -26,21 +34,14 @@ module.exports = {
           'sibling',
           'index',
         ],
-        /*
-          TODO: Set to `always` when
-          https://github.com/prettier/prettier-eslint/issues/181 will be closed
-        */
-        'newlines-between': 'ignore',
+        'newlines-between': 'always',
       },
     ],
     'import/newline-after-import': 2,
   },
   settings: {
-    'import/parsers': {
-      'typescript-eslint-parser': ['.ts', '.tsx'],
-    },
-    'import/resolver': {
-      typescript: {},
+    react: {
+      version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
     },
   },
 }

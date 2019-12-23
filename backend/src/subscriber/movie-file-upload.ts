@@ -5,12 +5,13 @@ import {
   getManager,
   UpdateEvent,
 } from 'typeorm'
+
 import { Movie } from '../entity/Movie'
 import { uploadFileFromUrl } from '../config/file-storage'
 
-type StringProps<T> = ({
+type StringProps<T> = {
   [P in keyof T]: T[P] extends string ? P : never
-})[keyof T]
+}[keyof T]
 
 type FilesToUpload<T> = Partial<{ [key in StringProps<T>]: string }>
 
@@ -18,7 +19,7 @@ type FilesToUpload<T> = Partial<{ [key in StringProps<T>]: string }>
 export class MovieFileUpload implements EntitySubscriberInterface {
   public listenTo = () => Movie
 
-  public static fileFields: (StringProps<Movie>)[] = ['backdrop', 'poster']
+  public static fileFields: StringProps<Movie>[] = ['backdrop', 'poster']
 
   public static filePath = (id: string | number, field?: string) =>
     ['movies', id, field].join('/')

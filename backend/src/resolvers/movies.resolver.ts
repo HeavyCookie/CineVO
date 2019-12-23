@@ -1,5 +1,6 @@
 import { Resolver, Query, Arg, Int, ID } from 'type-graphql'
 import { InjectRepository } from 'typeorm-typedi-extensions'
+
 import { Movie } from '../entity/Movie'
 import { refreshMoviesFromAllocine } from '../lib/allocine-screenings'
 import { MovieRepository } from '../repositories/MovieRepository'

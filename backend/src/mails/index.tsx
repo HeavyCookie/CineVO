@@ -7,6 +7,7 @@ import {
   getConnection,
   getRepository,
 } from 'typeorm'
+
 import { htmlNewsletter } from '../lib/newsletter'
 import { MovieRepository } from '../repositories/MovieRepository'
 import { getWeek } from '../lib/theater-weeks'

@@ -7,6 +7,7 @@ import {
   ConnectionOptions,
 } from 'typeorm'
 import { GraphQLSchema, graphql, DocumentNode } from 'graphql'
+
 import { generateSchema } from '../config/graphql-schema'
 
 let connection: Connection

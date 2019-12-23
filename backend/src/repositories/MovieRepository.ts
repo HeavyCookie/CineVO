@@ -1,10 +1,11 @@
 import { EntityRepository, Repository } from 'typeorm'
+
 import { Movie } from '../entity/Movie'
 import { getWeek } from '../lib/theater-weeks'
 
 @EntityRepository(Movie)
 export class MovieRepository extends Repository<Movie> {
-  public getMoviesAndScreeningsForWeek(week: number = 0) {
+  public getMoviesAndScreeningsForWeek(week = 0) {
     const [start, end] = getWeek(week)
     return this.createQueryBuilder('movie')
       .leftJoinAndSelect('movie.screenings', 'screening')
@@ -12,7 +13,7 @@ export class MovieRepository extends Repository<Movie> {
       .getMany()
   }
 
-  public countMoviesForWeek(week: number = 0) {
+  public countMoviesForWeek(week = 0) {
     const [start, end] = getWeek(week)
     return this.createQueryBuilder('movie')
       .leftJoinAndSelect('movie.screenings', 'screening')
