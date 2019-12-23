@@ -764,11 +764,6 @@ ajv@^6.5.5, ajv@^6.9.1:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-allocine-api@^0.1.9:
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/allocine-api/-/allocine-api-0.1.9.tgz#c93242897225763d3fab4420599bd319fca33493"
-  integrity sha1-yTJCiXIldj0/q0QgWZvTGfyjNJM=
-
 ansi-escapes@^3.0.0, ansi-escapes@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-3.2.0.tgz#8780b98ff9dbf5638152d1f1fe5c1d7b4442976b"

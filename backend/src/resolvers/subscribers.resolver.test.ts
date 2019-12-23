@@ -36,7 +36,11 @@ describe('subscribers.resolver', () => {
   describe('unsubscribe mutation', () => {
     const MUTATION = gql`
       mutation unsusbscribeFromNewsletter($userId: ID!) {
-        unsubscribe(id: $userId)
+        unsubscribe(id: $userId) {
+          id
+          email
+          createdAt
+        }
       }
     `
 
@@ -54,8 +58,10 @@ describe('subscribers.resolver', () => {
     })
 
     it('return false when userId is wrong', async () => {
-      const result = await query(MUTATION, { userId: 'AVERYWRONGID' })
-      expect(result.data.unsubscribe).toBeFalsy()
+      const result = await query(MUTATION, {
+        userId: '46d04622-7f53-465d-85a2-8d1074b428cf',
+      })
+      expect(result.errors.length > 0).toBeTruthy()
     })
   })
 })
