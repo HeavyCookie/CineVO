@@ -1,10 +1,12 @@
 import React from 'react'
-import { Full } from '../components/movie/Full'
 import gql from 'graphql-tag'
-import { useQuery } from 'react-apollo-hooks'
-import { getMovieDetails } from './__generated__/getMovieDetails'
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
 import { FormattedMessage } from 'react-intl'
+import { useQuery } from 'react-apollo'
+
+import { Full } from '../components/movie/Full'
+
+import { getMovieDetails } from './__generated__/getMovieDetails'
 
 type Props = {
   weekMovieIds: string[]
@@ -33,7 +35,7 @@ const GET_MOVIE_DETAILS = gql`
 `
 
 export const Movie = withRouter((props: Props) => {
-  const { movieId, week } = props.match.params
+  const { week } = props.match.params
   const { data } = useQuery<getMovieDetails>(GET_MOVIE_DETAILS, {
     variables: { id: props.match.params.movieId },
   })

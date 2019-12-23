@@ -1,15 +1,17 @@
 import * as React from 'react'
-import { Email } from './Email'
-import { Week } from './Week'
+import { useQuery } from 'react-apollo'
 import { RouteComponentProps } from 'react-router'
-import { Menu, Label, Loader, Segment } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import { getWeek } from '../../lib/theater-weeks'
+import { Menu, Label } from 'semantic-ui-react'
 import { FormattedDate } from 'react-intl'
 import gql from 'graphql-tag'
-import { useQuery } from 'react-apollo-hooks'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
+
+import { getWeek } from '../../lib/theater-weeks'
+
 import { countMovies, countMoviesVariables } from './__generated__/countMovies'
+import { Email } from './Email'
+import { Week } from './Week'
 
 const SCREENING_COUNT = gql`
   query countMovies($week: Int) {
@@ -30,7 +32,7 @@ const MenuItem = ({ week, i }: { week: number; i: number }) => {
         <FormattedDate value={start} day="numeric" month="long" /> -{' '}
         <FormattedDate value={end} day="numeric" month="long" />
       </Link>
-      <Label icon="spinner loading">{data && data.countMoviesForWeek}</Label>
+      <Label icon={!data && 'spinner'}>{data && data.countMoviesForWeek}</Label>
     </Menu.Item>
   )
 }

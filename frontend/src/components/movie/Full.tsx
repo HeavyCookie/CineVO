@@ -1,9 +1,10 @@
 import * as React from 'react'
-import styled from 'styled-components'
-import { Poster } from './Poster'
-import { Screenings } from './Screenings'
+import styled from '@emotion/styled'
 import { FormattedMessage } from 'react-intl'
 import { Modal } from 'semantic-ui-react'
+
+import { Poster } from './Poster'
+import { Screenings } from './Screenings'
 
 const Backdrop = styled.img`
   display: block;
@@ -32,6 +33,8 @@ const Title = styled.h1`
   padding-bottom: 3px;
   border-bottom: 1px solid lightgrey;
 `
+
+const Subtitle = Title.withComponent('h2')
 
 const Info = styled.div`
   font-size: 0.8em;
@@ -114,9 +117,9 @@ export const Full = ({
           </Info>
           {!!synopsis && (
             <>
-              <Title as="h2">
+              <Subtitle>
                 <FormattedMessage id="components.movie.full.synopsis" />
-              </Title>
+              </Subtitle>
               <Synopsis>{synopsis}</Synopsis>
             </>
           )}

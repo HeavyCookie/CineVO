@@ -1,7 +1,8 @@
 import React from 'react'
-import { parse, format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import { FormattedDate, FormattedTime } from 'react-intl'
-import styled from 'styled-components'
+import * as Remeda from 'remeda'
+import styled from '@emotion/styled'
 
 const Container = styled.dl`
   display: grid;
@@ -20,14 +21,10 @@ type Props = {
 }
 
 export const Screenings = (props: Props) => {
-  const data: { [key: string]: Date[] } = props.data.reduce(
-    (acc: { [key: string]: Date[] }, data) => {
-      const datetime = parse(data)
-      const date = format(datetime, 'YYYY/MM/DD')
-
-      return { ...acc, [date]: [...(acc[date] || []), datetime] }
-    },
-    {}
+  const data = Remeda.pipe(
+    props.data,
+    Remeda.map(x => (typeof x == 'string' ? parseISO(x) : x)),
+    Remeda.groupBy(x => format(x, 'yyyy/MM/dd'))
   )
 
   return (
@@ -44,7 +41,9 @@ export const Screenings = (props: Props) => {
           </dt>
           <ScreeningList>
             {times.map(time => (
-              <FormattedTime key={time.toString()} value={time} />
+              <>
+                <FormattedTime key={time.toString()} value={time} />{' '}
+              </>
             ))}
           </ScreeningList>
         </React.Fragment>

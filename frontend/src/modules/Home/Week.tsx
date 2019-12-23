@@ -1,11 +1,13 @@
 import React from 'react'
-import { useQuery } from 'react-apollo-hooks'
-import { getMovies, getMoviesVariables } from './__generated__/getMovies'
 import gql from 'graphql-tag'
 import { Link, Route } from 'react-router-dom'
-import { AnimatedPoster, Wall, WallLoader } from '../../components/movie/Poster'
 import { FormattedMessage } from 'react-intl'
+import { useQuery } from 'react-apollo'
+
+import { AnimatedPoster, Wall, WallLoader } from '../../components/movie/Poster'
 import { Movie } from '../Movie'
+
+import { getMovies, getMoviesVariables } from './__generated__/getMovies'
 
 const MOVIES = gql`
   query getMovies($week: Int) {

@@ -1,9 +1,9 @@
 import * as React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { StandardLonghandProperties } from 'csstype'
 import { animated, useSpring, config } from 'react-spring'
-import { useFormatMessage } from '@comparaonline/react-intl-hooks'
 import { Loader } from 'semantic-ui-react'
+import { useIntl } from 'react-intl'
 
 const Container = styled.div`
   display: inline-block;
@@ -25,12 +25,13 @@ export type Props = {
 }
 
 export const Poster = ({ url, name, maxWidth = 200, maxHeight }: Props) => {
-  const t = useFormatMessage()
+  const { formatMessage: t } = useIntl()
+
   return (
     <Container>
       <Image
         src={url || undefined}
-        alt={t('components.movie.poster.title', { movieName: name })}
+        alt={t({ id: 'components.movie.poster.title' }, { movieName: name })}
         style={{ maxWidth, maxHeight }}
       />
     </Container>
@@ -67,11 +68,11 @@ export const WallLoaderContainer = styled.div`
 `
 
 export const WallLoader = () => {
-  const t = useFormatMessage()
+  const { formatMessage: t } = useIntl()
 
   return (
     <WallLoaderContainer>
-      <Loader inline active content={t('loading')} />
+      <Loader inline active content={t({ id: 'loading' })} />
     </WallLoaderContainer>
   )
 }

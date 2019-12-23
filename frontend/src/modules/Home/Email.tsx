@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Subscribe } from '../../components/Subscriber/Subscribe'
 import gql from 'graphql-tag'
-import { useMutation } from 'react-apollo-hooks'
+import { useMutation } from 'react-apollo'
+
+import { Subscribe } from '../../components/Subscriber/Subscribe'
 
 const MUTATION = gql`
   mutation subscribeToNewsletter($email: String!) {
@@ -12,7 +13,7 @@ const MUTATION = gql`
 export const Email = () => {
   const [loading, setLoading] = useState(false)
   const [subscribed, setSubscribed] = useState(false)
-  const subscribe = useMutation(MUTATION)
+  const [subscribe] = useMutation(MUTATION)
 
   const onSubmit = async (email: string) => {
     setLoading(true)

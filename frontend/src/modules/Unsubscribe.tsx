@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { RouteComponentProps } from 'react-router'
-import { Unsubscribe as UnsubscribeComponent } from '../components/Subscriber/Unsubscribe'
 import gql from 'graphql-tag'
-import { useMutation } from 'react-apollo-hooks'
+import { useMutation } from 'react-apollo'
+
+import { Unsubscribe as UnsubscribeComponent } from '../components/Subscriber/Unsubscribe'
+
 import {
   unsubscribe as unsubscribeType,
   unsubscribeVariables,
@@ -42,10 +44,10 @@ export const Unsubscribe = (props: Props) => {
     undefined | unsubscribe_unsubscribe // eslint-disable-line @typescript-eslint/camelcase
   >()
 
-  const unsubscribe = useMutation<unsubscribeType, unsubscribeVariables>(
+  const [unsubscribe] = useMutation<unsubscribeType, unsubscribeVariables>(
     UNSUBSCRIBE_MUTATION
   )
-  const resubscribe = useMutation<resubscribeType, resubscribeVariables>(
+  const [resubscribe] = useMutation<resubscribeType, resubscribeVariables>(
     RESUBSCRIBE_MUTATION
   )
 

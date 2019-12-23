@@ -1,7 +1,8 @@
-import { createGlobalStyle } from 'styled-components'
+import React from 'react'
+import { Global, css } from '@emotion/core'
 import 'semantic-ui-css/semantic.min.css'
 
-export const GlobalStyle = createGlobalStyle`
+const style = css`
   body {
     font-family: Helvetica, sans-serif;
   }
@@ -10,3 +11,7 @@ export const GlobalStyle = createGlobalStyle`
     margin-top: 0.6em inherit;
   }
 `
+
+export const GlobalStyle = (...props: any[]) => (
+  <Global styles={style} {...props} />
+)
