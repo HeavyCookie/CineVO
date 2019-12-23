@@ -72,7 +72,7 @@ export const Movie = withRouter((props: Props) => {
           </Link>
         )
       }
-      close={() => props.history.push('/')}
+      close={() => props.history.push(`/week/${week}`)}
     />
   )
 })
