@@ -1,5 +1,5 @@
 import { getManager, MoreThan } from 'typeorm'
-import { parse } from 'date-fns'
+import { parse, parseISO } from 'date-fns'
 import { Movie } from '../entity/Movie'
 import { Screening } from '../entity/Screening'
 import { searchMovie } from './tmdb'
@@ -20,17 +20,15 @@ const runtimeToInt = (runtime: string): number => {
 }
 
 const allocineToMovie = async (amovie: AMovie): Promise<Movie> => {
-  const actors = amovie.cast.map(
-    person => {
-      if (person.actor) {
-        return `${person.actor.firstName} ${person.actor.lastName}`
-      } else if (person.originalVoiceActor) {
-          return `${person.originalVoiceActor.firstName} ${person.originalVoiceActor.lastName}`
-      } else if (person.voiceActor) {
-        return `${person.voiceActor.firstName} ${person.voiceActor.lastName}`
-      }
+  const actors = amovie.cast.map(person => {
+    if (person.actor) {
+      return `${person.actor.firstName} ${person.actor.lastName}`
+    } else if (person.originalVoiceActor) {
+      return `${person.originalVoiceActor.firstName} ${person.originalVoiceActor.lastName}`
+    } else if (person.voiceActor) {
+      return `${person.voiceActor.firstName} ${person.voiceActor.lastName}`
     }
-  )
+  })
   const directors = amovie.credits
     .filter(person => person.position.name == 'DIRECTOR')
     .map(person => `${person.person.firstName} ${person.person.lastName}`)
@@ -74,7 +72,7 @@ const createScreenings = async (movie: Movie, screenings: Showtime[]) =>
     async src =>
       await getManager().insert(Screening, {
         movie,
-        date: parse(src.startsAt),
+        date: parseISO(src.startsAt),
       })
   )
 
