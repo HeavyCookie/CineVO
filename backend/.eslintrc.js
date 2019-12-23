@@ -1,12 +1,14 @@
 module.exports = {
+  root: true,
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
   extends: [
     'plugin:@typescript-eslint/recommended',
-    'prettier',
-    'prettier/@typescript-eslint',
     'plugin:import/errors',
     'plugin:import/warnings',
+    'prettier',
+    'prettier/@typescript-eslint',
+    'prettier/react',
   ],
   rules: {
     'no-console': 1,
