@@ -1,73 +1,55 @@
-import * as Allocine from 'allocine-api'
 import { getManager, MoreThan } from 'typeorm'
 import { parse } from 'date-fns'
 import { Movie } from '../entity/Movie'
 import { Screening } from '../entity/Screening'
 import { searchMovie } from './tmdb'
+import { getTheaterShowtimes } from './allocine/api'
+import { Showtime } from './allocine/showtimes'
+import { Movie as AMovie } from './allocine/movie'
 
-interface AMovie {
-  code: number
-  title: string
-  castingShort: {
-    directors: string
-    actors: string
-  }
-  poster: { path: string; href: string }
-  release: { releaseDate: string }
-  runtime: number
-  statistics: {
-    pressRating: number
-    pressReviewCount: number
-    userRating: number
-    userReviewCount: number
-    userRatingCount: number
-    editorialRatingCount: number
-  }
+const runtimeToInt = (runtime: string): number => {
+  let duration = 0
+
+  const hours = runtime.match(/(\d+)h/)
+  const minutes = runtime.match(/(\d+)min/)
+
+  if (hours) duration += parseInt(hours[1]) * 60 * 60
+  if (minutes) duration += parseInt(hours[1]) * 60
+
+  return duration
 }
-
-interface Scr {
-  d: string
-  t: { code: number; p: number; $: string }[]
-}
-
-interface Showtime {
-  preview: 'true' | 'false'
-  releaseWeek: 'true' | 'false'
-  onShow: { movie: AMovie }
-  version: {
-    original: 'true' | 'false'
-    $: string
-  }
-  scr: Scr[]
-}
-export const getScreeningsForTheater = async (
-  code: string
-): Promise<Showtime[]> =>
-  await new Promise((resolve, reject) => {
-    Allocine.api('showtimelist', { theaters: code }, (error, result) => {
-      if (error) return reject(error)
-
-      resolve(result.feed.theaterShowtimes[0].movieShowtimes)
-    })
-  })
 
 const allocineToMovie = async (amovie: AMovie): Promise<Movie> => {
-  const { actors, directors } = amovie.castingShort
-  const release = new Date(amovie.release.releaseDate)
+  const actors = amovie.cast.map(
+    person => {
+      if (person.actor) {
+        return `${person.actor.firstName} ${person.actor.lastName}`
+      } else if (person.originalVoiceActor) {
+          return `${person.originalVoiceActor.firstName} ${person.originalVoiceActor.lastName}`
+      } else if (person.voiceActor) {
+        return `${person.voiceActor.firstName} ${person.voiceActor.lastName}`
+      }
+    }
+  )
+  const directors = amovie.credits
+    .filter(person => person.position.name == 'DIRECTOR')
+    .map(person => `${person.person.firstName} ${person.person.lastName}`)
+
+  const release = new Date(amovie.releases[0].releaseDate.date)
 
   const tmdb = await searchMovie(amovie.title, release)
   const tmdbMovie = tmdb.results[0]
 
   return Object.assign(new Movie(), {
-    allocineId: amovie.code,
-    actors: actors ? actors.split(',') : [],
-    directors: directors ? directors.split(',') : [],
+    allocineId: amovie.internalId,
+    actors: actors,
+    directors: directors,
     plot: '',
-    runtime: amovie.runtime,
-    pressRatings: amovie.statistics.pressRating,
-    userRatings: amovie.statistics.userRating,
-    title: amovie.title,
-    poster: amovie.poster.href,
+    runtime: runtimeToInt(amovie.runtime),
+    pressRatings: amovie.stats.pressReview && amovie.stats.pressReview.score,
+    userRatings: amovie.stats.userRating && amovie.stats.userRating.score,
+    title: amovie.originalTitle,
+    poster: amovie.poster.url,
     release: release,
     backdrop:
       tmdbMovie &&
@@ -76,8 +58,10 @@ const allocineToMovie = async (amovie: AMovie): Promise<Movie> => {
   })
 }
 
-const findOrCreateMovie = async (amovie): Promise<Movie> => {
-  const dbMovie = await getManager().findOne(Movie, { allocineId: amovie.code })
+const findOrCreateMovie = async (amovie: AMovie): Promise<Movie> => {
+  const dbMovie = await getManager().findOne(Movie, {
+    allocineId: amovie.internalId,
+  })
   if (dbMovie) return dbMovie
 
   const newMovie = await allocineToMovie(amovie)
@@ -85,32 +69,30 @@ const findOrCreateMovie = async (amovie): Promise<Movie> => {
   return newMovie
 }
 
-const createScreenings = async (movie: Movie, screenings: Scr[]) =>
-  screenings.map(async scr =>
-    scr.t.map(
-      async ({ $ }) =>
-        await getManager().insert(Screening, {
-          movie,
-          date: parse(`${scr.d} ${$}:00`),
-        })
-    )
+const createScreenings = async (movie: Movie, screenings: Showtime[]) =>
+  screenings.map(
+    async src =>
+      await getManager().insert(Screening, {
+        movie,
+        date: parse(src.startsAt),
+      })
   )
 
 export const refreshMoviesFromAllocine = async (code: string) => {
-  const showtimes = await getScreeningsForTheater(code)
+  await getManager().delete(Screening, { date: MoreThan(new Date()) })
 
-  await getManager().delete(Screening, {
-    date: MoreThan(new Date()),
-  })
+  for (let day = 0; day < 30; day++) {
+    const showtimes = (await getTheaterShowtimes(code, day)).data.results
 
-  return await Promise.all(
-    showtimes
-      .filter(showtime => showtime.version.original === 'true')
-      .map(async showtime => {
-        const amovie = showtime.onShow.movie
-        const movie = await findOrCreateMovie(amovie)
-        await createScreenings(movie, showtime.scr)
-        return movie
-      })
-  )
+    await Promise.all(
+      showtimes
+        .filter(showtime => showtime.showtimes.original.length > 0)
+        .map(async showtime => {
+          const amovie = showtime.movie
+          const movie = await findOrCreateMovie(amovie)
+          await createScreenings(movie, showtime.showtimes.original)
+          return movie
+        })
+    )
+  }
 }
