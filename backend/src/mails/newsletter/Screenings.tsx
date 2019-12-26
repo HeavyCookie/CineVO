@@ -3,7 +3,7 @@ import { MjmlTable } from 'mjml-react'
 import { format } from 'date-fns'
 import locale from 'date-fns/locale/fr'
 
-import { Screening } from '../entity/Screening'
+import { Screening } from '../../entity/Screening'
 
 export const Screenings = ({ list }: { list: Screening[] }) => {
   const data: { [key: string]: Date[] } = list.reduce(

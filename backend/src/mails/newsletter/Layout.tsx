@@ -10,14 +10,14 @@ import {
 import { format } from 'date-fns'
 import locale from 'date-fns/locale/fr'
 
-import { Subscriber } from '../entity/Subscriber'
+import { User } from '../../entity/User'
 
 export const Layout = ({
   children,
   dates,
   subscriber,
 }: {
-  subscriber: Subscriber
+  subscriber: User
   dates: [Date, Date]
   children: React.ReactNode
 }) => {
@@ -42,7 +42,7 @@ export const Layout = ({
             Semaine du {from} au {to}
           </MjmlText>
         </MjmlHero>
-        <MjmlSection background-color="#fff">{children}</MjmlSection>
+        {children}
         <MjmlSection>
           <MjmlColumn backgroundColor="#db2828">
             <MjmlText align="center">

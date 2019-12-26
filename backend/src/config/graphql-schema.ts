@@ -5,6 +5,7 @@ import Container from 'typedi'
 import { useContainer } from 'typeorm'
 
 import { Logs } from '../middlewares/logs'
+import { authChecker } from '../lib/Context'
 
 useContainer(Container)
 
@@ -14,4 +15,6 @@ export const generateSchema = () =>
     emitSchemaFile: resolve(__dirname, '..', '..', 'schema.gql'),
     globalMiddlewares: [Logs],
     container: Container,
+    authChecker,
+    authMode: 'null',
   })

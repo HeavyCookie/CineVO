@@ -24,6 +24,8 @@ export const connect = async () => {
       database: originalOptions.database + '_test',
     }
     connection = await createConnection(options)
+    await connection.dropDatabase()
+    await connection.synchronize(true)
   }
 
   return connection

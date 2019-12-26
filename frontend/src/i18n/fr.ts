@@ -5,6 +5,9 @@ const translations: Translations = {
   components: {
     layout: {
       subtitle: 'Vos prochaines séances de cinéma en version originale',
+      editAccount: 'Modifier mon compte',
+      logout: 'Se déconnecter',
+      login: 'Se connecter',
     },
     movie: {
       full: {
@@ -47,6 +50,48 @@ const translations: Translations = {
   modules: {
     home: {
       nomovies: 'Pas de film cette semaine !',
+    },
+    account: {
+      fields: {
+        email: 'Email',
+        password: 'Mot de passe',
+      },
+      submit: 'Mettre à jour mon compte',
+      removeTheater: 'Retirer',
+    },
+    signup: {
+      fields: {
+        email: 'Email',
+        password: 'Mot de passe',
+      },
+      submit: 'Créer mon compte',
+    },
+    theaters: {
+      subscribe: {
+        subscribe: "S'abonner",
+        subscribeDescription:
+          "S'abonner pour recevoir chaque semaines les séances par email",
+        subscribed: 'Abonné',
+        subscribedDescription:
+          'Se désabonner pour ne plus recevoir les mises à jour',
+        unsubscribe: 'Se désabonner',
+      },
+    },
+    resetPasswordRequest: {
+      email: 'Email',
+      submit: 'Demander la remise à zéro de mon mot de passe',
+    },
+    resetPassword: {
+      password: 'Mot de passe',
+      submit: 'Changer de mot de passe',
+    },
+    login: {
+      fields: {
+        email: 'Email',
+        password: 'Mot de passe',
+      },
+      submit: 'Se connecter',
+      forgotPassword: 'Mot de passe oublié ?',
     },
   },
 }

@@ -1,9 +1,10 @@
 import * as Faker from 'faker'
 
-import { Subscriber } from '../entity/Subscriber'
+import { User } from '../entity/User'
 import { Movie } from '../entity/Movie'
+import { Theater } from '../entity/Theater'
 
-const subscriber = (data: Partial<Subscriber> = {}): Partial<Subscriber> => ({
+const subscriber = (data: Partial<User> = {}): Partial<User> => ({
   email: Faker.internet.email(),
   ...data,
 })
@@ -22,4 +23,13 @@ const movie = (data: Partial<Movie> = {}): Partial<Movie> => ({
   ...data,
 })
 
-export default { subscriber, movie }
+const theater = (data: Partial<Theater> = {}): Partial<Theater> => ({
+  allocineCode: Faker.random.alphaNumeric(10),
+  name: Faker.company.companyName(),
+  street: Faker.address.streetAddress(),
+  postcode: parseInt(Faker.address.zipCode()),
+  city: Faker.address.city(),
+  ...data,
+})
+
+export default { subscriber, movie, theater }

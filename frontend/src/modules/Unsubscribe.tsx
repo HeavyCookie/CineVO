@@ -15,7 +15,7 @@ import {
   resubscribe as resubscribeType,
 } from './__generated__/resubscribe'
 
-type Props = RouteComponentProps<{ uuid: string }>
+type Props = RouteComponentProps<{ uuid: string; theaterId: string }>
 
 const UNSUBSCRIBE_MUTATION = gql`
   mutation unsubscribe($uuid: ID!) {
@@ -28,8 +28,16 @@ const UNSUBSCRIBE_MUTATION = gql`
 `
 
 const RESUBSCRIBE_MUTATION = gql`
-  mutation resubscribe($email: String!, $id: String!, $createdAt: DateTime!) {
-    subscribe(subscriber: { email: $email, id: $id, createdAt: $createdAt })
+  mutation resubscribe(
+    $email: String!
+    $id: String!
+    $createdAt: DateTime!
+    $theaterId: ID!
+  ) {
+    subscribe(
+      subscriber: { email: $email, id: $id, createdAt: $createdAt }
+      theaterId: $theaterId
+    )
   }
 `
 
@@ -70,6 +78,7 @@ export const Unsubscribe = (props: Props) => {
 
   return (
     <UnsubscribeComponent
+      theaterId={props.match.params.theaterId}
       notfound={notfound}
       unsubscribed={unsubscribed}
       resubscribed={resubscribed}
@@ -78,7 +87,14 @@ export const Unsubscribe = (props: Props) => {
         setResubscribed(true)
       )}
       resubscribe={async () => {
-        resubscribe({ variables: oldSubscriber })
+        if (!oldSubscriber) return
+        const { __typename, ...oldOne } = oldSubscriber
+        resubscribe({
+          variables: {
+            ...oldOne,
+            theaterId: props.match.params.theaterId,
+          },
+        })
         setResubscribed(true)
       }}
     />

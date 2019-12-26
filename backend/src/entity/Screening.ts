@@ -2,6 +2,7 @@ import { ObjectType, Field } from 'type-graphql'
 import { Entity, ManyToOne, PrimaryColumn } from 'typeorm'
 
 import { Movie } from './Movie'
+import { Theater } from './Theater'
 
 @ObjectType()
 @Entity()
@@ -20,4 +21,11 @@ export class Screening {
   @Field(() => Movie)
   @ManyToOne(() => Movie, { nullable: false })
   public movie: Movie
+
+  @PrimaryColumn({ type: 'uuid' })
+  public theaterId: string
+
+  @Field(() => Theater)
+  @ManyToOne(() => Theater, { nullable: false })
+  public theater: Theater
 }

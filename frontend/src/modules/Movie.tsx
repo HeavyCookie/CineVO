@@ -6,11 +6,19 @@ import { useQuery } from 'react-apollo'
 
 import { Full } from '../components/movie/Full'
 
-import { getMovieDetails } from './__generated__/getMovieDetails'
+import {
+  getMovieDetails,
+  getMovieDetailsVariables,
+} from './__generated__/getMovieDetails'
+import {
+  getScreenings,
+  getScreeningsVariables,
+} from './__generated__/getScreenings'
 
 type Props = {
   weekMovieIds: string[]
 } & RouteComponentProps<{
+  theaterId: string
   movieId: string
   week: string
 }>
@@ -27,22 +35,38 @@ const GET_MOVIE_DETAILS = gql`
       plot
       title
       backdrop
-      screenings {
-        date
-      }
+    }
+  }
+`
+
+const GET_SCREENINGS = gql`
+  query getScreenings($movieId: ID!, $theaterId: ID!) {
+    getScreenings(theaterId: $theaterId, movieId: $movieId) {
+      date
     }
   }
 `
 
 export const Movie = withRouter((props: Props) => {
-  const { week } = props.match.params
-  const { data } = useQuery<getMovieDetails>(GET_MOVIE_DETAILS, {
-    variables: { id: props.match.params.movieId },
-  })
+  const { week, theaterId, movieId } = props.match.params
+  const { data } = useQuery<getMovieDetails, getMovieDetailsVariables>(
+    GET_MOVIE_DETAILS,
+    {
+      variables: { id: movieId },
+    }
+  )
 
-  if (!data || !data.movie) return null
+  const { data: screenings } = useQuery<getScreenings, getScreeningsVariables>(
+    GET_SCREENINGS,
+    {
+      variables: { movieId, theaterId },
+    }
+  )
 
-  const screenings = data.movie.screenings.map(screening => screening.date)
+  if (!data || !data.movie || !screenings || !screenings.getScreenings)
+    return null
+
+  // const screenings = data.movie.screenings.map(screening => screening.date)
 
   const currentMoviePos = props.weekMovieIds.indexOf(props.match.params.movieId)
   const previousMovieId = props.weekMovieIds[currentMoviePos - 1]
@@ -58,23 +82,27 @@ export const Movie = withRouter((props: Props) => {
         runtime: data.movie.runtime,
         synopsis: data.movie.plot,
         backdrop: data.movie.backdrop,
-        screenings,
+        screenings: screenings.getScreenings.map(s => s.date),
       }}
       previous={
         previousMovieId && (
-          <Link to={`/week/${week}/movies/${previousMovieId}`}>
+          <Link
+            to={`/theaters/${theaterId}/week/${week}/movies/${previousMovieId}`}
+          >
             <FormattedMessage id="components.movie.full.previous" />
           </Link>
         )
       }
       next={
         nextMovieId && (
-          <Link to={`/week/${week}/movies/${nextMovieId}`}>
+          <Link
+            to={`/theaters/${theaterId}/week/${week}/movies/${nextMovieId}`}
+          >
             <FormattedMessage id="components.movie.full.next" />
           </Link>
         )
       }
-      close={() => props.history.push(`/week/${week}`)}
+      close={() => props.history.push(`/theaters/${theaterId}/week/${week}`)}
     />
   )
 })

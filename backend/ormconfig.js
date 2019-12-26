@@ -22,8 +22,8 @@ module.exports = {
   migrations: [resolve(__dirname, 'src/migration/**/*.ts')],
   subscribers: [resolve(__dirname, 'src/subscriber/**/*.ts')],
   cli: {
-    entitiesDir: resolve(__dirname, 'src/entity'),
-    migrationsDir: resolve(__dirname, 'src/migration'),
-    subscribersDir: resolve(__dirname, 'src/subscriber'),
+    entitiesDir: 'src/entity',
+    migrationsDir: 'src/migration',
+    subscribersDir: 'src/subscriber',
   },
 }

@@ -1,8 +1,9 @@
-import { getManager, MoreThan } from 'typeorm'
+import { getManager, MoreThan, getRepository } from 'typeorm'
 import { parseISO } from 'date-fns'
 
 import { Movie } from '../entity/Movie'
 import { Screening } from '../entity/Screening'
+import { Theater } from '../entity/Theater'
 
 import { searchMovie } from './tmdb'
 import { getTheaterShowtimes } from './allocine/api'
@@ -69,20 +70,24 @@ const findOrCreateMovie = async (amovie: AMovie): Promise<Movie> => {
   return newMovie
 }
 
-const createScreenings = async (movie: Movie, screenings: Showtime[]) =>
+const createScreenings = async (
+  movie: Movie,
+  theater: Theater,
+  screenings: Showtime[]
+) =>
   screenings.map(
     async src =>
       await getManager().insert(Screening, {
         movie,
+        theater,
         date: parseISO(src.startsAt),
       })
   )
 
-export const refreshMoviesFromAllocine = async (code: string) => {
-  await getManager().delete(Screening, { date: MoreThan(new Date()) })
-
+const refreshTheaterScreenings = async (theater: Theater) => {
   for (let day = 0; day < 30; day++) {
-    const showtimes = (await getTheaterShowtimes(code, day)).data.results
+    const showtimes = (await getTheaterShowtimes(theater.allocineCode, day))
+      .data.results
 
     await Promise.all(
       showtimes
@@ -90,9 +95,16 @@ export const refreshMoviesFromAllocine = async (code: string) => {
         .map(async showtime => {
           const amovie = showtime.movie
           const movie = await findOrCreateMovie(amovie)
-          await createScreenings(movie, showtime.showtimes.original)
+          await createScreenings(movie, theater, showtime.showtimes.original)
           return movie
         })
     )
   }
+}
+
+export const refreshMoviesFromAllocine = async () => {
+  await getManager().delete(Screening, { date: MoreThan(new Date()) })
+
+  const theaters = await getRepository(Theater).find()
+  return theaters.map(refreshTheaterScreenings)
 }

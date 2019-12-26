@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server'
+import { gql } from 'apollo-server-express'
 import { getManager } from 'typeorm'
 import * as uuid from 'uuid'
 import { addWeeks } from 'date-fns'
@@ -7,6 +7,7 @@ import { connect, disconnect, query } from '../tests/utils'
 import { Movie } from '../entity/Movie'
 import Factories from '../tests/factories'
 import { Screening } from '../entity/Screening'
+import { Theater } from '../entity/Theater'
 
 beforeAll(connect)
 afterAll(disconnect)
@@ -26,9 +27,11 @@ describe('movies', () => {
   it('get a list of movies for a specific week', async () => {
     const movieId = uuid.v4()
     await getManager().save(Movie, { id: movieId, ...Factories.movie() })
+    const theater = await getManager().save(Theater, Factories.theater())
     const screening = getManager().create(Screening, {
       movieId,
       date: addWeeks(new Date(), 5),
+      theater,
     })
     await getManager().save(screening)
 

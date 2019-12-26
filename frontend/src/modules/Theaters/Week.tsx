@@ -10,8 +10,8 @@ import { Movie } from '../Movie'
 import { getMovies, getMoviesVariables } from './__generated__/getMovies'
 
 const MOVIES = gql`
-  query getMovies($week: Int) {
-    movies(week: $week) {
+  query getMovies($week: Int, $theaterId: ID) {
+    movies(week: $week, theaterId: $theaterId) {
       id
       title
       poster
@@ -20,13 +20,14 @@ const MOVIES = gql`
 `
 
 type Props = {
+  theaterId: string
   week?: number
 }
 
 export const Week = (props: Props) => {
-  const week = props.week || 0
+  const { week, theaterId } = props
   const { data } = useQuery<getMovies, getMoviesVariables>(MOVIES, {
-    variables: { week },
+    variables: { week, theaterId },
   })
 
   if (!data || !data.movies) return <WallLoader />
@@ -42,14 +43,17 @@ export const Week = (props: Props) => {
     <>
       <Wall>
         {data.movies.map(movie => (
-          <Link key={movie.id} to={`/week/${week}/movies/${movie.id}`}>
+          <Link
+            key={movie.id}
+            to={`/theaters/${props.theaterId}/week/${week}/movies/${movie.id}`}
+          >
             <AnimatedPoster name={movie.title} url={movie.poster} />
           </Link>
         ))}
       </Wall>
 
       <Route
-        path="/week/:week/movies/:movieId"
+        path="/theaters/:theaterId/week/:week/movies/:movieId"
         render={props => (
           <Movie {...props} weekMovieIds={data.movies.map(m => m.id)} />
         )}

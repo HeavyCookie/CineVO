@@ -1,21 +1,12 @@
 import { render } from 'mjml-react'
 
-import { Newsletter } from '../mails/Newsletter'
-import { Movie } from '../entity/Movie'
-import { Screening } from '../entity/Screening'
-import { Subscriber } from '../entity/Subscriber'
+import { Newsletter } from '../mails/newsletter/Newsletter'
+import { User } from '../entity/User'
 
-export const htmlNewsletter = async (
-  subscriber: Subscriber,
-  dates: [Date, Date],
-  movies: Movie[],
-  screenings: { [key: string]: Screening[] }
-) => {
+export const htmlNewsletter = async (subscriber: User, dates: [Date, Date]) => {
   const { html } = render(
     Newsletter({
       dates,
-      movies,
-      screenings,
       subscriber,
     })
   )

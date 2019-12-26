@@ -19,6 +19,7 @@ type Props = {
   resubscribed?: boolean
   unsubscribed?: boolean
   notfound?: boolean
+  theaterId: string
 }
 
 const Unsubscription = (props: Pick<Props, 'cancelUnsubscription'>) => (

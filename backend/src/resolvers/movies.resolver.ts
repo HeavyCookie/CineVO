@@ -14,16 +14,22 @@ export class MovieResolver {
 
   @Query(() => [Movie])
   public movies(
-    @Arg('week', () => Int, { defaultValue: 0 }) week: number
+    @Arg('week', () => Int, { defaultValue: 0 }) week: number,
+    @Arg('theaterId', () => ID, { nullable: true }) theaterId?: string
   ): Promise<Movie[]> {
-    return this.movieRepository.getMoviesAndScreeningsForWeek(week)
+    if (!theaterId)
+      return this.movieRepository.getMoviesAndScreeningsForWeek(week)
+
+    return this.movieRepository.getTheaterScreenings(theaterId, week)
   }
 
   @Query(() => Number)
   public async countMoviesForWeek(
-    @Arg('week', () => Int, { defaultValue: 0 }) week: number
+    @Arg('week', () => Int, { defaultValue: 0 }) week: number,
+    @Arg('theaterId', () => ID, { nullable: true }) theaterId?: string
   ) {
-    return await this.movieRepository.countMoviesForWeek(week)
+    if (!theaterId) return await this.movieRepository.countMoviesForWeek(week)
+    return await this.movieRepository.getTheaterMovieCount(theaterId, week)
   }
 
   @Query(() => Movie, { nullable: true })
@@ -33,7 +39,7 @@ export class MovieResolver {
 
   @Query(() => [Movie])
   public async refreshMovies() {
-    return await refreshMoviesFromAllocine('P1140')
+    return await refreshMoviesFromAllocine()
   }
 
   public surroundingMovies: Movie[] | undefined
