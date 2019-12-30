@@ -3,15 +3,21 @@ import { StaticRouter } from 'react-router-dom'
 import express from 'express'
 import { renderToString } from 'react-dom/server'
 import { getMarkupFromTree } from 'react-apollo'
+import proxy from 'http-proxy-middleware'
 
 import App from './App'
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST) // eslint-disable-line @typescript-eslint/no-var-requires
 
+console.log('RAZZLE_PUBLIC_DIR', process.env.RAZZLE_PUBLIC_DIR)
 const server = express()
 server
   .disable('x-powered-by')
-  .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
+  .use(express.static(process.env.RAZZLE_PUBLIC_DIR || 'static'))
+  .use(
+    '/graphql',
+    proxy({ target: process.env.BACKEND_URL || 'http://localhost:4000' })
+  )
   .get('/*', async (req, res) => {
     const context = {}
     const markup = await getMarkupFromTree({

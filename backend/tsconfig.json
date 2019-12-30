@@ -9,7 +9,9 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "jsx": "react",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "rootDirs": ["./src", "./scripts"],
+    "baseUrl": "./src"
   },
   "exclude": ["node_modules"]
 }

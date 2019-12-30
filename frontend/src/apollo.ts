@@ -7,7 +7,10 @@ import 'cross-fetch/polyfill'
 import { getToken } from './context'
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000',
+  uri:
+    typeof window != 'undefined'
+      ? window.location.origin + '/graphql'
+      : process.env.BACKEND_URL || 'http://localhost:3000/graphql',
 })
 
 const authLink = setContext((_, { headers }) => {

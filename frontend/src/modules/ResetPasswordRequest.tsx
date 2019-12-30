@@ -28,8 +28,6 @@ export const ResetPasswordRequest = () => {
     return <Redirect to="/" />
   }
 
-  console.log('bla')
-
   return (
     <Form onSubmit={() => requestPasswordRequest({ variables: { email } })}>
       <Form.Field>
