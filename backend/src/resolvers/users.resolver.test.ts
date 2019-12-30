@@ -1,11 +1,15 @@
 import { gql } from 'apollo-server-express'
 import { getManager } from 'typeorm'
+import * as uuid from 'uuid'
 
 import { connect, query, disconnect } from '../tests/utils'
 import { User } from '../entity/User'
 import factories from '../tests/factories'
 import { Theater } from '../entity/Theater'
 import { generatePasswordHash, checkPassword } from '../lib/security'
+import { sendMail } from '../config/mailer'
+
+jest.mock('../config/mailer')
 
 beforeAll(connect)
 afterAll(disconnect)
@@ -108,8 +112,20 @@ describe('users.resolver', () => {
       expect(result.data.resetPasswordRequest).toBeTruthy()
     })
 
-    it('update user resetPasswordToken', async () => {
+    it('sends an email', async () => {
       const email = 'request-reset-password-2@test.test'
+      const user = getManager().create(User, {
+        email,
+        passwordHash: await generatePasswordHash('password'),
+      })
+      await getManager().save(user)
+
+      await query(RESET_PASSWORD_REQUEST_MUTATION, { email })
+      expect(sendMail).toBeCalled()
+    })
+
+    it('update user resetPasswordToken', async () => {
+      const email = 'request-reset-password-3@test.test'
       const user = getManager().create(User, {
         email,
         passwordHash: await generatePasswordHash('password'),
@@ -144,7 +160,7 @@ describe('users.resolver', () => {
     `
     it('return false if token is not found in db', async () => {
       const result = await query(RESET_PASSWORD_MUTATION, {
-        resetPasswordToken: 'not-existant-token',
+        resetPasswordToken: uuid.v4(),
         password: 'new password',
       })
 
@@ -152,7 +168,7 @@ describe('users.resolver', () => {
     })
 
     it('retun true if token is present in database', async () => {
-      const resetPasswordToken = 'reset'
+      const resetPasswordToken = uuid.v4()
       const email = 'reset-password-1@test.test'
       const password = 'original-password'
       const user = getManager().create(User, {
@@ -173,7 +189,7 @@ describe('users.resolver', () => {
     })
 
     it('updates the password', async () => {
-      const resetPasswordToken = 'reset-2'
+      const resetPasswordToken = uuid.v4()
       const email = 'reset-password-2@test.test'
       const password = 'original-password'
       const newPassword = 'new-password'

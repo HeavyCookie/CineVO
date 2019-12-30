@@ -15,20 +15,16 @@ import { InjectRepository } from 'typeorm-typedi-extensions'
 import { Repository } from 'typeorm'
 import { IsEmail } from 'class-validator'
 import * as jwt from 'jsonwebtoken'
+import { render } from 'mjml-react'
+import * as uuid from 'uuid'
 
 import { User } from '../entity/User'
+import { sendMail } from '../config/mailer'
 import { UserRepository } from '../repositories/UserRepository'
 import { Subscription } from '../entity/Subscription'
-import {
-  checkPassword,
-  generatePasswordHash,
-  generatePassword,
-} from '../lib/security'
+import { checkPassword, generatePasswordHash } from '../lib/security'
 import { CurrentUser } from '../lib/Context'
-import { sendMail } from '../config/mailer'
-import { render } from 'mjml-react'
 import { ResetPassword } from '../mails/reset-password/ResetPassword'
-import uuid = require('uuid')
 
 @InputType()
 class SubscriberInput {
@@ -164,7 +160,7 @@ export class UserResolver {
     await this.userRepository.save({ ...user, resetPasswordToken })
 
     const { html } = render(ResetPassword({ token: resetPasswordToken }))
-    await sendMail(user.email, 'Changer de mot de passe', html)
+    sendMail(user.email, 'Changer de mot de passe', html)
     return true
   }
 
