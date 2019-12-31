@@ -5,10 +5,10 @@ services:
     build:
       context: .
       target: backend
-    env_file: [.env, .env.production]
+    env_file: .env
 
   frontend:
     build:
       context: .
       target: frontend
-    env_file: [.env, .env.production]
+    env_file: .env

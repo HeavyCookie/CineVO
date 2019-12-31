@@ -2,26 +2,14 @@ version: '3.7'
 
 services:
   postgres:
-    env_file: .env
-    image: postgres:11
     ports:
       - 5432:5432
 
   minio:
-    env_file: .env
-    image: minio/minio
-    command: server /data
     ports:
       - 9000:9000
 
-  mailhog:
-    image: mailhog/mailhog
-    ports:
-      - 8025:8025
-      - 1025:1025
-
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
     ports:
       - 9200:9200
       - 9300:9300
@@ -31,3 +19,9 @@ services:
       - http.cors.allow-origin=*
       - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
       - http.cors.allow-credentials=true
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025
+      - 1025:1025

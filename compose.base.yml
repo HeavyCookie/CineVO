@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  postgres:
+    env_file: .env
+    image: postgres:11
+
+  minio:
+    env_file: .env
+    image: minio/minio
+    command: server /data
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
+    environment:
+      - discovery.type=single-node
