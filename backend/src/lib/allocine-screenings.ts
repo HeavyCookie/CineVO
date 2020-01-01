@@ -36,9 +36,10 @@ const allocineToMovie = async (amovie: AMovie): Promise<Movie> => {
     .filter(person => person.position.name == 'DIRECTOR')
     .map(person => `${person.person.firstName} ${person.person.lastName}`)
 
-  const release = new Date(amovie.releases[0].releaseDate.date)
+  const release =
+    amovie.releases && new Date(amovie.releases[0].releaseDate.date)
 
-  const tmdb = await searchMovie(amovie.title, release)
+  const tmdb = await searchMovie(amovie.title, release || new Date())
   const tmdbMovie = tmdb.results[0]
 
   return Object.assign(new Movie(), {

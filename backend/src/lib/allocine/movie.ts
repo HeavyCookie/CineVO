@@ -35,8 +35,8 @@ interface Release {
 
 export interface Movie {
   cast: {
-    actor?: Person,
-    voiceActor?: Person,
+    actor?: Person
+    voiceActor?: Person
     originalVoiceActor?: Person
     rank?: number
   }[]
@@ -65,7 +65,7 @@ export interface Movie {
   languages: string[]
   originalTitle: string
   poster: { id: number; url: string; path: string }
-  releases: { name: 'Released'; releaseDate: { date: string } }[]
+  releases?: { name: 'Released'; releaseDate: { date: string } }[]
   /* weird format as "xh xxmin" */
   runtime: string
   stats: {
