@@ -5,13 +5,15 @@ import {
   Column,
   CreateDateColumn,
   OneToMany,
+  BaseEntity,
 } from 'typeorm'
+
 import { Screening } from './Screening'
 import { Subscription } from './Subscription'
 
 @ObjectType()
 @Entity()
-export class Theater {
+export class Theater extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   public id: string

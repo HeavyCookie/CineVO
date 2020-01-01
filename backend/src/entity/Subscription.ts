@@ -1,4 +1,10 @@
-import { Entity, ManyToOne, PrimaryColumn, CreateDateColumn } from 'typeorm'
+import {
+  Entity,
+  ManyToOne,
+  PrimaryColumn,
+  CreateDateColumn,
+  BaseEntity,
+} from 'typeorm'
 import { ObjectType, Field } from 'type-graphql'
 
 import { User } from './User'
@@ -6,7 +12,7 @@ import { Theater } from './Theater'
 
 @ObjectType()
 @Entity()
-export class Subscription {
+export class Subscription extends BaseEntity {
   @Field()
   @PrimaryColumn('uuid')
   public userId: string

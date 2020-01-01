@@ -1,12 +1,12 @@
 import { ObjectType, Field } from 'type-graphql'
-import { Entity, ManyToOne, PrimaryColumn } from 'typeorm'
+import { Entity, ManyToOne, PrimaryColumn, BaseEntity } from 'typeorm'
 
 import { Movie } from './Movie'
 import { Theater } from './Theater'
 
 @ObjectType()
 @Entity()
-export class Screening {
+export class Screening extends BaseEntity {
   @PrimaryColumn({ type: 'timestamptz' })
   public date: Date
 

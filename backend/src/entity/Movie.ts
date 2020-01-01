@@ -1,4 +1,10 @@
-import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Entity,
+  Column,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+} from 'typeorm'
 import { ObjectType, Field, ID, Int } from 'type-graphql'
 
 import { getFileURL } from '../config/file-storage'
@@ -7,7 +13,7 @@ import { Screening } from './Screening'
 
 @ObjectType()
 @Entity()
-export class Movie {
+export class Movie extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   public id: string

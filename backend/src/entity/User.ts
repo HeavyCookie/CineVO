@@ -5,6 +5,7 @@ import {
   Column,
   OneToMany,
   UpdateDateColumn,
+  BaseEntity,
 } from 'typeorm'
 import { Field, ObjectType } from 'type-graphql'
 
@@ -12,7 +13,7 @@ import { Subscription } from './Subscription'
 
 @ObjectType()
 @Entity()
-export class User {
+export class User extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   public id: string

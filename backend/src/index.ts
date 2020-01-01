@@ -5,16 +5,23 @@ import * as TypeORM from 'typeorm'
 import { ApolloServer } from 'apollo-server-express'
 import * as express from 'express'
 import * as jwt from 'express-jwt'
+import { buildRouter } from 'admin-bro-expressjs'
 
+import { adminBro } from './config/admin-bro'
 import { generateSchema } from './config/graphql-schema'
 import { context } from './lib/Context'
 
 const { PORT = 4000, SESSION_KEY } = process.env
 
 async function start() {
-  await TypeORM.createConnection()
+  const connection = await TypeORM.createConnection()
 
   const app = express()
+
+  const adminBroConfig = adminBro(connection)
+
+  app.use(adminBroConfig.options.rootPath, buildRouter(adminBroConfig))
+
   app.use('/', jwt({ secret: SESSION_KEY, credentialsRequired: false }))
 
   const server = new ApolloServer({
