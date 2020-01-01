@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'semantic-ui-react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import gql from 'graphql-tag'
 import { useMutation } from 'react-apollo'
 import { Redirect } from 'react-router-dom'
+import Helmet from 'react-helmet'
 
 import {
   resetPasswordRequest,
@@ -28,21 +29,30 @@ export const ResetPasswordRequest = () => {
     return <Redirect to="/" />
   }
 
+  const { formatMessage } = useIntl()
+
   return (
-    <Form onSubmit={() => requestPasswordRequest({ variables: { email } })}>
-      <Form.Field>
-        <label htmlFor="email">
-          <FormattedMessage id="modules.resetPasswordRequest.email" />
-        </label>
-        <input
-          id="email"
-          onChange={e => setEmail(e.target.value)}
-          value={email}
-        />
-      </Form.Field>
-      <Button loading={loading} disabled={loading}>
-        <FormattedMessage id="modules.resetPasswordRequest.submit" />
-      </Button>
-    </Form>
+    <>
+      <Helmet>
+        <title>
+          {formatMessage({ id: 'modules.resetPasswordRequest.title' })}
+        </title>
+      </Helmet>
+      <Form onSubmit={() => requestPasswordRequest({ variables: { email } })}>
+        <Form.Field>
+          <label htmlFor="email">
+            <FormattedMessage id="modules.resetPasswordRequest.email" />
+          </label>
+          <input
+            id="email"
+            onChange={e => setEmail(e.target.value)}
+            value={email}
+          />
+        </Form.Field>
+        <Button loading={loading} disabled={loading}>
+          <FormattedMessage id="modules.resetPasswordRequest.submit" />
+        </Button>
+      </Form>
+    </>
   )
 }

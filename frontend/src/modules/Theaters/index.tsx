@@ -15,6 +15,7 @@ import {
   theaterDetails,
   theaterDetailsVariables,
 } from './__generated__/theaterDetails'
+import Helmet from 'react-helmet'
 
 const SCREENING_COUNT = gql`
   query countMovies($theaterId: ID, $week: Int) {
@@ -80,6 +81,9 @@ export const Theaters = (props: Props) => {
 
   return (
     <>
+      <Helmet>
+        <title>{data?.getTheater.name}</title>
+      </Helmet>
       <Header size="huge">{data?.getTheater.name}</Header>
       <p>
         {data?.getTheater.street}

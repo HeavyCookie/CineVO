@@ -3,7 +3,7 @@ import { RouteComponentProps, Redirect } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { useMutation } from 'react-apollo'
 import { Form, Button } from 'semantic-ui-react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Context } from '../context'
 
@@ -11,6 +11,7 @@ import {
   resetPassword,
   resetPasswordVariables,
 } from './__generated__/resetPassword'
+import Helmet from 'react-helmet'
 
 type Props = RouteComponentProps<{ token: string }>
 
@@ -38,29 +39,36 @@ export const ResetPassword = (props: Props) => {
     return <Redirect to="/" />
   }
 
-  return (
-    <Form
-      onSubmit={() =>
-        changePassword({
-          variables: { token: props.match.params.token, password },
-        })
-      }
-    >
-      <Form.Field>
-        <label htmlFor="password">
-          <FormattedMessage id="modules.resetPassword.password" />
-        </label>
-        <input
-          id="password"
-          type="password"
-          onChange={e => setPassword(e.target.value)}
-          value={password}
-        />
+  const { formatMessage } = useIntl()
 
-        <Button loading={loading} disabled={loading}>
-          <FormattedMessage id="modules.resetPassword.submit" />
-        </Button>
-      </Form.Field>
-    </Form>
+  return (
+    <>
+      <Helmet>
+        <title>{formatMessage({ id: 'modules.resetPassword.title' })}</title>
+      </Helmet>
+      <Form
+        onSubmit={() =>
+          changePassword({
+            variables: { token: props.match.params.token, password },
+          })
+        }
+      >
+        <Form.Field>
+          <label htmlFor="password">
+            <FormattedMessage id="modules.resetPassword.password" />
+          </label>
+          <input
+            id="password"
+            type="password"
+            onChange={e => setPassword(e.target.value)}
+            value={password}
+          />
+
+          <Button loading={loading} disabled={loading}>
+            <FormattedMessage id="modules.resetPassword.submit" />
+          </Button>
+        </Form.Field>
+      </Form>
+    </>
   )
 }

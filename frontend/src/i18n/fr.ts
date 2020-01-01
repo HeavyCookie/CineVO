@@ -52,6 +52,7 @@ const translations: Translations = {
       nomovies: 'Pas de film cette semaine !',
     },
     account: {
+      title: 'Mon compte',
       fields: {
         email: 'Email',
         password: 'Mot de passe',
@@ -60,6 +61,7 @@ const translations: Translations = {
       removeTheater: 'Retirer',
     },
     signup: {
+      title: 'Créer un compte',
       fields: {
         email: 'Email',
         password: 'Mot de passe',
@@ -78,14 +80,17 @@ const translations: Translations = {
       },
     },
     resetPasswordRequest: {
+      title: 'Demande de changement de mot de passe',
       email: 'Email',
       submit: 'Demander la remise à zéro de mon mot de passe',
     },
     resetPassword: {
+      title: 'Changement de mot de passe',
       password: 'Mot de passe',
       submit: 'Changer de mot de passe',
     },
     login: {
+      title: 'Connexion',
       fields: {
         email: 'Email',
         password: 'Mot de passe',

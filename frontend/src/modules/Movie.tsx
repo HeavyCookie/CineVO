@@ -14,6 +14,7 @@ import {
   getScreenings,
   getScreeningsVariables,
 } from './__generated__/getScreenings'
+import Helmet from 'react-helmet'
 
 type Props = {
   weekMovieIds: string[]
@@ -73,36 +74,41 @@ export const Movie = withRouter((props: Props) => {
   const nextMovieId = props.weekMovieIds[currentMoviePos + 1]
 
   return (
-    <Full
-      movie={{
-        name: data.movie.title,
-        actors: data.movie.actors,
-        directors: data.movie.directors,
-        poster: data.movie.poster,
-        runtime: data.movie.runtime,
-        synopsis: data.movie.plot,
-        backdrop: data.movie.backdrop,
-        screenings: screenings.getScreenings.map(s => s.date),
-      }}
-      previous={
-        previousMovieId && (
-          <Link
-            to={`/theaters/${theaterId}/week/${week}/movies/${previousMovieId}`}
-          >
-            <FormattedMessage id="components.movie.full.previous" />
-          </Link>
-        )
-      }
-      next={
-        nextMovieId && (
-          <Link
-            to={`/theaters/${theaterId}/week/${week}/movies/${nextMovieId}`}
-          >
-            <FormattedMessage id="components.movie.full.next" />
-          </Link>
-        )
-      }
-      close={() => props.history.push(`/theaters/${theaterId}/week/${week}`)}
-    />
+    <>
+      <Helmet>
+        <title>{data.movie.title}</title>
+      </Helmet>
+      <Full
+        movie={{
+          name: data.movie.title,
+          actors: data.movie.actors,
+          directors: data.movie.directors,
+          poster: data.movie.poster,
+          runtime: data.movie.runtime,
+          synopsis: data.movie.plot,
+          backdrop: data.movie.backdrop,
+          screenings: screenings.getScreenings.map(s => s.date),
+        }}
+        previous={
+          previousMovieId && (
+            <Link
+              to={`/theaters/${theaterId}/week/${week}/movies/${previousMovieId}`}
+            >
+              <FormattedMessage id="components.movie.full.previous" />
+            </Link>
+          )
+        }
+        next={
+          nextMovieId && (
+            <Link
+              to={`/theaters/${theaterId}/week/${week}/movies/${nextMovieId}`}
+            >
+              <FormattedMessage id="components.movie.full.next" />
+            </Link>
+          )
+        }
+        close={() => props.history.push(`/theaters/${theaterId}/week/${week}`)}
+      />
+    </>
   )
 })

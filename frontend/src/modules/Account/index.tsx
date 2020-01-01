@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Form, Button } from 'semantic-ui-react'
 import gql from 'graphql-tag'
 import { useMutation, useQuery } from 'react-apollo'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Context } from '../../context'
 
@@ -12,6 +12,7 @@ import {
 } from './__generated__/updateAccount'
 import { getAccount } from './__generated__/getAccount'
 import { Subscriptions } from './Subscriptions'
+import Helmet from 'react-helmet'
 
 const UPDATE_ACCOUNT = gql`
   mutation updateAccount($account: ProfileUpdate!) {
@@ -48,8 +49,13 @@ export const Account = () => {
     updateAccountVariables
   >(UPDATE_ACCOUNT)
 
+  const { formatMessage } = useIntl()
+
   return (
     <>
+      <Helmet>
+        <title>{formatMessage({ id: 'modules.account.title' })}</title>
+      </Helmet>
       <Form
         onSubmit={() => {
           updateAccountAction({ variables: { account: { email, password } } })

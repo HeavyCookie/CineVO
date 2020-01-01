@@ -3,11 +3,12 @@ import { Form, Button } from 'semantic-ui-react'
 import gql from 'graphql-tag'
 import { useMutation } from 'react-apollo'
 import { Redirect, Link } from 'react-router-dom'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Context } from '../context'
 
 import { login, loginVariables } from './__generated__/login'
+import Helmet from 'react-helmet'
 
 const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
@@ -34,35 +35,42 @@ export const Login = () => {
     return <Redirect to="/" />
   }
 
+  const { formatMessage } = useIntl()
+
   return (
-    <Form onSubmit={() => loginAction({ variables: { email, password } })}>
-      <Form.Field>
-        <label htmlFor="email">
-          <FormattedMessage id="modules.login.fields.email" />
-        </label>
-        <input
-          id="email"
-          onChange={e => setEmail(e.target.value)}
-          value={email}
-        />
-      </Form.Field>
-      <Form.Field>
-        <label htmlFor="password">
-          <FormattedMessage id="modules.login.fields.password" />
-        </label>
-        <input
-          id="password"
-          type="password"
-          onChange={e => setPassword(e.target.value)}
-          value={password}
-        />
-      </Form.Field>
-      <Button type="submit" disabled={loading} loading={loading}>
-        <FormattedMessage id="modules.login.submit" />
-      </Button>
-      <Link to="/reset-password">
-        <FormattedMessage id="modules.login.forgotPassword" />
-      </Link>
-    </Form>
+    <>
+      <Helmet>
+        <title>{formatMessage({ id: 'modules.login.title' })}</title>
+      </Helmet>
+      <Form onSubmit={() => loginAction({ variables: { email, password } })}>
+        <Form.Field>
+          <label htmlFor="email">
+            <FormattedMessage id="modules.login.fields.email" />
+          </label>
+          <input
+            id="email"
+            onChange={e => setEmail(e.target.value)}
+            value={email}
+          />
+        </Form.Field>
+        <Form.Field>
+          <label htmlFor="password">
+            <FormattedMessage id="modules.login.fields.password" />
+          </label>
+          <input
+            id="password"
+            type="password"
+            onChange={e => setPassword(e.target.value)}
+            value={password}
+          />
+        </Form.Field>
+        <Button type="submit" disabled={loading} loading={loading}>
+          <FormattedMessage id="modules.login.submit" />
+        </Button>
+        <Link to="/reset-password">
+          <FormattedMessage id="modules.login.forgotPassword" />
+        </Link>
+      </Form>
+    </>
   )
 }

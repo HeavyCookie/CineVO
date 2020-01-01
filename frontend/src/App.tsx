@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Route, Switch, Link } from 'react-router-dom'
 import { ApolloProvider } from 'react-apollo'
 import { IntlProvider } from 'react-intl'
+import Helmet from 'react-helmet'
 
 import Home from './modules/Home'
 import { client } from './apollo'
@@ -24,6 +25,9 @@ const App = () => (
     <IntlProvider locale="fr" messages={i18nfr}>
       <ApolloProvider client={client}>
         <GlobalStyle />
+        <Helmet titleTemplate="%s • CineVO" defaultTitle="CineVO">
+          <meta charSet="utf-8" />
+        </Helmet>
         <DefaultView
           homeLink={({ children }: { children: React.ReactNode }) => (
             <Link to="/">{children}</Link>
