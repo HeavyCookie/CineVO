@@ -8,6 +8,7 @@ const translations: Translations = {
       editAccount: 'Modifier mon compte',
       logout: 'Se déconnecter',
       login: 'Se connecter',
+      signup: 'Créer un compte',
     },
     movie: {
       full: {

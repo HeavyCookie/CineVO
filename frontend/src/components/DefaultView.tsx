@@ -81,6 +81,10 @@ export const DefaultView = (props: {
             <div>
               <Link to="/login">
                 <FormattedMessage id="components.layout.login" />
+              </Link>{' '}
+              •{' '}
+              <Link to="/signup">
+                <FormattedMessage id="components.layout.signup" />
               </Link>
             </div>
           )}
