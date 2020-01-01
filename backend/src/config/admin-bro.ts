@@ -8,6 +8,7 @@ import { Movie } from '../entity/Movie'
 import { Screening } from '../entity/Screening'
 import { Subscription } from '../entity/Subscription'
 import { User } from '../entity/User'
+import { checkPassword } from '../lib/security'
 
 export const adminBro = (connection: Connection) => {
   Resource.validate = validate
@@ -47,4 +48,15 @@ export const adminBro = (connection: Connection) => {
     ],
     rootPath: '/admin',
   })
+}
+
+export const authentication = async (email: string, password: string) => {
+  const user = await User.findOne({ email, isAdmin: true })
+  if (user) {
+    const matched = await checkPassword(user.passwordHash, password)
+    if (matched) {
+      return user
+    }
+  }
+  return false
 }
