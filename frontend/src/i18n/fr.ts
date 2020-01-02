@@ -69,6 +69,11 @@ const translations: Translations = {
       },
       submit: 'Créer mon compte',
     },
+    movie: {
+      screenings: 'Séances dans vos abonnements',
+      loginToViewScreenings:
+        'Connectez-vous pour voir les séances du film dans vos cinémas préférés',
+    },
     theaters: {
       subscribe: {
         subscribe: "S'abonner",

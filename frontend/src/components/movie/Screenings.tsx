@@ -41,9 +41,9 @@ export const Screenings = (props: Props) => {
           </dt>
           <ScreeningList>
             {times.map(time => (
-              <>
-                <FormattedTime key={time.toString()} value={time} />{' '}
-              </>
+              <React.Fragment key={time.toString()}>
+                <FormattedTime value={time} />{' '}
+              </React.Fragment>
             ))}
           </ScreeningList>
         </React.Fragment>

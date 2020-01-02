@@ -1,5 +1,14 @@
 import { getRepository } from 'typeorm'
-import { Resolver, Query, Arg, Int, ID } from 'type-graphql'
+import {
+  Resolver,
+  Query,
+  Arg,
+  Int,
+  ID,
+  FieldResolver,
+  Authorized,
+  Root,
+} from 'type-graphql'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { Movie } from '../entity/Movie'
@@ -9,13 +18,36 @@ import { getWeek } from '../lib/theater-weeks'
 import { CurrentUser } from '../lib/Context'
 import { User } from '../entity/User'
 import { Subscription } from '../entity/Subscription'
+import { Theater } from '../entity/Theater'
+import { TheaterRepository } from '../repositories/TheaterRepository'
 
 @Resolver(() => Movie)
 export class MovieResolver {
   public constructor(
     @InjectRepository(MovieRepository)
-    private readonly movieRepository: MovieRepository
+    private readonly movieRepository: MovieRepository,
+    @InjectRepository(TheaterRepository)
+    private readonly theaterRepository: TheaterRepository
   ) {}
+
+  @Authorized()
+  @FieldResolver(() => [Theater], { nullable: true })
+  public async theaters(
+    @CurrentUser() currentUser: User,
+    @Root() movie: Movie
+  ) {
+    return await this.theaterRepository
+      .createQueryBuilder('theater')
+      .leftJoinAndSelect('theater.screenings', 'screening')
+      .where('screening.movieId = :movieId', { movieId: movie.id })
+      .leftJoin(
+        'theater.subscriptions',
+        'subscription',
+        'subscription.userId = :userId',
+        { userId: currentUser.id }
+      )
+      .getMany()
+  }
 
   @Query(() => [Movie])
   public movies(

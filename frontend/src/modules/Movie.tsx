@@ -1,15 +1,21 @@
 import React from 'react'
-import { RouteComponentProps, Redirect } from 'react-router-dom'
+import { RouteComponentProps, Redirect, Link } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { useQuery } from 'react-apollo'
 import Helmet from 'react-helmet'
 import { FormattedMessage } from 'react-intl'
 import styled from '@emotion/styled'
+import { Header } from 'semantic-ui-react'
 
 import * as MovieFull from '../components/movie/Full'
 import { Poster } from '../components/movie/Poster'
+import { Screenings } from '../components/movie/Screenings'
 
-import { getMovie, getMovieVariables } from './__generated__/getMovie'
+import {
+  getMovie,
+  getMovieVariables,
+  getMovie_movie_theaters, // eslint-disable-line
+} from './__generated__/getMovie'
 
 type Props = RouteComponentProps<{ movieId: string }>
 
@@ -24,6 +30,13 @@ const MOVIE_DETAILS_QUERY = gql`
       runtime
       plot
       backdrop
+      theaters {
+        id
+        name
+        screenings {
+          date
+        }
+      }
     }
   }
 `
@@ -32,6 +45,19 @@ const Container = styled.div`
   margin-right: -1em;
   margin-left: -1em;
 `
+
+const TheaterScreenings = ({
+  theater,
+}: {
+  theater: getMovie_movie_theaters // eslint-disable-line @typescript-eslint/camelcase
+}) => (
+  <>
+    <Header as="h3">
+      <Link to={`/theaters/${theater.id}`}>{theater.name}</Link>
+    </Header>
+    <Screenings data={theater.screenings.map(s => s.date)} />
+  </>
+)
 
 export const Movie = (props: Props) => {
   const { movieId } = props.match.params
@@ -83,6 +109,18 @@ export const Movie = (props: Props) => {
                   <FormattedMessage id="components.movie.full.synopsis" />
                 </MovieFull.Subtitle>
                 <MovieFull.Synopsis>{movie.plot}</MovieFull.Synopsis>
+              </>
+            )}
+
+            {!!movie.theaters && (
+              <>
+                <MovieFull.Subtitle>
+                  <FormattedMessage id="modules.movie.screenings" />
+                </MovieFull.Subtitle>
+
+                {movie.theaters.map(theater => (
+                  <TheaterScreenings key={theater.id} theater={theater} />
+                ))}
               </>
             )}
           </div>

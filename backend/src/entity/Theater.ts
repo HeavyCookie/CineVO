@@ -42,6 +42,7 @@ export class Theater extends BaseEntity {
   @Column()
   public city: string
 
+  @Field(() => [Screening])
   @OneToMany(
     () => Screening,
     screening => screening.theater
