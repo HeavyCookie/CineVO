@@ -11,7 +11,7 @@ import { GlobalStyle } from './components/GlobalStyle'
 import './i18n'
 import i18nfr from './i18n/fr'
 import { Unsubscribe } from './modules/Unsubscribe'
-import { Theaters } from './modules/Theaters'
+import { Theater } from './modules/Theater'
 import { Login } from './modules/Login'
 import { Logout } from './modules/Logout'
 import { TokenProvider } from './context'
@@ -19,6 +19,7 @@ import { Account } from './modules/Account'
 import { Signup } from './modules/Signup'
 import { ResetPasswordRequest } from './modules/ResetPasswordRequest'
 import { ResetPassword } from './modules/ResetPassword'
+import { Theaters } from './modules/Theaters'
 
 const App = () => (
   <TokenProvider>
@@ -37,8 +38,9 @@ const App = () => (
             <Route path="/unsubscribe/:uuid" component={Unsubscribe} />
             <Route
               path={['/theaters/:theaterId/week/:week', '/theaters/:theaterId']}
-              component={Theaters}
+              component={Theater}
             />
+            <Route path="/theaters/" component={Theaters} />
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
             <Route path="/me" component={Account} />

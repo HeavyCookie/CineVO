@@ -5,6 +5,7 @@ import { FormattedDate } from 'react-intl'
 import gql from 'graphql-tag'
 import { useQuery } from 'react-apollo'
 import styled from '@emotion/styled'
+import Helmet from 'react-helmet'
 
 import { getWeek } from '../../lib/theater-weeks'
 
@@ -15,7 +16,6 @@ import {
   theaterDetails,
   theaterDetailsVariables,
 } from './__generated__/theaterDetails'
-import Helmet from 'react-helmet'
 
 const SCREENING_COUNT = gql`
   query countMovies($theaterId: ID, $week: Int) {
@@ -66,7 +66,7 @@ const StyledMenu = styled(Menu)`
 `
 type Props = RouteComponentProps<{ week?: string; theaterId: string }>
 
-export const Theaters = (props: Props) => {
+export const Theater = (props: Props) => {
   const stringWeek = props.match.params.week
   const theaterId = props.match.params.theaterId
   const week = (stringWeek && parseInt(stringWeek)) || 0

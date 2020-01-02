@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg, ID } from 'type-graphql'
+import { Resolver, Query, Arg, ID, Int } from 'type-graphql'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { TheaterRepository } from '../repositories/TheaterRepository'
@@ -22,7 +22,15 @@ export class TheaterResolver {
   }
 
   @Query(() => [Theater])
-  public async listTheater() {
-    return await this.theaterRepository.find()
+  public async listTheater(
+    @Arg('limit', () => Int, { nullable: true }) limit?: number
+  ) {
+    const query = this.theaterRepository
+      .createQueryBuilder()
+      .orderBy('Theater.createdAt', 'DESC')
+
+    if (limit) query.limit(limit)
+
+    return await query.getMany()
   }
 }
