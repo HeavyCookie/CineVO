@@ -12,7 +12,14 @@ useContainer(Container)
 export const generateSchema = () =>
   buildSchema({
     resolvers: [__dirname + '/../**/*.resolver.ts'],
-    emitSchemaFile: resolve(__dirname, '..', '..', 'schema.gql'),
+    emitSchemaFile: resolve(
+      __dirname,
+      '..',
+      '..',
+      '..',
+      'frontend',
+      'schema.gql'
+    ),
     globalMiddlewares: [Logs],
     container: Container,
     authChecker,
