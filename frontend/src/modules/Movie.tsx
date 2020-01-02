@@ -1,114 +1,93 @@
 import React from 'react'
+import { RouteComponentProps, Redirect } from 'react-router-dom'
 import gql from 'graphql-tag'
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
-import { FormattedMessage } from 'react-intl'
 import { useQuery } from 'react-apollo'
-
-import { Full } from '../components/movie/Full'
-
-import {
-  getMovieDetails,
-  getMovieDetailsVariables,
-} from './__generated__/getMovieDetails'
-import {
-  getScreenings,
-  getScreeningsVariables,
-} from './__generated__/getScreenings'
 import Helmet from 'react-helmet'
+import { FormattedMessage } from 'react-intl'
+import styled from '@emotion/styled'
 
-type Props = {
-  weekMovieIds: string[]
-} & RouteComponentProps<{
-  theaterId: string
-  movieId: string
-  week: string
-}>
+import * as MovieFull from '../components/movie/Full'
+import { Poster } from '../components/movie/Poster'
 
-const GET_MOVIE_DETAILS = gql`
-  query getMovieDetails($id: ID!) {
-    movie(id: $id) {
+import { getMovie, getMovieVariables } from './__generated__/getMovie'
+
+type Props = RouteComponentProps<{ movieId: string }>
+
+const MOVIE_DETAILS_QUERY = gql`
+  query getMovie($movieId: ID!) {
+    movie(id: $movieId) {
       id
+      title
       poster
       actors
       directors
       runtime
-      poster
       plot
-      title
       backdrop
     }
   }
 `
 
-const GET_SCREENINGS = gql`
-  query getScreenings($movieId: ID!, $theaterId: ID!) {
-    getScreenings(theaterId: $theaterId, movieId: $movieId) {
-      date
-    }
-  }
+const Container = styled.div`
+  margin-right: -1em;
+  margin-left: -1em;
 `
 
-export const Movie = withRouter((props: Props) => {
-  const { week, theaterId, movieId } = props.match.params
-  const { data } = useQuery<getMovieDetails, getMovieDetailsVariables>(
-    GET_MOVIE_DETAILS,
-    {
-      variables: { id: movieId },
-    }
-  )
+export const Movie = (props: Props) => {
+  const { movieId } = props.match.params
+  const { data } = useQuery<getMovie, getMovieVariables>(MOVIE_DETAILS_QUERY, {
+    variables: { movieId },
+  })
 
-  const { data: screenings } = useQuery<getScreenings, getScreeningsVariables>(
-    GET_SCREENINGS,
-    {
-      variables: { movieId, theaterId },
-    }
-  )
+  if (!data) return null
 
-  if (!data || !data.movie || !screenings || !screenings.getScreenings)
-    return null
+  if (!data.movie) return <Redirect to="/" />
 
-  // const screenings = data.movie.screenings.map(screening => screening.date)
-
-  const currentMoviePos = props.weekMovieIds.indexOf(props.match.params.movieId)
-  const previousMovieId = props.weekMovieIds[currentMoviePos - 1]
-  const nextMovieId = props.weekMovieIds[currentMoviePos + 1]
+  const { movie } = data
 
   return (
     <>
       <Helmet>
         <title>{data.movie.title}</title>
       </Helmet>
-      <Full
-        movie={{
-          name: data.movie.title,
-          actors: data.movie.actors,
-          directors: data.movie.directors,
-          poster: data.movie.poster,
-          runtime: data.movie.runtime,
-          synopsis: data.movie.plot,
-          backdrop: data.movie.backdrop,
-          screenings: screenings.getScreenings.map(s => s.date),
-        }}
-        previous={
-          previousMovieId && (
-            <Link
-              to={`/theaters/${theaterId}/week/${week}/movies/${previousMovieId}`}
-            >
-              <FormattedMessage id="components.movie.full.previous" />
-            </Link>
-          )
-        }
-        next={
-          nextMovieId && (
-            <Link
-              to={`/theaters/${theaterId}/week/${week}/movies/${nextMovieId}`}
-            >
-              <FormattedMessage id="components.movie.full.next" />
-            </Link>
-          )
-        }
-        close={() => props.history.push(`/theaters/${theaterId}/week/${week}`)}
-      />
+      <Container>
+        <MovieFull.Backdrop src={movie.backdrop || undefined} />
+        <MovieFull.Informations>
+          <MovieFull.PosterContainer>
+            <Poster name={movie.title} url={movie.poster} />
+          </MovieFull.PosterContainer>
+          <div>
+            <MovieFull.Title>{movie.title}</MovieFull.Title>
+            <MovieFull.Info>
+              <FormattedMessage
+                id="components.movie.full.actorList"
+                values={{ actors: movie.actors.join(', ') }}
+              />
+            </MovieFull.Info>
+            <MovieFull.Info>
+              <FormattedMessage
+                id="components.movie.full.directorList"
+                values={{ directors: movie.directors.join(', ') }}
+              />
+            </MovieFull.Info>
+            <MovieFull.Info>
+              <FormattedMessage
+                id="components.movie.full.duration"
+                values={{ minutes: movie.runtime / 60 }}
+              />
+            </MovieFull.Info>
+
+            {!!movie.plot && (
+              <>
+                <MovieFull.Subtitle>
+                  <FormattedMessage id="components.movie.full.synopsis" />
+                </MovieFull.Subtitle>
+                <MovieFull.Synopsis>{movie.plot}</MovieFull.Synopsis>
+              </>
+            )}
+          </div>
+        </MovieFull.Informations>
+      </Container>
     </>
   )
-})
+}

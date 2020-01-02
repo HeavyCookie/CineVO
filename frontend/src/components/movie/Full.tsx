@@ -6,21 +6,21 @@ import { Modal } from 'semantic-ui-react'
 import { Poster } from './Poster'
 import { Screenings } from './Screenings'
 
-const Backdrop = styled.img`
+export const Backdrop = styled.img`
   display: block;
   width: 100%;
   height: 10em;
   object-fit: cover;
 `
 
-const Informations = styled.div`
+export const Informations = styled.div`
   display: grid;
   grid-gap: 0.5em;
   grid-template-columns: auto 1fr;
   margin: 0.5em;
 `
 
-const PosterContainer = styled.div`
+export const PosterContainer = styled.div`
   margin-top: -5em;
   border: 3px solid white;
   @media screen and (max-width: 500px) {
@@ -28,19 +28,19 @@ const PosterContainer = styled.div`
   }
 `
 
-const Title = styled.h1`
+export const Title = styled.h1`
   margin: 0.3em 0;
   padding-bottom: 3px;
   border-bottom: 1px solid lightgrey;
 `
 
-const Subtitle = Title.withComponent('h2')
+export const Subtitle = Title.withComponent('h2')
 
-const Info = styled.div`
+export const Info = styled.div`
   font-size: 0.8em;
 `
 
-const Synopsis = styled.p`
+export const Synopsis = styled.p`
   font-size: 0.9em;
   font-style: italic;
 `

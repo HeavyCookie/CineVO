@@ -20,6 +20,7 @@ import { Signup } from './modules/Signup'
 import { ResetPasswordRequest } from './modules/ResetPasswordRequest'
 import { ResetPassword } from './modules/ResetPassword'
 import { Theaters } from './modules/Theaters'
+import { Movie } from './modules/Movie'
 
 const App = () => (
   <TokenProvider>
@@ -41,6 +42,7 @@ const App = () => (
               component={Theater}
             />
             <Route path="/theaters/" component={Theaters} />
+            <Route path="/movies/:movieId" component={Movie} />
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
             <Route path="/me" component={Account} />

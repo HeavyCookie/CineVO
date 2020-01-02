@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import { useQuery } from 'react-apollo'
 
 import { AnimatedPoster, Wall, WallLoader } from '../../components/movie/Poster'
-import { Movie } from '../Movie'
+import { TheaterMovie } from '../TheaterMovie'
 
 import { getMovies, getMoviesVariables } from './__generated__/getMovies'
 
@@ -55,7 +55,7 @@ export const Week = (props: Props) => {
       <Route
         path="/theaters/:theaterId/week/:week/movies/:movieId"
         render={props => (
-          <Movie {...props} weekMovieIds={data.movies.map(m => m.id)} />
+          <TheaterMovie {...props} weekMovieIds={data.movies.map(m => m.id)} />
         )}
       />
     </>

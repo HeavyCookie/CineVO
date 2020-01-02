@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 import { useQuery } from 'react-apollo'
 import styled from '@emotion/styled'
 import { Header } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 import { Poster } from '../../components/movie/Poster'
 
@@ -30,13 +31,14 @@ export const Movies = () => {
       <Header as="h1">Film les plus diffusés cette semaine</Header>
       <MovieWall>
         {data?.popularMoviesThisWeek.map(movie => (
-          <Poster
-            key={movie.id}
-            url={movie.poster}
-            name={movie.title}
-            maxHeight={266}
-            maxWidth={200}
-          />
+          <Link to={`/movies/${movie.id}`} key={movie.id}>
+            <Poster
+              url={movie.poster}
+              name={movie.title}
+              maxHeight={266}
+              maxWidth={200}
+            />
+          </Link>
         ))}
       </MovieWall>
     </>
