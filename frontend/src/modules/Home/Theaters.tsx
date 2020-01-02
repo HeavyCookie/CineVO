@@ -11,6 +11,7 @@ import {
   listTheaters,
   listTheatersVariables,
 } from './__generated__/listTheaters'
+import { SearchTheaters } from './SearchTheaters'
 
 const THEATERS = gql`
   query listTheaters($limit: Int) {
@@ -59,6 +60,9 @@ export const Theaters = () => {
         ))}
         <li></li>
       </List>
+
+      <SearchTheaters />
+
       <Link to="/theaters">
         <Icon name="arrow alternate circle right" />
         Voir tous les cinémas

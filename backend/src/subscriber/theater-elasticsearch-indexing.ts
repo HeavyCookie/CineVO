@@ -14,19 +14,19 @@ export class TheaterElasticsearchIndexing
   implements EntitySubscriberInterface<Theater> {
   listenTo = () => Theater
 
-  afterInsert = ({ entity }: InsertEvent<Theater>) =>
-    client.index({
-      index: 'theaters',
-      id: entity.id,
-      body: { ...entity, postcode: entity.postcode.toString() },
-    })
+  private index = (entity: Theater) => {
+    console.log('Indexing theater')
 
-  afterUpdate = ({ entity }: UpdateEvent<Theater>) =>
-    client.index({
+    return client.index({
       index: 'theaters',
       id: entity.id,
-      body: { ...entity, postcode: entity.postcode.toString() },
+      body: entity,
     })
+  }
+
+  afterInsert = ({ entity }: InsertEvent<Theater>) => this.index(entity)
+
+  afterUpdate = ({ entity }: UpdateEvent<Theater>) => this.index(entity)
 
   afterRemove = ({ entityId }: RemoveEvent<Theater>) =>
     client.delete({ index: 'theaters', id: entityId })

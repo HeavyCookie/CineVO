@@ -25,6 +25,7 @@ export class TheaterRepository extends Repository<Theater> {
           multi_match: {
             query,
             fields: ['allocineCode', 'name', 'street', 'city', 'postcode'],
+            type: 'phrase_prefix',
           },
         },
       },
