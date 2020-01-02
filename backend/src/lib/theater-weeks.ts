@@ -2,8 +2,8 @@ import { startOfWeek, endOfWeek, addWeeks } from 'date-fns'
 
 export function getWeekFromDate(date: Date = new Date()): [Date, Date] {
   return [
-    startOfWeek(date, { weekStartsOn: 4 }),
-    endOfWeek(date, { weekStartsOn: 4 }),
+    startOfWeek(date, { weekStartsOn: 3 }),
+    endOfWeek(date, { weekStartsOn: 3 }),
   ]
 }
 
