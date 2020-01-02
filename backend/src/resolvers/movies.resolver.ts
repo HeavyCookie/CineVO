@@ -1,3 +1,4 @@
+import { getRepository } from 'typeorm'
 import { Resolver, Query, Arg, Int, ID } from 'type-graphql'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
@@ -5,6 +6,9 @@ import { Movie } from '../entity/Movie'
 import { refreshMoviesFromAllocine } from '../lib/allocine-screenings'
 import { MovieRepository } from '../repositories/MovieRepository'
 import { getWeek } from '../lib/theater-weeks'
+import { CurrentUser } from '../lib/Context'
+import { User } from '../entity/User'
+import { Subscription } from '../entity/Subscription'
 
 @Resolver(() => Movie)
 export class MovieResolver {
@@ -45,16 +49,28 @@ export class MovieResolver {
   }
 
   @Query(() => [Movie])
-  public async popularMoviesThisWeek() {
+  public async popularMoviesThisWeek(@CurrentUser() currentUser?: User) {
     const [start, end] = getWeek(0)
-    return await this.movieRepository
+    const query = this.movieRepository
       .createQueryBuilder('movie')
       .leftJoin('movie.screenings', 'screening')
       .groupBy('screening.movieId')
       .addGroupBy('movie.id')
       .orderBy('COUNT(screening.movieId)', 'DESC')
       .where('screening.date BETWEEN :start AND :end', { start, end })
-      .getMany()
+
+    if (currentUser) {
+      const theaterIds = (
+        await getRepository(Subscription)
+          .createQueryBuilder()
+          .where({ user: currentUser })
+          .select('Subscription.theaterId')
+          .getMany()
+      ).map(subscription => subscription.theaterId)
+
+      query.andWhere('screening.theaterId IN (:...theaterIds)', { theaterIds })
+    }
+    return await query.getMany()
   }
 
   public surroundingMovies: Movie[] | undefined

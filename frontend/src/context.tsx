@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
+import { client } from './apollo'
+
 export const getToken = () => {
   if (typeof window == 'undefined') return undefined
 
@@ -13,6 +15,7 @@ const useToken = (): [
   const [token, setToken] = useState(getToken())
 
   useEffect(() => {
+    client.resetStore()
     if (typeof window == 'undefined') return
     token
       ? localStorage.setItem('token', token)
