@@ -4,6 +4,7 @@ import { InjectRepository } from 'typeorm-typedi-extensions'
 import { Movie } from '../entity/Movie'
 import { refreshMoviesFromAllocine } from '../lib/allocine-screenings'
 import { MovieRepository } from '../repositories/MovieRepository'
+import { getWeek } from '../lib/theater-weeks'
 
 @Resolver(() => Movie)
 export class MovieResolver {
@@ -37,9 +38,23 @@ export class MovieResolver {
     return this.movieRepository.findOne(id)
   }
 
-  @Query(() => [Movie])
+  @Query(() => Boolean)
   public async refreshMovies() {
-    return await refreshMoviesFromAllocine()
+    await refreshMoviesFromAllocine()
+    return true
+  }
+
+  @Query(() => [Movie])
+  public async popularMoviesThisWeek() {
+    const [start, end] = getWeek(0)
+    return await this.movieRepository
+      .createQueryBuilder('movie')
+      .leftJoin('movie.screenings', 'screening')
+      .groupBy('screening.movieId')
+      .addGroupBy('movie.id')
+      .orderBy('COUNT(screening.movieId)', 'DESC')
+      .where('screening.date BETWEEN :start AND :end', { start, end })
+      .getMany()
   }
 
   public surroundingMovies: Movie[] | undefined

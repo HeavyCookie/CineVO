@@ -64,7 +64,7 @@ export interface Movie {
   internalId: number
   languages: string[]
   originalTitle: string
-  poster: { id: number; url: string; path: string }
+  poster?: { id: number; url: string; path: string }
   releases?: { name: 'Released'; releaseDate: { date: string } }[]
   /* weird format as "xh xxmin" */
   runtime: string

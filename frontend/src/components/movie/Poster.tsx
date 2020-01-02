@@ -12,6 +12,7 @@ const Container = styled.div`
 
 const Image = styled.img`
   display: block;
+  object-fit: cover;
 `
 
 export type Props = {
@@ -32,7 +33,8 @@ export const Poster = ({ url, name, maxWidth = 200, maxHeight }: Props) => {
       <Image
         src={url || undefined}
         alt={t({ id: 'components.movie.poster.title' }, { movieName: name })}
-        style={{ maxWidth, maxHeight }}
+        title={t({ id: 'components.movie.poster.title' }, { movieName: name })}
+        style={{ width: maxWidth, height: maxHeight }}
       />
     </Container>
   )

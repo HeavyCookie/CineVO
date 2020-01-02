@@ -37,21 +37,26 @@ const allocineToMovie = async (amovie: AMovie): Promise<Movie> => {
     .map(person => `${person.person.firstName} ${person.person.lastName}`)
 
   const release =
-    amovie.releases && new Date(amovie.releases[0].releaseDate.date)
+    (amovie.releases[0] && new Date(amovie.releases[0].releaseDate.date)) ||
+    new Date()
 
-  const tmdb = await searchMovie(amovie.title, release || new Date())
+  const tmdb = await searchMovie(amovie.title, release)
   const tmdbMovie = tmdb.results[0]
 
   return Object.assign(new Movie(), {
     allocineId: amovie.internalId,
     actors: actors,
     directors: directors,
-    plot: '',
+    plot: amovie.synopsisFull,
     runtime: runtimeToInt(amovie.runtime),
     pressRatings: amovie.stats.pressReview && amovie.stats.pressReview.score,
     userRatings: amovie.stats.userRating && amovie.stats.userRating.score,
     title: amovie.originalTitle,
-    poster: amovie.poster.url,
+    poster:
+      (amovie.poster && amovie.poster.url) ||
+      (tmdbMovie &&
+        tmdbMovie.poster_path &&
+        'http://image.tmdb.org/t/p/original' + tmdbMovie.poster_path),
     release: release,
     backdrop:
       tmdbMovie &&
@@ -107,5 +112,8 @@ export const refreshMoviesFromAllocine = async () => {
   await getManager().delete(Screening, { date: MoreThan(new Date()) })
 
   const theaters = await getRepository(Theater).find()
-  return theaters.map(refreshTheaterScreenings)
+  for (const theater of theaters) {
+    await refreshTheaterScreenings(theater)
+  }
+  return true
 }
