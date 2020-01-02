@@ -76,7 +76,7 @@
   },
   "scripts": {
     "start": "tsnd --ignore-watch node_modules --ignore-watch dist --inspect=0.0.0.0:5858 src/index.ts",
-    "start:prod": "ts-node src/index.ts",
+    "start:prod": "NODE_ENV=production ts-node src/index.ts",
     "typeorm": "ts-node ./node_modules/.bin/typeorm",
     "test": "jest --runInBand",
     "graphql:schema": "ts-node scripts/generate-graphql-schema"

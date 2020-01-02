@@ -33,8 +33,8 @@ async function start() {
   const server = new ApolloServer({
     schema: await generateSchema(),
     context,
-    playground: true,
-    tracing: true,
+    playground: process.env.NODE_ENV != 'production',
+    tracing: process.env.NODE_ENV != 'production',
   })
 
   server.applyMiddleware({ app, path: '/' })
