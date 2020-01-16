@@ -1,4 +1,4 @@
-import { getManager, MoreThan, getRepository } from 'typeorm'
+import { getManager, MoreThan, getRepository, QueryFailedError } from 'typeorm'
 import { parseISO } from 'date-fns'
 
 import { Movie } from '../entity/Movie'
@@ -81,14 +81,22 @@ const createScreenings = async (
   theater: Theater,
   screenings: Showtime[]
 ) =>
-  screenings.map(
-    async src =>
+  screenings.map(async src => {
+    try {
       await getManager().insert(Screening, {
         movie,
         theater,
         date: parseISO(src.startsAt),
       })
-  )
+    } catch (err) {
+      if (
+        err instanceof QueryFailedError &&
+        err.message.includes('duplicate key value violates unique constraint')
+      )
+        console.log('Screening already exists')
+      else console.error(err)
+    }
+  })
 
 const refreshTheaterScreenings = async (theater: Theater) => {
   for (let day = 0; day < 30; day++) {
