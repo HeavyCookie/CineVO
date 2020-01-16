@@ -40,7 +40,7 @@ export class MovieResolver {
       .createQueryBuilder('theater')
       .leftJoinAndSelect('theater.screenings', 'screening')
       .where('screening.movieId = :movieId', { movieId: movie.id })
-      .leftJoin(
+      .innerJoin(
         'theater.subscriptions',
         'subscription',
         'subscription.userId = :userId',
