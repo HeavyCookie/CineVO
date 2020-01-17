@@ -18,9 +18,9 @@ module.exports = {
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
   logging: true,
-  entities: [resolve(__dirname, 'src/entity/**/*.ts')],
-  migrations: [resolve(__dirname, 'src/migration/**/*.ts')],
-  subscribers: [resolve(__dirname, 'src/subscriber/**/*.ts')],
+  entities: [resolve(__dirname, 'src/entity/**/!(*.test.ts)')],
+  migrations: [resolve(__dirname, 'src/migration/**/!(*.test.ts)')],
+  subscribers: [resolve(__dirname, 'src/subscriber/**/!(*.test.ts)')],
   cli: {
     entitiesDir: 'src/entity',
     migrationsDir: 'src/migration',
