@@ -7,7 +7,7 @@ import {
 } from 'typeorm'
 
 import { Theater } from '../entity/Theater'
-import { client } from '../config/elastic-search'
+import { client, indexName } from '../config/elastic-search'
 
 @EventSubscriber()
 export class TheaterElasticsearchIndexing
@@ -18,7 +18,7 @@ export class TheaterElasticsearchIndexing
     console.log('Indexing theater')
 
     return client.index({
-      index: 'theaters',
+      index: indexName('theaters'),
       id: entity.id,
       body: entity,
     })
@@ -29,5 +29,5 @@ export class TheaterElasticsearchIndexing
   afterUpdate = ({ entity }: UpdateEvent<Theater>) => this.index(entity)
 
   afterRemove = ({ entityId }: RemoveEvent<Theater>) =>
-    client.delete({ index: 'theaters', id: entityId })
+    client.delete({ index: indexName('theaters'), id: entityId })
 }
