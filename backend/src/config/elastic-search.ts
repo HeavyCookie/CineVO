@@ -13,6 +13,7 @@ const mappings = {
     street: { type: 'text' },
     postcode: { type: 'text' },
     city: { type: 'text' },
+    location: { type: 'geo_point' },
   },
 }
 
@@ -27,12 +28,19 @@ const createIndex = (index: Indexes, mapping: Record<string, {}>) =>
     body: { mappings: { properties: mapping } },
   })
 
-const checkMappings = async () => {
+export const checkMappings = async (force = false) => {
   Object.entries(mappings).map(async ([index, indexMapping]) => {
     const castedIndex = index as Indexes
     try {
-      await client.indices.getMapping({ index: indexName(castedIndex) })
-      console.log(`Mapping for index ${index} already declared`)
+      if (force) {
+        console.debug('Deleting index ', index)
+        await client.indices.delete({ index: indexName(castedIndex) })
+        console.debug('Index', index, 'deleted')
+      }
+
+      console.debug('Getting mappings for index', index)
+      await client.indices.getMapping({ index })
+      console.debug(`Mapping for index ${index} already declared`)
     } catch (error) {
       if (error.meta.body.error.type == 'index_not_found_exception') {
         await createIndex(castedIndex, indexMapping)

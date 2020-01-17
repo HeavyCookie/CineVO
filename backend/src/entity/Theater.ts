@@ -10,6 +10,7 @@ import {
 
 import { Screening } from './Screening'
 import { Subscription } from './Subscription'
+import { Movie } from './Movie'
 
 @ObjectType()
 @Entity()
@@ -41,6 +42,9 @@ export class Theater extends BaseEntity {
   @Field()
   @Column()
   public city: string
+
+  @Column({ type: 'jsonb', nullable: true })
+  public location?: { lat: number; lon: number }
 
   @Field(() => [Screening])
   @OneToMany(
