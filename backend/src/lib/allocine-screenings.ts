@@ -1,5 +1,5 @@
 import { getManager, MoreThan, getRepository, QueryFailedError } from 'typeorm'
-import { parseISO } from 'date-fns'
+import { zonedTimeToUtc } from 'date-fns-tz'
 
 import { Movie } from '../entity/Movie'
 import { Screening } from '../entity/Screening'
@@ -86,7 +86,7 @@ const createScreenings = async (
       await getManager().insert(Screening, {
         movie,
         theater,
-        date: parseISO(src.startsAt),
+        date: zonedTimeToUtc(src.startsAt, 'Europe/Paris'),
       })
     } catch (err) {
       if (
