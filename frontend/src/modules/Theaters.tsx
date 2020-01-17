@@ -1,11 +1,10 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import { useQuery } from 'react-apollo'
-import { List, Card } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 import { getAllTheaters } from './__generated__/getAllTheaters'
-import { Theater } from './Theater'
 
 const GET_THEATERS_QUERY = gql`
   query getAllTheaters {

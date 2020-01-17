@@ -112,7 +112,7 @@ export const Movie = (props: Props) => {
               </>
             )}
 
-            {!!movie.theaters && (
+            {movie.theaters ? (
               <>
                 <MovieFull.Subtitle>
                   <FormattedMessage id="modules.movie.screenings" />
@@ -122,6 +122,10 @@ export const Movie = (props: Props) => {
                   <TheaterScreenings key={theater.id} theater={theater} />
                 ))}
               </>
+            ) : (
+              <p>
+                <FormattedMessage id="modules.movie.loginToViewScreenings" />
+              </p>
             )}
           </div>
         </MovieFull.Informations>
