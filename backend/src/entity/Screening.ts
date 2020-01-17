@@ -5,7 +5,7 @@ import { Movie } from './Movie'
 import { Theater } from './Theater'
 
 @ObjectType()
-@Entity()
+@Entity({ orderBy: { date: 'ASC' } })
 export class Screening extends BaseEntity {
   @PrimaryColumn({ type: 'timestamptz' })
   public date: Date
