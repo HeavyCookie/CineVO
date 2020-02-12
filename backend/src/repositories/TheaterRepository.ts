@@ -2,7 +2,8 @@ import { EntityRepository, Repository } from 'typeorm'
 
 import { Theater } from '../entity/Theater'
 import { getWeek } from '../lib/theater-weeks'
-import { client, indexName } from '../config/elastic-search'
+import { client } from '../config/elastic-search'
+import { indexName } from '../lib/elastic-search/indices'
 
 @EntityRepository(Theater)
 export class TheaterRepository extends Repository<Theater> {
@@ -18,7 +19,7 @@ export class TheaterRepository extends Repository<Theater> {
 
   public async search(query: string) {
     const results = await client.search({
-      index: indexName('theaters'),
+      index: indexName('theater'),
       body: {
         query: {
           // eslint-disable-next-line @typescript-eslint/camelcase
@@ -37,7 +38,7 @@ export class TheaterRepository extends Repository<Theater> {
   public async index(...theaters: Theater[]) {
     theaters.map(theater =>
       client.index({
-        index: indexName('theaters'),
+        index: indexName('theater'),
         id: theater.id,
         body: { ...theater, postcode: theater.postcode.toString() },
       })

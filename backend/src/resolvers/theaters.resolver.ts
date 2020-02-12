@@ -6,7 +6,6 @@ import {
   Int,
   ObjectType,
   Field,
-  Ctx,
   FieldResolver,
   Root,
 } from 'type-graphql'
@@ -15,10 +14,11 @@ import * as R from 'remeda'
 
 import { TheaterRepository } from '../repositories/TheaterRepository'
 import { Theater } from '../entity/Theater'
-import { client, indexName } from '../config/elastic-search'
+import { client } from '../config/elastic-search'
 import { Movie } from '../entity/Movie'
 import { MovieRepository } from '../repositories/MovieRepository'
 import { getWeek } from '../lib/theater-weeks'
+import { indexName } from '../lib/elastic-search/indices'
 
 @ObjectType()
 class TheaterDistanceResult {
@@ -83,7 +83,7 @@ export class TheaterResolver {
       }
     }
     const result = await client.search({
-      index: indexName('theaters'),
+      index: indexName('theater'),
       body: {
         ...limitQuery,
         sort: [
