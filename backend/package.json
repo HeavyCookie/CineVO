@@ -30,10 +30,12 @@
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.5.0",
+    "@types/argparse": "^1.0.38",
     "@types/bcrypt": "^3.0.0",
     "@types/express": "^4.17.2",
     "@types/express-jwt": "^0.0.42",
     "@types/geojson": "^7946.0.7",
+    "@types/glob": "^7.1.1",
     "@types/jsonwebtoken": "^8.3.5",
     "@types/minio": "^7.0.5",
     "@types/mjml": "^4.0.2",
@@ -45,6 +47,7 @@
     "admin-bro-expressjs": "^0.4.0",
     "admin-bro-typeorm": "^0.1.6-alpha.8",
     "apollo-server-express": "^2.9.15",
+    "argparse": "^1.0.10",
     "axios": "^0.19.0",
     "bcrypt": "^3.0.7",
     "cookie-parser": "^1.4.4",
@@ -57,6 +60,7 @@
     "express-jwt": "^5.3.1",
     "express-session": "^1.17.0",
     "geojson": "^0.5.0",
+    "glob": "^7.1.6",
     "graphql": "^14.5.8",
     "jsonwebtoken": "^8.5.1",
     "minio": "^7.0.13",
@@ -83,6 +87,6 @@
     "start:prod": "NODE_ENV=production ts-node src/index.ts",
     "typeorm": "ts-node ./node_modules/.bin/typeorm",
     "test": "jest --runInBand",
-    "graphql:schema": "ts-node scripts/generate-graphql-schema"
+    "graphql:schema": "ts-node scripts graphql"
   }
 }

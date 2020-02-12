@@ -1,10 +1,8 @@
-require('dotenv').config({ path: '../.env' })
-
 import { createConnection, getRepository } from 'typeorm'
 
 import { Theater } from '../../src/entity/Theater'
 
-const script = async () => {
+export default async () => {
   await createConnection()
   const repository = getRepository(Theater)
 
@@ -17,5 +15,3 @@ const script = async () => {
     await repository.save({ ...theater, location: null })
   })
 }
-
-script()
