@@ -9,6 +9,7 @@ import {
   remove,
   create,
   exists,
+  index,
 } from '../../src/lib/elastic-search/indices'
 import { mappings } from '../../src/lib/elastic-search'
 
@@ -22,24 +23,14 @@ export default async () => {
 
       if (typeof mapping == 'undefined') return
 
-      const index = indexName(mapping.name)
       if (await exists(table.target)) await remove(table.target)
 
-      try {
-        await create(table.target)
-      } catch (e) {
-        console.log(e.meta.body.error)
-      }
+      await create(table.target)
 
       const entities = await TypeORM.getRepository(table.target).find()
 
       const promises = entities.map(
-        async (entity: { id?: string }) =>
-          await client.index({
-            index,
-            id: entity?.id,
-            body: entity,
-          })
+        async (entity: { id?: string }) => await index(entity)
       )
       return Promise.all(promises)
     }),

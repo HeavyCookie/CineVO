@@ -10,7 +10,6 @@ export const remove = (klass: Function) =>
 
 export const create = (klass: Function) => {
   const metadatas = mappings.get(klass)
-  console.log(Object.fromEntries(metadatas.fields.entries()))
   return client.indices.create({
     index: indexName(metadatas.name),
     body: {
@@ -29,4 +28,16 @@ export const exists = async (klass: Function) => {
       return false
     } else throw error
   }
+}
+
+export const index = async (instance: any) => {
+  const mapping = mappings.get(instance.constructor)
+  if (!mapping) return
+
+  await client.index({
+    index: indexName(mapping.name),
+    id: instance?.id,
+    body: instance,
+  })
+  return instance
 }

@@ -8,7 +8,7 @@ import {
 
 import { Theater } from '../entity/Theater'
 import { client } from '../config/elastic-search'
-import { indexName } from '../lib/elastic-search/indices'
+import { indexName, index } from '../lib/elastic-search/indices'
 
 @EventSubscriber()
 export class TheaterElasticsearchIndexing
@@ -18,11 +18,7 @@ export class TheaterElasticsearchIndexing
   private index = (entity: Theater) => {
     console.log('Indexing theater')
 
-    return client.index({
-      index: indexName('theater'),
-      id: entity.id,
-      body: entity,
-    })
+    return index(entity)
   }
 
   afterInsert = ({ entity }: InsertEvent<Theater>) => this.index(entity)
