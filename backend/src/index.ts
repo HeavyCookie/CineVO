@@ -10,6 +10,7 @@ import { buildAuthenticatedRouter } from 'admin-bro-expressjs'
 import { adminBro, authentication } from './config/admin-bro'
 import { generateSchema } from './config/graphql-schema'
 import { context } from './lib/Context'
+import './jobs'
 
 const { PORT = 4000, SESSION_KEY } = process.env
 
