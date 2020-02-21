@@ -4,7 +4,6 @@
     "target": "es2020",
     "module": "esnext",
     "moduleResolution": "node",
-    "outDir": "./build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
@@ -14,6 +13,10 @@
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "strictPropertyInitialization": false,
+    "traceResolution": true,
+    "paths": {
+      "*": ["*"]
+    }
   },
   "exclude": ["node_modules"]
 }

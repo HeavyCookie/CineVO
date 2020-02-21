@@ -2,5 +2,7 @@
   "extends": "../tsconfig-default",
   "compilerOptions": {
     "module": "CommonJS", // Required for NodeJS
+    "baseUrl": "./src",
+    "outDir": "./dist",
   }
 }
