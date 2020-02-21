@@ -6,8 +6,8 @@ import {
   UpdateEvent,
 } from 'typeorm'
 
-import { Movie } from '../entity/Movie'
-import { uploadFileFromUrl } from '../config/file-storage'
+import { uploadFileFromUrl } from '@/config/file-storage'
+import { Movie } from '@/entity/Movie'
 
 type StringProps<T> = {
   [P in keyof T]: T[P] extends string | undefined ? P : never

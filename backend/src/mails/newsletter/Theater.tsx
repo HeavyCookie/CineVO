@@ -1,8 +1,8 @@
+import { MjmlSection, MjmlHero, MjmlText } from 'mjml-react'
 import * as React from 'react'
 import * as R from 'remeda'
-import { MjmlSection, MjmlHero, MjmlText } from 'mjml-react'
 
-import { Theater as TheaterEntity } from '../../entity/Theater'
+import { Theater as TheaterEntity } from '@/entity/Theater'
 
 import { Movie } from './Movie'
 

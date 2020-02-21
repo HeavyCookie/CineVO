@@ -1,3 +1,4 @@
+import { Field, ObjectType } from 'type-graphql'
 import {
   Entity,
   CreateDateColumn,
@@ -7,7 +8,6 @@ import {
   UpdateDateColumn,
   BaseEntity,
 } from 'typeorm'
-import { Field, ObjectType } from 'type-graphql'
 
 import { Subscription } from './Subscription'
 

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { User } from '../../entity/User'
+import { User } from '@/entity/User'
 
 import { Layout } from './Layout'
 import { Theater } from './Theater'

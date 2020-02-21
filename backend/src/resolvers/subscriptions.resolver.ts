@@ -10,12 +10,12 @@ import {
 } from 'type-graphql'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
-import { CurrentUser } from '../lib/Context'
-import { SubscriptionRepository } from '../repositories/SubscriptionRepository'
-import { Subscription } from '../entity/Subscription'
-import { User } from '../entity/User'
-import { Theater } from '../mails/newsletter/Theater'
-import { TheaterRepository } from '../repositories/TheaterRepository'
+import { Subscription } from '@/entity/Subscription'
+import { User } from '@/entity/User'
+import { CurrentUser } from '@/lib/Context'
+import { Theater } from '@/mails/newsletter/Theater'
+import { SubscriptionRepository } from '@/repositories/SubscriptionRepository'
+import { TheaterRepository } from '@/repositories/TheaterRepository'
 
 @Resolver(Subscription)
 export class SubscriptionResolver {

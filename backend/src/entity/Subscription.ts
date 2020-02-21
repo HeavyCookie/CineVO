@@ -1,3 +1,4 @@
+import { ObjectType, Field } from 'type-graphql'
 import {
   Entity,
   ManyToOne,
@@ -5,10 +6,9 @@ import {
   CreateDateColumn,
   BaseEntity,
 } from 'typeorm'
-import { ObjectType, Field } from 'type-graphql'
 
-import { User } from './User'
 import { Theater } from './Theater'
+import { User } from './User'
 
 @ObjectType()
 @Entity()

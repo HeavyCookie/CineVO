@@ -2,9 +2,9 @@ require('dotenv').config({ path: '../.env' })
 
 import { resolve } from 'path'
 
+import { ArgumentParser } from 'argparse'
 import * as glob from 'glob'
 import * as R from 'remeda'
-import { ArgumentParser } from 'argparse'
 
 const files = R.pipe(
   glob.sync(resolve(__dirname, '**/*.ts')),

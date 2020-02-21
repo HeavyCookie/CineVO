@@ -3,7 +3,7 @@ import { Request } from 'express'
 import { AuthChecker, createParamDecorator } from 'type-graphql'
 import { getRepository } from 'typeorm'
 
-import { User } from '../entity/User'
+import { User } from '@/entity/User'
 
 export interface Context {
   currentUserId?: User['id']

@@ -13,9 +13,9 @@
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "strictPropertyInitialization": false,
-    "traceResolution": true,
+    // "traceResolution": true,
     "paths": {
-      "*": ["*"]
+      "@/*": ["*"]
     }
   },
   "exclude": ["node_modules"]

@@ -1,3 +1,4 @@
+import * as R from 'remeda'
 import {
   Resolver,
   Query,
@@ -10,15 +11,14 @@ import {
   Root,
 } from 'type-graphql'
 import { InjectRepository } from 'typeorm-typedi-extensions'
-import * as R from 'remeda'
 
-import { TheaterRepository } from '../repositories/TheaterRepository'
-import { Theater } from '../entity/Theater'
-import { client } from '../config/elastic-search'
-import { Movie } from '../entity/Movie'
-import { MovieRepository } from '../repositories/MovieRepository'
-import { getWeek } from '../lib/theater-weeks'
-import { indexName } from '../lib/elastic-search/indices'
+import { client } from '@/config/elastic-search'
+import { Movie } from '@/entity/Movie'
+import { Theater } from '@/entity/Theater'
+import { indexName } from '@/lib/elastic-search/indices'
+import { getWeek } from '@/lib/theater-weeks'
+import { MovieRepository } from '@/repositories/MovieRepository'
+import { TheaterRepository } from '@/repositories/TheaterRepository'
 
 @ObjectType()
 class TheaterDistanceResult {

@@ -1,4 +1,5 @@
-import * as React from 'react'
+import { format } from 'date-fns' // eslint-disable-line import/no-duplicates
+import locale from 'date-fns/locale/fr' // eslint-disable-line import/no-duplicates
 import {
   Mjml,
   MjmlBody,
@@ -7,10 +8,9 @@ import {
   MjmlSection,
   MjmlColumn,
 } from 'mjml-react'
-import { format } from 'date-fns'
-import locale from 'date-fns/locale/fr'
+import * as React from 'react'
 
-import { User } from '../../entity/User'
+import { User } from '@/entity/User'
 
 export const Layout = ({
   children,

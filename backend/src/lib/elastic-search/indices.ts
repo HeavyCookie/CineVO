@@ -1,4 +1,4 @@
-import { client } from '../../config/elastic-search'
+import { client } from '@/config/elastic-search'
 
 import { mappings } from '.'
 

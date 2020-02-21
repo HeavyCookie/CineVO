@@ -1,14 +1,14 @@
-import { getManager, MoreThan, getRepository, QueryFailedError } from 'typeorm'
 import { zonedTimeToUtc } from 'date-fns-tz'
+import { getManager, MoreThan, getRepository, QueryFailedError } from 'typeorm'
 
-import { Movie } from '../entity/Movie'
-import { Screening } from '../entity/Screening'
-import { Theater } from '../entity/Theater'
+import { Movie } from '@/entity/Movie'
+import { Screening } from '@/entity/Screening'
+import { Theater } from '@/entity/Theater'
 
-import { searchMovie } from './tmdb'
 import { getTheaterShowtimes } from './allocine/api'
-import { Showtime } from './allocine/showtimes'
 import { Movie as AMovie } from './allocine/movie'
+import { Showtime } from './allocine/showtimes'
+import { searchMovie } from './tmdb'
 
 const runtimeToInt = (runtime: string): number => {
   let duration = 0

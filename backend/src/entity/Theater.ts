@@ -8,7 +8,7 @@ import {
   BaseEntity,
 } from 'typeorm'
 
-import { Indexable, Indexed } from '../lib/elastic-search/index'
+import { Indexable, Indexed } from '@/lib/elastic-search/index'
 
 import { Screening } from './Screening'
 import { Subscription } from './Subscription'

@@ -1,15 +1,15 @@
 require('dotenv').config({ path: '../.env' })
 
-import * as TypeORM from 'typeorm'
 import * as R from 'remeda'
+import * as TypeORM from 'typeorm'
 
+import { mappings } from '../../src/lib/elastic-search'
 import {
   remove,
   create,
   exists,
   index,
 } from '../../src/lib/elastic-search/indices'
-import { mappings } from '../../src/lib/elastic-search'
 
 export default async () => {
   await TypeORM.createConnection()

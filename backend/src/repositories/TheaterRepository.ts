@@ -1,9 +1,9 @@
 import { EntityRepository, Repository } from 'typeorm'
 
-import { Theater } from '../entity/Theater'
-import { getWeek } from '../lib/theater-weeks'
-import { client } from '../config/elastic-search'
-import { indexName } from '../lib/elastic-search/indices'
+import { client } from '@/config/elastic-search'
+import { Theater } from '@/entity/Theater'
+import { indexName } from '@/lib/elastic-search/indices'
+import { getWeek } from '@/lib/theater-weeks'
 
 @EntityRepository(Theater)
 export class TheaterRepository extends Repository<Theater> {

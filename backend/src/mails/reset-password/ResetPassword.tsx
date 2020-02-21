@@ -1,13 +1,5 @@
+import { Mjml, MjmlBody, MjmlHero, MjmlText, MjmlButton } from 'mjml-react'
 import * as React from 'react'
-import {
-  Mjml,
-  MjmlBody,
-  MjmlHero,
-  MjmlText,
-  MjmlSection,
-  MjmlColumn,
-  MjmlButton,
-} from 'mjml-react'
 
 type Props = {
   token: string

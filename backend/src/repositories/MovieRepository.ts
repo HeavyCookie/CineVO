@@ -1,7 +1,7 @@
 import { EntityRepository, Repository } from 'typeorm'
 
-import { Movie } from '../entity/Movie'
-import { getWeek } from '../lib/theater-weeks'
+import { Movie } from '@/entity/Movie'
+import { getWeek } from '@/lib/theater-weeks'
 
 @EntityRepository(Movie)
 export class MovieRepository extends Repository<Movie> {

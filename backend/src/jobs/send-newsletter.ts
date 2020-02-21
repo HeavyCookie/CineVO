@@ -1,10 +1,10 @@
 import { schedule } from 'node-cron'
 import { getCustomRepository } from 'typeorm'
 
-import { htmlNewsletter } from '../lib/newsletter'
-import { getWeek } from '../lib/theater-weeks'
-import { sendMail } from '../config/mailer'
-import { UserRepository } from '../repositories/UserRepository'
+import { sendMail } from '@/config/mailer'
+import { htmlNewsletter } from '@/lib/newsletter'
+import { getWeek } from '@/lib/theater-weeks'
+import { UserRepository } from '@/repositories/UserRepository'
 
 export const sendNewsletter = async () => {
   const [start, end] = getWeek(0)

@@ -5,8 +5,8 @@ import {
   UpdateEvent,
 } from 'typeorm'
 
-import { User } from '../entity/User'
-import { generatePasswordHash } from '../lib/security'
+import { User } from '@/entity/User'
+import { generatePasswordHash } from '@/lib/security'
 
 @EventSubscriber()
 export class UserHashPassword implements EntitySubscriberInterface {

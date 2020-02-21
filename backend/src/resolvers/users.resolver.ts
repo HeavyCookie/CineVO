@@ -1,3 +1,6 @@
+import { IsEmail } from 'class-validator'
+import * as jwt from 'jsonwebtoken'
+import { render } from 'mjml-react'
 import {
   Resolver,
   Mutation,
@@ -11,20 +14,17 @@ import {
   FieldResolver,
   Root,
 } from 'type-graphql'
-import { InjectRepository } from 'typeorm-typedi-extensions'
 import { Repository } from 'typeorm'
-import { IsEmail } from 'class-validator'
-import * as jwt from 'jsonwebtoken'
-import { render } from 'mjml-react'
-import * as uuid from 'uuid'
+import { InjectRepository } from 'typeorm-typedi-extensions'
+import uuid from 'uuid'
 
-import { User } from '../entity/User'
-import { sendMail } from '../config/mailer'
-import { UserRepository } from '../repositories/UserRepository'
-import { Subscription } from '../entity/Subscription'
-import { checkPassword, generatePasswordHash } from '../lib/security'
-import { CurrentUser } from '../lib/Context'
-import { ResetPassword } from '../mails/reset-password/ResetPassword'
+import { sendMail } from '@/config/mailer'
+import { Subscription } from '@/entity/Subscription'
+import { User } from '@/entity/User'
+import { CurrentUser } from '@/lib/Context'
+import { checkPassword, generatePasswordHash } from '@/lib/security'
+import { ResetPassword } from '@/mails/reset-password/ResetPassword'
+import { UserRepository } from '@/repositories/UserRepository'
 
 @InputType()
 class SubscriberInput {

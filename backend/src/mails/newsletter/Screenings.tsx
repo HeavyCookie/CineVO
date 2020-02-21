@@ -1,9 +1,9 @@
-import * as React from 'react'
+import { format } from 'date-fns' // eslint-disable-line import/no-duplicates
+import locale from 'date-fns/locale/fr' // eslint-disable-line import/no-duplicates
 import { MjmlTable } from 'mjml-react'
-import { format } from 'date-fns'
-import locale from 'date-fns/locale/fr'
+import * as React from 'react'
 
-import { Screening } from '../../entity/Screening'
+import { Screening } from '@/entity/Screening'
 
 export const Screenings = ({ list }: { list: Screening[] }) => {
   const data: { [key: string]: Date[] } = list.reduce(

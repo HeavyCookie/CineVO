@@ -1,3 +1,4 @@
+import { ObjectType, Field, ID, Int } from 'type-graphql'
 import {
   Entity,
   Column,
@@ -5,9 +6,8 @@ import {
   PrimaryGeneratedColumn,
   BaseEntity,
 } from 'typeorm'
-import { ObjectType, Field, ID, Int } from 'type-graphql'
 
-import { getFileURL } from '../config/file-storage'
+import { getFileURL } from '@/config/file-storage'
 
 import { Screening } from './Screening'
 

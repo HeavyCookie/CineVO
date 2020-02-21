@@ -1,14 +1,14 @@
 require('dotenv').config({ path: '../.env' })
 
+import { GraphQLSchema, graphql, DocumentNode } from 'graphql'
 import {
   getConnectionOptions,
   createConnection,
   Connection,
   ConnectionOptions,
 } from 'typeorm'
-import { GraphQLSchema, graphql, DocumentNode } from 'graphql'
 
-import { generateSchema } from '../config/graphql-schema'
+import { generateSchema } from '@/config/graphql-schema'
 
 let connection: Connection
 

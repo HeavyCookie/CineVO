@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import * as qs from 'qs'
+import qs from 'qs'
 
 const { TMDB_API_KEY } = process.env
 

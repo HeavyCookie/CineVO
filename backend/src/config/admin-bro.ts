@@ -3,12 +3,12 @@ import { Database, Resource } from 'admin-bro-typeorm'
 import { validate } from 'class-validator'
 import { Connection } from 'typeorm'
 
-import { Theater } from '../entity/Theater'
-import { Movie } from '../entity/Movie'
-import { Screening } from '../entity/Screening'
-import { Subscription } from '../entity/Subscription'
-import { User } from '../entity/User'
-import { checkPassword } from '../lib/security'
+import { Movie } from '@/entity/Movie'
+import { Screening } from '@/entity/Screening'
+import { Subscription } from '@/entity/Subscription'
+import { Theater } from '@/entity/Theater'
+import { User } from '@/entity/User'
+import { checkPassword } from '@/lib/security'
 
 export const adminBro = (connection: Connection) => {
   Resource.validate = validate

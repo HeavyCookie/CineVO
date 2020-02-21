@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm'
 
-import { connect, disconnect } from '../tests/utils'
-import { Theater } from '../entity/Theater'
+import { Theater } from '@/entity/Theater'
+import { connect, disconnect } from '@/tests/utils'
 
 import { TheaterGetLocation } from './theater-get-location'
 

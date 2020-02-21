@@ -6,9 +6,9 @@ import {
   UpdateEvent,
 } from 'typeorm'
 
-import { Theater } from '../entity/Theater'
-import { client } from '../config/elastic-search'
-import { indexName, index } from '../lib/elastic-search/indices'
+import { client } from '@/config/elastic-search'
+import { Theater } from '@/entity/Theater'
+import { indexName, index } from '@/lib/elastic-search/indices'
 
 @EventSubscriber()
 export class TheaterElasticsearchIndexing

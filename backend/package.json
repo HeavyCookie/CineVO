@@ -75,10 +75,11 @@
     "typescript": "^3.7.4"
   },
   "scripts": {
-    "start": "tsnd --ignore-watch node_modules --ignore-watch dist --inspect=0.0.0.0:5858 src/index.ts",
-    "start:prod": "NODE_ENV=production ts-node src/index.ts",
-    "typeorm": "ts-node ./node_modules/.bin/typeorm",
+    "start": "tsnd -r tsconfig-paths/register --ignore-watch node_modules --ignore-watch dist --inspect=0.0.0.0:5858 src/index.ts",
+    "start:prod": "NODE_ENV=production ts-node -r tsconfig-paths/register src/index.ts",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm",
     "test": "jest --runInBand",
-    "graphql:schema": "ts-node scripts graphql"
+    "graphql:schema": "ts-node -r tsconfig-paths/register scripts graphql",
+    "scripts": "ts-node -r tsconfig-paths/register scripts"
   }
 }

@@ -1,8 +1,8 @@
 import { Resolver, Query, Arg, ID } from 'type-graphql'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
-import { ScreeningRepository } from '../repositories/ScreeningRepository'
-import { Screening } from '../entity/Screening'
+import { Screening } from '@/entity/Screening'
+import { ScreeningRepository } from '@/repositories/ScreeningRepository'
 
 @Resolver(() => Screening)
 export class ScreeningResolver {

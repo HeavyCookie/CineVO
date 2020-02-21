@@ -1,13 +1,13 @@
 import { gql } from 'apollo-server-express'
-import { getManager } from 'typeorm'
-import * as uuid from 'uuid'
 import { addWeeks } from 'date-fns'
+import { getManager } from 'typeorm'
+import uuid from 'uuid'
 
-import { connect, disconnect, query } from '../tests/utils'
-import { Movie } from '../entity/Movie'
-import Factories from '../tests/factories'
-import { Screening } from '../entity/Screening'
-import { Theater } from '../entity/Theater'
+import { Movie } from '@/entity/Movie'
+import { Screening } from '@/entity/Screening'
+import { Theater } from '@/entity/Theater'
+import Factories from '@/tests/factories'
+import { connect, disconnect, query } from '@/tests/utils'
 
 beforeAll(connect)
 afterAll(disconnect)

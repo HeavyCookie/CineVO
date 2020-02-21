@@ -1,13 +1,13 @@
+import Axios from 'axios'
+import { FeatureCollection, Feature, Point } from 'geojson'
 import {
   EventSubscriber,
   EntitySubscriberInterface,
   InsertEvent,
   UpdateEvent,
 } from 'typeorm'
-import Axios from 'axios'
-import { FeatureCollection, Feature, Point } from 'geojson'
 
-import { Theater } from '../entity/Theater'
+import { Theater } from '@/entity/Theater'
 
 @EventSubscriber()
 export class TheaterGetLocation implements EntitySubscriberInterface<Theater> {

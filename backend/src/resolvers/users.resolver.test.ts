@@ -1,15 +1,15 @@
 import { gql } from 'apollo-server-express'
 import { getManager } from 'typeorm'
-import * as uuid from 'uuid'
+import uuid from 'uuid'
 
-import { connect, query, disconnect } from '../tests/utils'
-import { User } from '../entity/User'
-import factories from '../tests/factories'
-import { Theater } from '../entity/Theater'
-import { generatePasswordHash, checkPassword } from '../lib/security'
-import { sendMail } from '../config/mailer'
+import { sendMail } from '@/config/mailer'
+import { Theater } from '@/entity/Theater'
+import { User } from '@/entity/User'
+import { generatePasswordHash, checkPassword } from '@/lib/security'
+import factories from '@/tests/factories'
+import { connect, query, disconnect } from '@/tests/utils'
 
-jest.mock('../config/mailer')
+jest.mock('@/config/mailer')
 
 beforeAll(connect)
 afterAll(disconnect)

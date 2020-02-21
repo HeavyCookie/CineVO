@@ -4,8 +4,8 @@ import { buildSchema } from 'type-graphql'
 import Container from 'typedi'
 import { useContainer } from 'typeorm'
 
-import { Logs } from '../middlewares/logs'
-import { authChecker } from '../lib/Context'
+import { authChecker } from '@/lib/Context'
+import { Logs } from '@/middlewares/logs'
 
 useContainer(Container)
 

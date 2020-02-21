@@ -1,8 +1,8 @@
 import * as Faker from 'faker'
 
-import { User } from '../entity/User'
-import { Movie } from '../entity/Movie'
-import { Theater } from '../entity/Theater'
+import { Movie } from '@/entity/Movie'
+import { Theater } from '@/entity/Theater'
+import { User } from '@/entity/User'
 
 const subscriber = (data: Partial<User> = {}): Partial<User> => ({
   email: Faker.internet.email(),

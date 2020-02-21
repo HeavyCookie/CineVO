@@ -1,4 +1,3 @@
-import { getRepository } from 'typeorm'
 import {
   Resolver,
   Query,
@@ -9,17 +8,18 @@ import {
   Authorized,
   Root,
 } from 'type-graphql'
+import { getRepository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
-import { Movie } from '../entity/Movie'
-import { refreshMoviesFromAllocine } from '../lib/allocine-screenings'
-import { MovieRepository } from '../repositories/MovieRepository'
-import { getWeek } from '../lib/theater-weeks'
-import { CurrentUser } from '../lib/Context'
-import { User } from '../entity/User'
-import { Subscription } from '../entity/Subscription'
-import { Theater } from '../entity/Theater'
-import { TheaterRepository } from '../repositories/TheaterRepository'
+import { Movie } from '@/entity/Movie'
+import { Subscription } from '@/entity/Subscription'
+import { Theater } from '@/entity/Theater'
+import { User } from '@/entity/User'
+import { refreshMoviesFromAllocine } from '@/lib/allocine-screenings'
+import { CurrentUser } from '@/lib/Context'
+import { getWeek } from '@/lib/theater-weeks'
+import { MovieRepository } from '@/repositories/MovieRepository'
+import { TheaterRepository } from '@/repositories/TheaterRepository'
 
 @Resolver(() => Movie)
 export class MovieResolver {
