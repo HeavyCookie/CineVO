@@ -14,7 +14,7 @@ type Props = {
 export const Movie = ({ movie, screenings }: Props) => {
   return (
     <MjmlColumn width="33%">
-      <MjmlImage src={movie.posterUrl()} />
+      <MjmlImage src={movie.posterUrl() || undefined} />
       <MjmlText align="center" font-weight="bold">
         {movie.title}
       </MjmlText>

@@ -44,6 +44,7 @@ export const query = async (
       }
 ) => {
   if (!schema) schema = await generateSchema()
+  if (!q?.loc) throw new Error('unable to get loc')
   return graphql({
     schema,
     source: q.loc.source.body,

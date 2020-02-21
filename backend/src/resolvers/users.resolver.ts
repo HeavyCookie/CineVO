@@ -58,6 +58,11 @@ class LoginResponse {
   public jwt: string
 }
 
+const signUserId = (user: User) => {
+  if (!process.env.SESSION_KEY) throw new Error('`SESSION_KEY` not declared')
+  return jwt.sign({ id: user.id }, process.env.SESSION_KEY)
+}
+
 @Resolver(() => User)
 export class UserResolver {
   public constructor(
@@ -130,7 +135,7 @@ export class UserResolver {
     }
 
     response.success = true
-    response.jwt = jwt.sign({ id: user.id }, process.env.SESSION_KEY)
+    response.jwt = signUserId(user)
     return response
   }
 
@@ -146,7 +151,7 @@ export class UserResolver {
 
     const response = new LoginResponse()
     response.success = true
-    response.jwt = jwt.sign({ id: user.id }, process.env.SESSION_KEY)
+    response.jwt = signUserId(user)
 
     return response
   }
@@ -180,7 +185,7 @@ export class UserResolver {
         passwordHash: await generatePasswordHash(password),
       })
       response.success = true
-      response.jwt = jwt.sign({ id: user.id }, process.env.SESSION_KEY)
+      response.jwt = signUserId(user)
     }
     return response
   }

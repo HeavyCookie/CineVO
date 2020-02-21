@@ -6,16 +6,19 @@ import { getRepository } from 'typeorm'
 import { User } from '../entity/User'
 
 export interface Context {
-  currentUserId?: User
+  currentUserId?: User['id']
   req: Request
 }
 
 export const context: ApolloServerExpressConfig['context'] = ({
   req,
-}): Context => ({
-  req,
-  currentUserId: req['user'] && req['user']['id'],
-})
+}): Context => {
+  const request: Request & { user?: { id?: string } } = req
+  return {
+    req,
+    currentUserId: request?.['user']?.['id'],
+  }
+}
 
 export const authChecker: AuthChecker<Context> = (
   { root, args, context, info },

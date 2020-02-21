@@ -34,6 +34,9 @@ export const config = {
   MINIO_PUBLIC_URL,
 }
 
+if(!MINIO_ACCESS_KEY) throw new Error('`MINIO_ACCESS_KEY` not declared')
+if(!MINIO_SECRET_KEY) throw new Error('`MINIO_SECRET_KEY` not declared')
+
 const client = new Minio.Client({
   endPoint: MINIO_ENDPOINT,
   port: parseInt(MINIO_PORT),
@@ -73,7 +76,7 @@ export const uploadFile = async (
   file: string | Stream | Buffer,
   filepath: string,
   metadata?: Minio.ItemBucketMetadata
-) => await client.putObject(MINIO_BUCKET_NAME, filepath, file, null, metadata)
+) => await client.putObject(MINIO_BUCKET_NAME, filepath, file, undefined, metadata)
 
 export const uploadFileFromUrl = async (
   url: string,

@@ -102,7 +102,9 @@ export class TheaterResolver {
     })
     /* eslint-enable @typescript-eslint/camelcase */
 
-    const ids = result.body.hits.hits.map(x => x._id) as string[]
+    const ids = result.body.hits.hits.map(
+      (x: { _id: string }) => x._id
+    ) as string[]
     const theatersById = R.pipe(
       await this.theaterRepository
         .createQueryBuilder()
@@ -112,8 +114,8 @@ export class TheaterResolver {
     )
 
     return result.body.hits.hits
-      .filter(x => typeof x.sort[0] == 'number')
-      .map(x => ({
+      .filter((x: { sort: string[] }) => typeof x.sort[0] == 'number')
+      .map((x: { sort: string[]; _id: string | number }) => ({
         ...new TheaterDistanceResult(),
         distance: x.sort[0],
         theater: theatersById[x._id],

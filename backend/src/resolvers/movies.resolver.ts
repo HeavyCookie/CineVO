@@ -70,7 +70,7 @@ export class MovieResolver {
   }
 
   @Query(() => Movie, { nullable: true })
-  public movie(@Arg('id', () => ID) id: string): Promise<Movie> {
+  public movie(@Arg('id', () => ID) id: string): Promise<Movie | undefined> {
     return this.movieRepository.findOne(id)
   }
 

@@ -17,7 +17,7 @@ const runtimeToInt = (runtime: string): number => {
   const minutes = runtime.match(/(\d+)min/)
 
   if (hours) duration += parseInt(hours[1]) * 60 * 60
-  if (minutes) duration += parseInt(hours[1]) * 60
+  if (minutes) duration += parseInt(hours?.[1] || '0') * 60
 
   return duration
 }
@@ -37,7 +37,7 @@ const allocineToMovie = async (amovie: AMovie): Promise<Movie> => {
     .map(person => `${person.person.firstName} ${person.person.lastName}`)
 
   const release =
-    (amovie.releases[0] && new Date(amovie.releases[0].releaseDate.date)) ||
+    (amovie.releases?.[0] && new Date(amovie.releases[0].releaseDate.date)) ||
     new Date()
 
   const tmdb = await searchMovie(amovie.title, release)

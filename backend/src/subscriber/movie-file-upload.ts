@@ -10,7 +10,7 @@ import { Movie } from '../entity/Movie'
 import { uploadFileFromUrl } from '../config/file-storage'
 
 type StringProps<T> = {
-  [P in keyof T]: T[P] extends string ? P : never
+  [P in keyof T]: T[P] extends string | undefined ? P : never
 }[keyof T]
 
 type FilesToUpload<T> = Partial<{ [key in StringProps<T>]: string }>
@@ -29,14 +29,16 @@ export class MovieFileUpload implements EntitySubscriberInterface {
 
     const { id } = entity
     const toUpdate = MovieFileUpload.fileFields.reduce((acc, field) => {
-      if (!entity[field] || !entity[field].match(/^https?:\/\//)) return acc
+      if (typeof field == 'undefined') return acc
+      if (!entity[field]?.match(/^https?:\/\//)) return acc
 
       const value = entity[field]
+      if (!value) return acc
       const filepath = MovieFileUpload.filePath(id, field)
       uploadFileFromUrl(value, filepath)
       acc[field] = filepath
       return acc
-    }, {})
+    }, {} as Partial<Movie>)
 
     if (Object.keys(toUpdate).length > 0)
       await getManager().update(this.listenTo(), { id }, toUpdate)

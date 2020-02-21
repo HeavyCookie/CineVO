@@ -31,7 +31,9 @@ export class TheaterRepository extends Repository<Theater> {
         },
       },
     })
-    const ids = results.body.hits.hits.map(hit => hit._source.id)
+    const ids = results.body.hits.hits.map(
+      (hit: { _source: { id: number | string } }) => hit['_source']?.id
+    )
     return await this.findByIds(ids)
   }
 

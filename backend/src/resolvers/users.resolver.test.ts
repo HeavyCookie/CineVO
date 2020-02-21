@@ -30,7 +30,7 @@ describe('users.resolver', () => {
         theaterId: theater.id,
       })
 
-      expect(result.data.subscribe).toBeTruthy()
+      expect(result?.data?.subscribe).toBeTruthy()
     })
 
     it("couldn't create 2 user with the same email", async () => {
@@ -45,7 +45,7 @@ describe('users.resolver', () => {
         theaterId: theater.id,
       })
 
-      expect(result.data.subscribe).toBeFalsy()
+      expect(result?.data?.subscribe).toBeFalsy()
     })
 
     it("couldn't create an account with a malformed email address", async () => {
@@ -83,14 +83,14 @@ describe('users.resolver', () => {
       )) as User
 
       const result = await query(MUTATION, { userId: subscriber.id })
-      expect(result.data.unsubscribe).toBeTruthy()
+      expect(result?.data?.unsubscribe).toBeTruthy()
     })
 
     it('return false when userId is wrong', async () => {
       const result = await query(MUTATION, {
         userId: '46d04622-7f53-465d-85a2-8d1074b428cf',
       })
-      expect(result.errors.length > 0).toBeTruthy()
+      expect(result?.errors?.length || 0 > 0).toBeTruthy()
     })
   })
 
@@ -109,7 +109,7 @@ describe('users.resolver', () => {
       await getManager().save(user)
 
       const result = await query(RESET_PASSWORD_REQUEST_MUTATION, { email })
-      expect(result.data.resetPasswordRequest).toBeTruthy()
+      expect(result?.data?.resetPasswordRequest).toBeTruthy()
     })
 
     it('sends an email', async () => {
@@ -134,7 +134,7 @@ describe('users.resolver', () => {
 
       await query(RESET_PASSWORD_REQUEST_MUTATION, { email })
       const updatedUser = await getManager().findOne(User, { id: user.id })
-      expect(updatedUser.resetPasswordToken).not.toBeNull()
+      expect(updatedUser?.resetPasswordToken).not.toBeNull()
     })
 
     it('return false if there is no user with this email', async () => {
@@ -142,7 +142,7 @@ describe('users.resolver', () => {
         email: 'undefined-email@test.test',
       })
 
-      expect(result.data.resetPasswordRequest).toBeFalsy()
+      expect(result?.data?.resetPasswordRequest).toBeFalsy()
     })
   })
 
@@ -164,7 +164,7 @@ describe('users.resolver', () => {
         password: 'new password',
       })
 
-      expect(result.data.resetPassword.success).toStrictEqual(false)
+      expect(result?.data?.resetPassword.success).toStrictEqual(false)
     })
 
     it('retun true if token is present in database', async () => {
@@ -185,7 +185,7 @@ describe('users.resolver', () => {
         password: 'new-password',
       })
 
-      expect(result.data.resetPassword.success).toStrictEqual(true)
+      expect(result?.data?.resetPassword.success).toStrictEqual(true)
     })
 
     it('updates the password', async () => {
@@ -208,8 +208,9 @@ describe('users.resolver', () => {
       })
 
       const reloadedUser = await getManager().findOne(User, { id: user.id })
+      if (!reloadedUser) throw Error('no user')
 
-      expect(user.passwordHash).not.toEqual(reloadedUser.passwordHash)
+      expect(user.passwordHash).not.toEqual(reloadedUser?.passwordHash)
 
       expect(
         await checkPassword(reloadedUser.passwordHash, newPassword)

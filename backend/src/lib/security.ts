@@ -14,7 +14,11 @@ export const generatePassword = async () => {
     Array(20).fill(authorizedPasswordChars),
     R.map(async (x: string) => {
       const randomCrypto = await randomFillPromisified(new Uint32Array(1))
-      return x[Math.floor((randomCrypto[0] / (0xffffffff + 1)) * x.length)]
+      return x[
+        Math.floor(
+          ((randomCrypto as number[])[0] / (0xffffffff + 1)) * x.length
+        )
+      ]
     })
   )
   const arrayPassword = await Promise.all(promises)

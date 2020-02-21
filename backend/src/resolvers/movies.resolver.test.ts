@@ -37,9 +37,9 @@ describe('movies', () => {
 
     const results = await query(QUERY, { week: 5 })
 
-    expect(results.data.movies).toHaveLength(1)
-    expect(results.data.movies[0].id).toEqual(movieId)
-    expect(results.data.movies[0].screenings).toHaveLength(1)
+    expect(results?.data?.movies).toHaveLength(1)
+    expect(results?.data?.movies[0].id).toEqual(movieId)
+    expect(results?.data?.movies[0].screenings).toHaveLength(1)
   })
 })
 
@@ -57,7 +57,7 @@ describe('movie', () => {
       id: '7d3dc08b-08e7-46ae-8597-5dc121e59aa0',
     })
 
-    expect(result.data.movie).toBeNull()
+    expect(result?.data?.movie).toBeNull()
   })
 
   it("return an existing movie from it's ID", async () => {
@@ -72,6 +72,6 @@ describe('movie', () => {
 
     const result = await query(QUERY, { id })
 
-    expect(result.data.movie.title).toEqual('Test movie')
+    expect(result?.data?.movie.title).toEqual('Test movie')
   })
 })

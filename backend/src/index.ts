@@ -3,8 +3,8 @@ require('dotenv').config({ path: '../.env' })
 import 'reflect-metadata'
 import * as TypeORM from 'typeorm'
 import { ApolloServer } from 'apollo-server-express'
-import * as express from 'express'
-import * as jwt from 'express-jwt'
+import express from 'express'
+import jwt from 'express-jwt'
 import { buildAuthenticatedRouter } from 'admin-bro-expressjs'
 
 import { adminBro, authentication } from './config/admin-bro'
@@ -15,6 +15,7 @@ import './jobs'
 const { PORT = 4000, SESSION_KEY } = process.env
 
 async function start() {
+  if (!SESSION_KEY) throw new Error('SESSION_KEY undefined')
   const connection = await TypeORM.createConnection()
 
   const app = express()

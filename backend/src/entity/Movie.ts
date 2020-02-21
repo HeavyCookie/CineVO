@@ -51,7 +51,7 @@ export class Movie extends BaseEntity {
   @Column({ nullable: true })
   public poster?: string
 
-  @Field({ name: 'poster', nullable: true })
+  @Field(() => String, { name: 'poster', nullable: true })
   public posterUrl(): string | null {
     return this.poster ? getFileURL(this.poster) : null
   }
@@ -59,7 +59,7 @@ export class Movie extends BaseEntity {
   @Column({ nullable: true })
   public backdrop?: string
 
-  @Field({ name: 'backdrop', nullable: true })
+  @Field(() => String, { name: 'backdrop', nullable: true })
   public backdropUrl(): string | null {
     return this.backdrop ? getFileURL(this.backdrop) : null
   }

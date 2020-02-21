@@ -21,7 +21,7 @@ export const sendNewsletter = async () => {
       .andWhere('user.id = :id', { id: subscriber.id })
       .getOne()
 
-    if (user.subscriptions.length == 0)
+    if (!user || user.subscriptions.length == 0)
       return console.info('No movie this week')
 
     await sendMail(

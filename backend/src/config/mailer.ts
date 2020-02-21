@@ -1,4 +1,4 @@
-import * as nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer'
 
 const {
   SMTP_HOST = 'localhost',
@@ -12,11 +12,13 @@ export const transport = nodemailer.createTransport({
   host: SMTP_HOST,
   port: parseInt(SMTP_PORT),
   secure: !!SMTP_SECURE,
-  auth: SMTP_USER &&
-    SMTP_PASSWORD && {
-      user: SMTP_USER,
-      pass: SMTP_PASSWORD,
-    },
+  auth:
+    (SMTP_USER &&
+      SMTP_PASSWORD && {
+        user: SMTP_USER,
+        pass: SMTP_PASSWORD,
+      }) ||
+    undefined,
 })
 
 export const sendMail = (
