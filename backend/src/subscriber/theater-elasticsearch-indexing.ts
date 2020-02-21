@@ -16,9 +16,8 @@ export class TheaterElasticsearchIndexing
   listenTo = () => Theater
 
   private index = (entity: Theater) => {
-    console.log('Indexing theater')
-
-    return index(entity)
+    // Object is not a theater, so we must cast it before indexing
+    return index(Object.assign(new Theater(), entity))
   }
 
   afterInsert = ({ entity }: InsertEvent<Theater>) => this.index(entity)

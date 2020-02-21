@@ -13,7 +13,7 @@ export const fieldMappings: Map<
 > = new Map()
 
 export const Indexable = (name?: string): ClassDecorator => target => {
-  const fieldMapping = fieldMappings.get(target.prototype)
+  const fieldMapping = fieldMappings.get(target)
   if (!fieldMapping) throw new Error("Field mapping hasn't been declared")
 
   mappings.set(target, {
@@ -29,7 +29,7 @@ export const Indexed = (type?: Types): PropertyDecorator => (
   target, // Function
   property
 ) => {
-  const currentMapping = fieldMappings.get(target) ?? new Map()
+  const currentMapping = fieldMappings.get(target.constructor) ?? new Map()
   currentMapping.set(property, { type })
-  fieldMappings.set(target, currentMapping)
+  fieldMappings.set(target.constructor, currentMapping)
 }

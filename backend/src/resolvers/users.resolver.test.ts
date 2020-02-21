@@ -22,7 +22,7 @@ describe('users.resolver', () => {
       }
     `
     it('create a new subscriber', async () => {
-      const theater = await getManager().create(Theater, factories.theater())
+      const theater = getManager().create(Theater, factories.theater())
       await getManager().save(theater)
 
       const result = await query(MUTATION, {
@@ -34,7 +34,7 @@ describe('users.resolver', () => {
     })
 
     it("couldn't create 2 user with the same email", async () => {
-      const theater = await getManager().create(Theater, factories.theater())
+      const theater = getManager().create(Theater, factories.theater())
       await getManager().save(theater)
       await query(MUTATION, {
         email: '2-user-with-same-email@test.test',
@@ -49,7 +49,7 @@ describe('users.resolver', () => {
     })
 
     it("couldn't create an account with a malformed email address", async () => {
-      const theater = await getManager().create(Theater, factories.theater())
+      const theater = getManager().create(Theater, factories.theater())
       await getManager().save(theater)
       const result = await query(MUTATION, {
         email: 'test@',
