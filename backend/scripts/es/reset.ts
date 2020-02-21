@@ -3,9 +3,7 @@ require('dotenv').config({ path: '../.env' })
 import * as TypeORM from 'typeorm'
 import * as R from 'remeda'
 
-import { client } from '../../src/config/elastic-search'
 import {
-  indexName,
   remove,
   create,
   exists,
@@ -27,11 +25,11 @@ export default async () => {
 
       await create(table.target)
 
-      const entities = await TypeORM.getRepository(table.target).find()
+      const entities = await TypeORM.getRepository<{ id?: string }>(
+        table.target
+      ).find()
 
-      const promises = entities.map(
-        async (entity: { id?: string }) => await index(entity)
-      )
+      const promises = entities.map(async entity => await index(entity))
       return Promise.all(promises)
     }),
     x => Promise.all(x)

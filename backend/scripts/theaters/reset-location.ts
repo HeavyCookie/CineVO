@@ -12,6 +12,8 @@ export default async () => {
       ...theater,
       location: { lat: 0, lon: 0 },
     })
+    // eslint-disable-next-line
+    // @ts-ignore
     await repository.save({ ...theater, location: null })
   })
 }
