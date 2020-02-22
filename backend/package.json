@@ -1,6 +1,7 @@
 {
-  "name": "cinevo",
+  "name": "backend",
   "version": "0.0.1",
+  "private": true,
   "description": "Awesome project developed with TypeORM.",
   "devDependencies": {
     "@types/axios": "^0.14.0",
@@ -68,6 +69,7 @@
     "remeda": "^0.0.14",
     "ts-node": "8.5.4",
     "ts-node-dev": "^1.0.0-pre.44",
+    "tsconfig-paths": "^3.9.0",
     "type-graphql": "^0.17.6",
     "typedi": "^0.8.0",
     "typeorm": "0.2.22",

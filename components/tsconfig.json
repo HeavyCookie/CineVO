@@ -1,0 +1,9 @@
+{
+  "extends": "../frontend/tsconfig",
+  "compilerOptions": {
+    "isolatedModules": true,
+    "lib": ["dom", "dom.iterable", "es2020"],
+    "baseUrl": "./src",
+    "outDir": "./build"
+  }
+}

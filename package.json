@@ -4,7 +4,6 @@
     "start": "concurrently --handle-input npm:docker npm:backend npm:frontend",
     "backend": "cd backend && yarn start",
     "frontend": "cd frontend && yarn start",
-    "storybook": "cd frontend && yarn storybook",
     "docker": "docker-compose up"
   },
   "devDependencies": {
