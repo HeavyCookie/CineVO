@@ -1,7 +1,6 @@
 require('dotenv').config({ path: '../.env' })
 
 import 'reflect-metadata'
-import { buildAuthenticatedRouter } from 'admin-bro-expressjs'
 import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
 import jwt from 'express-jwt'
@@ -11,6 +10,8 @@ import { adminBro, authentication } from '@/config/admin-bro'
 import { generateSchema } from '@/config/graphql-schema'
 import { context } from '@/lib/Context'
 import '@/jobs'
+
+const { buildAuthenticatedRouter } = require('admin-bro-expressjs') // eslint-disable-line
 
 const { PORT = 4000, SESSION_KEY } = process.env
 

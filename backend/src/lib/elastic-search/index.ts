@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 
-type ClassMetadata = {
+export type ClassMetadata = {
   prototype: object
   name: string
   fields: Map<string, { type: string }>

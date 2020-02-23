@@ -10,8 +10,8 @@ const {
   MINIO_PORT = '9000',
   MINIO_REGION = 'us-east-1',
   MINIO_SSL = 'true',
-  MINIO_ACCESS_KEY,
-  MINIO_SECRET_KEY,
+  MINIO_ACCESS_KEY = '',
+  MINIO_SECRET_KEY = '',
   MINIO_BUCKET_NAME = 'default',
   MINIO_PUBLIC_URL = (() => {
     const url: string[] = []
@@ -35,9 +35,6 @@ export const config = {
   MINIO_BUCKET_NAME,
   MINIO_PUBLIC_URL,
 }
-
-if (!MINIO_ACCESS_KEY) throw new Error('`MINIO_ACCESS_KEY` not declared')
-if (!MINIO_SECRET_KEY) throw new Error('`MINIO_SECRET_KEY` not declared')
 
 const client = new Minio.Client({
   endPoint: MINIO_ENDPOINT,

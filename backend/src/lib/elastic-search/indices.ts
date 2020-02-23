@@ -1,6 +1,6 @@
 import { client } from '@/config/elastic-search'
 
-import { mappings } from '.'
+import { mappings, ClassMetadata } from '.'
 
 const getMetadatas = (klass: object) => {
   const mapping = mappings.get(klass)
@@ -21,7 +21,9 @@ export const create = (klass: object) => {
       index: indexName(metadatas.name),
       body: {
         mappings: {
-          properties: Object.fromEntries(metadatas.fields.entries()),
+          properties: Object.fromEntries(
+            Array.from(metadatas.fields.entries())
+          ),
         },
       },
     })

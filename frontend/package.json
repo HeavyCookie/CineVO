@@ -11,7 +11,6 @@
     "graphql": "yarn apollo client:codegen --target typescript"
   },
   "dependencies": {
-    "components": "file:../components/",
     "@apollo/react-hooks": "^3.1.3",
     "@emotion/core": "^10.0.27",
     "@emotion/styled": "^10.0.27",
@@ -23,6 +22,7 @@
     "@types/react-helmet": "^5.0.14",
     "@types/vfile-message": "^2.0.0",
     "apollo-boost": "^0.4.7",
+    "components": "file:../components/",
     "cross-fetch": "^3.0.4",
     "date-fns": "^2.8.1",
     "express": "^4.17.1",
@@ -31,7 +31,6 @@
     "http-proxy-middleware": "^0.20.0",
     "normalize.css": "^8.0.1",
     "razzle": "^3.0.0",
-    "razzle-plugin-eslint": "^3.0.0",
     "razzle-plugin-typescript": "^3.0.0",
     "react": "^16.12.0",
     "react-apollo": "^3.1.3",

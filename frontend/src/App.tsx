@@ -1,26 +1,46 @@
 import * as React from 'react'
-import { Route, Switch, Link } from 'react-router-dom'
+
 import { ApolloProvider } from 'react-apollo'
-import { IntlProvider } from 'react-intl'
+
 import Helmet from 'react-helmet'
 
-import Home from './modules/Home'
+import { IntlProvider } from 'react-intl'
+
+import { Route, Switch, Link } from 'react-router-dom'
+
 import { client } from './apollo'
+
 import { DefaultView } from './components/DefaultView'
+
 import { GlobalStyle } from './components/GlobalStyle'
+
 import './i18n'
-import i18nfr from './i18n/fr'
-import { Unsubscribe } from './modules/Unsubscribe'
-import { Theater } from './modules/Theater'
-import { Login } from './modules/Login'
-import { Logout } from './modules/Logout'
+
 import { TokenProvider } from './context'
+
+import i18nfr from './i18n/fr'
+
 import { Account } from './modules/Account'
-import { Signup } from './modules/Signup'
-import { ResetPasswordRequest } from './modules/ResetPasswordRequest'
-import { ResetPassword } from './modules/ResetPassword'
-import { Theaters } from './modules/Theaters'
+
+import Home from './modules/Home'
+
+import { Login } from './modules/Login'
+
+import { Logout } from './modules/Logout'
+
 import { Movie } from './modules/Movie'
+
+import { ResetPassword } from './modules/ResetPassword'
+
+import { ResetPasswordRequest } from './modules/ResetPasswordRequest'
+
+import { Signup } from './modules/Signup'
+
+import { Theater } from './modules/Theater'
+
+import { Theaters } from './modules/Theaters'
+
+import { Unsubscribe } from './modules/Unsubscribe'
 
 const App = () => (
   <TokenProvider>
