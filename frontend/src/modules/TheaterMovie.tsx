@@ -1,9 +1,9 @@
-import React from 'react'
 import gql from 'graphql-tag'
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
-import { FormattedMessage } from 'react-intl'
+import React from 'react'
 import { useQuery } from 'react-apollo'
 import Helmet from 'react-helmet'
+import { FormattedMessage } from 'react-intl'
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
 
 import { Full } from '../components/movie/Full'
 

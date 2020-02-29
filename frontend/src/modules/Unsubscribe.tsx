@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { RouteComponentProps } from 'react-router'
 import gql from 'graphql-tag'
+import React, { useState, useEffect } from 'react'
 import { useMutation } from 'react-apollo'
+import { RouteComponentProps } from 'react-router'
 
 import { Unsubscribe as UnsubscribeComponent } from '../components/Subscriber/Unsubscribe'
 
+import {
+  resubscribeVariables,
+  resubscribe as resubscribeType,
+} from './__generated__/resubscribe'
 import {
   unsubscribe as unsubscribeType,
   unsubscribeVariables,
   unsubscribe_unsubscribe, // eslint-disable-line @typescript-eslint/camelcase
 } from './__generated__/unsubscribe'
-import {
-  resubscribeVariables,
-  resubscribe as resubscribeType,
-} from './__generated__/resubscribe'
 
 type Props = RouteComponentProps<{ uuid: string; theaterId: string }>
 

@@ -1,6 +1,6 @@
 import { client } from '@/config/elastic-search'
 
-import { mappings, ClassMetadata } from '.'
+import { mappings } from '.'
 
 const getMetadatas = (klass: object) => {
   const mapping = mappings.get(klass)

@@ -5,5 +5,6 @@
     "lib": ["dom", "dom.iterable", "es2020"],
     "baseUrl": "./src",
     "outDir": "./build"
-  }
+  },
+  "references": ["../components"]
 }

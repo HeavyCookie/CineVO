@@ -1,10 +1,10 @@
-import React from 'react'
-import { RouteComponentProps, Redirect, Link } from 'react-router-dom'
+import styled from '@emotion/styled'
 import gql from 'graphql-tag'
+import React from 'react'
 import { useQuery } from 'react-apollo'
 import Helmet from 'react-helmet'
 import { FormattedMessage } from 'react-intl'
-import styled from '@emotion/styled'
+import { RouteComponentProps, Redirect, Link } from 'react-router-dom'
 import { Header } from 'semantic-ui-react'
 
 import * as MovieFull from '../components/movie/Full'

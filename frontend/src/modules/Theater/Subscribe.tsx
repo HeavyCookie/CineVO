@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react'
 import gql from 'graphql-tag'
+import React, { useState, useContext } from 'react'
 import { useMutation, useQuery } from 'react-apollo'
-import { Button, Icon, Popup } from 'semantic-ui-react'
 import { FormattedMessage } from 'react-intl'
+import { Button, Icon, Popup } from 'semantic-ui-react'
 
 import { Subscribe as SubscribeForm } from '../../components/Subscriber/Subscribe'
 import { Context } from '../../context'

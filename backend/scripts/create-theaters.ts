@@ -2,8 +2,8 @@ import * as TypeORM from 'typeorm'
 
 import { Theater } from '../src/entity/Theater'
 
-export default () => {
-  TypeORM.createConnection()
+export default async () => {
+  await TypeORM.createConnection()
   TypeORM.getManager().save(Theater, {
     name: 'Cinéville Laval',
     allocineCode: 'P1140',

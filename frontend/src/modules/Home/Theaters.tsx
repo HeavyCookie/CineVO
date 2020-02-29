@@ -1,8 +1,8 @@
-import React from 'react'
+import styled from '@emotion/styled'
 import gql from 'graphql-tag'
+import React from 'react'
 import { useQuery } from 'react-apollo'
 import { Link } from 'react-router-dom'
-import styled from '@emotion/styled'
 import { Icon } from 'semantic-ui-react'
 
 import { WallLoader } from '../../components/movie/Poster'

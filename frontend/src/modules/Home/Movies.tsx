@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
-import gql from 'graphql-tag'
-import { useQuery } from 'react-apollo'
 import styled from '@emotion/styled'
-import { Header } from 'semantic-ui-react'
+import gql from 'graphql-tag'
+import React, { useContext } from 'react'
+import { useQuery } from 'react-apollo'
 import { Link } from 'react-router-dom'
+import { Header } from 'semantic-ui-react'
 
 import { Poster } from '../../components/movie/Poster'
 import { Context } from '../../context'

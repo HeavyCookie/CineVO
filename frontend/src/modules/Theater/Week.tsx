@@ -1,8 +1,8 @@
-import React from 'react'
 import gql from 'graphql-tag'
-import { Link, Route } from 'react-router-dom'
-import { FormattedMessage } from 'react-intl'
+import React from 'react'
 import { useQuery } from 'react-apollo'
+import { FormattedMessage } from 'react-intl'
+import { Link, Route } from 'react-router-dom'
 
 import { AnimatedPoster, Wall, WallLoader } from '../../components/movie/Poster'
 import { TheaterMovie } from '../TheaterMovie'
